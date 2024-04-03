@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConexionBaseDeDatos {
 
-    private static final String URL = "***";
+	private static final String URL = "***";
     private static final String USUARIO = "***";
     private static final String CONTRASENA = "***";
 
