@@ -202,5 +202,52 @@ public class PanelRegistrarPaciente extends JPanel {
 		campoId.setBounds(20, 0, 478, 74);
 		panelId.add(campoId);
 
+	} // public PanelRegistrarPaciente()
+	
+	// Método público que retorna el String ingresado en campoNombres:
+	public String getNombres() {
+		return campoNombres.getText();
 	}
+	
+	// Método público que retorna el String ingresado en campoApellidos:
+	public String getApellidos() {
+		return campoApellidos.getText();
+	}
+	
+	// Método público que retorna el String ingresado en campoTelefono:
+	public String getTelefono() {
+		return campoTelefono.getText();
+	}
+	
+	// Método público que retorna el String ingresado en campoId:
+	public String getId() {
+		return campoId.getText();
+	}
+	
+	// Método público que retorna el String ingresado en campoEdad:
+	public String getEdad() {
+		return campoEdad.getText();
+	}
+	
+	// Métodos setters para los campos JTextField:
+	public void setCampoNombres(String texto) {
+		campoNombres.setText(texto);
+	}
+	
+	public void setCampoApellidos(String texto) {
+		campoApellidos.setText(texto);
+	}
+	
+	public void setCampoTelefono(String texto) {
+		campoTelefono.setText(texto);
+	}
+	
+	public void setCampoId(String texto) {
+		campoId.setText(texto);
+	}
+	
+	public void setCampoEdad(String texto) {
+		campoEdad.setText(texto);
+	}
+		
 } // public class PanelRegistrarPaciente extends JPanel

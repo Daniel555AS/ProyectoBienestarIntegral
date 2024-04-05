@@ -129,7 +129,6 @@ public class VistaInicioDeSesion extends JFrame {
 
 		// Centrar el JFrame en la pantalla:
 		setLocationRelativeTo(null);
-
 	}
 	
 } // public class VistaInicioDeSesion extends JFrame
