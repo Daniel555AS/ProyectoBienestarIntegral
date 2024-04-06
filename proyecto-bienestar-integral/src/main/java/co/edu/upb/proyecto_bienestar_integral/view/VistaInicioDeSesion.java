@@ -38,7 +38,6 @@ public class VistaInicioDeSesion extends JFrame {
 		modeloGestorInicioDeSesion = new ModeloGestorInicioDeSesion();
 		controladorInicioDeSesion = new ControladorInicioDeSesion(this, modeloGestorInicioDeSesion);
 		
-		
 		// Deshabilitar la redimensión del JFrame:
 		setResizable(false);
 

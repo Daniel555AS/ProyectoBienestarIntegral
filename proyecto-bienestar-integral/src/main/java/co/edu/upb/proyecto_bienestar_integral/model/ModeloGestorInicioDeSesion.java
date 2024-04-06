@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ModeloGestorInicioDeSesion {
 	
     public boolean validarInicioSesion(String identificacion, String contrasena) {
-        try (Connection conexion = ConexionBaseDeDatos.obtenerConexion()) {
+        try (Connection conexion = GestorBaseDeDatos.obtenerConexion()) {
             String consulta = "SELECT * FROM personal_administrativo WHERE identificacion = ? AND contrasena = ?";
             PreparedStatement statement = conexion.prepareStatement(consulta);
             statement.setString(1, identificacion);

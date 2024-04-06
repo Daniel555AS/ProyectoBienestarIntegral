@@ -4,10 +4,10 @@ import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class SistemaDeSalud {
 
-	private ListaDoblementeEnlazada<Paciente> pacientes;
+	private Lista<Paciente> pacientes;
 	
 	public SistemaDeSalud() {
-		
+		pacientes = new ListaDoblementeEnlazada<>();
 	} // public class SistemaDeSalud 
 	
 } // public class SistemaDeSalud 

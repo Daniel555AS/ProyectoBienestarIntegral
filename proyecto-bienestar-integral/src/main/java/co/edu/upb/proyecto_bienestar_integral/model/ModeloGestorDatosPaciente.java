@@ -25,7 +25,7 @@ public class ModeloGestorDatosPaciente {
 		return validarDatoNumBig(id, new BigInteger("10000"));
 	} // public boolean validarId(String id)
 
-	public boolean validarTelefono(String telefono) {
+	public boolean validarTelefono(String telefono) {      
 		return validarDatoNumBig(telefono, new BigInteger("3000000000"));
 	} // public boolean validarTelefono(String telefono)
 

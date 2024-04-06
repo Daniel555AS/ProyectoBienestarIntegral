@@ -13,6 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
+import co.edu.upb.proyecto_bienestar_integral.controller.*;
+import co.edu.upb.proyecto_bienestar_integral.model.*;
+
 public class PanelRegistrarPaciente extends JPanel {
 
 	/**
@@ -32,13 +35,18 @@ public class PanelRegistrarPaciente extends JPanel {
 	private JLabel lblApellidos;
 	private JLabel lblGestionPacientes;
 	private JLabel lblAos;
-
+	
+	private ControladorRegistroPaciente controladorRegistroPaciente;
+	private ModeloGestorDatosPaciente modeloGestorDatosPaciente;
 	/**
 	 * Create the panel.
 	 */
 	public PanelRegistrarPaciente() {
+		modeloGestorDatosPaciente = new ModeloGestorDatosPaciente();
+		controladorRegistroPaciente = new ControladorRegistroPaciente(modeloGestorDatosPaciente, this);
+		
+		
 		setLayout(null);
-
 		// Creación de JPanel como fondo para PanelRegistraPaciente:
 		JPanel panelFondo = new JPanel();
 		panelFondo.setBackground(new Color(255, 255, 255));
@@ -158,7 +166,7 @@ public class PanelRegistrarPaciente extends JPanel {
 		buttonContinuar.setText("Continuar");
 		buttonContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				controladorRegistroPaciente.validarDatosPaciente();
 			}
 		});
 		buttonContinuar.setFont(new Font("Montserrat", Font.BOLD, 25));
