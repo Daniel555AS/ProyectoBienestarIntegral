@@ -7,14 +7,16 @@ public class Persona {
 	private String nombreCompleto;
 	private int edad; // en años 
 	private String telefono;
+	private String tipoId;
 	private String identificacion;
 	
-	public Persona(String nombres, String apellidos, String nombreCompleto, int edad, String telefono, String identificacion) {
+	public Persona(String nombres, String apellidos, String nombreCompleto, int edad, String telefono, String tipoId, String identificacion) {
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.nombreCompleto = nombreCompleto;
 		this.edad = edad;
 		this.telefono = telefono;
+		this.tipoId = tipoId;
 		this.identificacion = identificacion;
 	}
 	
@@ -37,6 +39,10 @@ public class Persona {
 	
 	public String getTelefono() {
 		return telefono;
+	}
+	
+	public String getTipoId() {
+		return tipoId;
 	}
 	
 	public String getIdentificacion() {

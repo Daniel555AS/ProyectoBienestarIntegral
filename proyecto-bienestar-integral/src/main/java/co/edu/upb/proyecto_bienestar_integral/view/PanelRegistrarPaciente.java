@@ -22,6 +22,7 @@ public class PanelRegistrarPaciente extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private RoundedPanel panelNombres;
 	private RoundedPanel panelApellidos;
 	private RoundedPanel panelTelefono;
@@ -35,6 +36,7 @@ public class PanelRegistrarPaciente extends JPanel {
 	private JLabel lblApellidos;
 	private JLabel lblGestionPacientes;
 	private JLabel lblAos;
+	private JComboBox<String> comboBoxTipoId;
 	
 	private ControladorRegistroPaciente controladorRegistroPaciente;
 	private ModeloGestorDatosPaciente modeloGestorDatosPaciente;
@@ -43,7 +45,7 @@ public class PanelRegistrarPaciente extends JPanel {
 	 */
 	public PanelRegistrarPaciente() {
 		modeloGestorDatosPaciente = new ModeloGestorDatosPaciente();
-		controladorRegistroPaciente = new ControladorRegistroPaciente(modeloGestorDatosPaciente, this);
+		controladorRegistroPaciente = new ControladorRegistroPaciente(this, modeloGestorDatosPaciente);
 		
 		
 		setLayout(null);
@@ -108,7 +110,7 @@ public class PanelRegistrarPaciente extends JPanel {
 
 		// Creación de JComboBox para la determinación de opciones de Tipo de
 		// Identificación:
-		JComboBox comboBoxTipoId = new JComboBox();
+		comboBoxTipoId = new JComboBox<String>();
 		comboBoxTipoId.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		comboBoxTipoId.addItem("CC");
 		comboBoxTipoId.addItem("TI");
@@ -237,6 +239,10 @@ public class PanelRegistrarPaciente extends JPanel {
 		return campoEdad.getText();
 	}
 	
+	public String getTipoId() {
+		return (String) comboBoxTipoId.getSelectedItem();
+	}
+	
 	// Métodos setters para los campos JTextField:
 	public void setCampoNombres(String texto) {
 		campoNombres.setText(texto);
@@ -248,6 +254,10 @@ public class PanelRegistrarPaciente extends JPanel {
 	
 	public void setCampoTelefono(String texto) {
 		campoTelefono.setText(texto);
+	}
+	
+	public void setcomboBoxTipoId(String tipoId) {
+		comboBoxTipoId.setSelectedItem(tipoId);
 	}
 	
 	public void setCampoId(String texto) {

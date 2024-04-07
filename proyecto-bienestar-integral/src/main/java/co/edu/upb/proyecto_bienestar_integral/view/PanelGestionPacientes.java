@@ -49,9 +49,7 @@ public class PanelGestionPacientes extends JPanel {
 		buttonRegistrar.setBounds(133, 689, 320, 57);
 		buttonRegistrar.setFocusable(false);
 		panelFondo.add(buttonRegistrar);
-		
-		
-		
+			
 		// Creación  de RoundedButton para la modificación de pacientes:
 		RoundedButton buttonModificar = new RoundedButton("Modificar Paciente", new Color(23, 174, 191), new Color(0, 139, 139), 1000, 60);
 		buttonModificar.setText("Modificar Pacientes");
@@ -72,15 +70,6 @@ public class PanelGestionPacientes extends JPanel {
 		lblRegistrar.setBounds(55, 297, 486, 428);
 		setImageLabel(lblRegistrar, "Media\\ImageRegistrar.png");
 		panelFondo.add(lblRegistrar);
-		
-		
-		//JPanel panel = new JPanel();
-		//panel.setBounds(653, 297, 486, 428);
-		//panelFondo.add(panel);
-		
-		//JPanel panelOtro = new JPanel();
-		//panelOtro.setBounds(55, 297, 486, 428);
-		//panelFondo.add(panelOtro);
 		
 		JLabel lblNewLabel_1 = new JLabel("<html>En nuestro Centro de Salud, Manejamos tu Información con Responsabilidad y Seguridad</html>");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);

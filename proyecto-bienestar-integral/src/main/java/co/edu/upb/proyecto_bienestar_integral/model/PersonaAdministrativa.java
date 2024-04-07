@@ -4,8 +4,8 @@ public class PersonaAdministrativa extends Persona {
 	
 	private String contrasena;
 
-	public PersonaAdministrativa(String nombres, String apellidos, String nombreCompleto, int edad, String telefono, String identificacion, String contrasena) {
-		super(nombres, apellidos, nombreCompleto, edad, telefono, identificacion);
+	public PersonaAdministrativa(String nombres, String apellidos, String nombreCompleto, int edad, String telefono, String tipoId, String identificacion, String contrasena) {
+		super(nombres, apellidos, nombreCompleto, edad, telefono, tipoId, identificacion);
 		this.contrasena = contrasena;
 	}
 	

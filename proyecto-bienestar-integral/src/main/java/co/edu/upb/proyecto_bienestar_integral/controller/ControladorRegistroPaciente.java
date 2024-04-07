@@ -10,31 +10,43 @@ public class ControladorRegistroPaciente {
 	private ModeloGestorDatosPaciente modeloGestorDatosPaciente;
 	private PanelRegistrarPaciente panelRegistrarPaciente;
 
-	public ControladorRegistroPaciente(ModeloGestorDatosPaciente modeloGestorDatosPaciente,PanelRegistrarPaciente panelRegistrarPaciente) {
-		this.modeloGestorDatosPaciente = modeloGestorDatosPaciente;
+	public ControladorRegistroPaciente(PanelRegistrarPaciente panelRegistrarPaciente, ModeloGestorDatosPaciente modeloGestorDatosPaciente) {
 		this.panelRegistrarPaciente = panelRegistrarPaciente;
+		this.modeloGestorDatosPaciente = modeloGestorDatosPaciente;
 	}
 
-	public Paciente validarDatosPaciente() {
+	public void validarDatosPaciente() {
 		String nombres = panelRegistrarPaciente.getNombres().trim();
 		String apellidos = panelRegistrarPaciente.getApellidos().trim();
 		String edad = panelRegistrarPaciente.getEdad();
 		String telefono = panelRegistrarPaciente.getTelefono();
+		String tipoId = panelRegistrarPaciente.getTipoId();
 		String identificacion = panelRegistrarPaciente.getId();
 		String nombreCompleto = nombres + " " + apellidos;
-		
+		String idHistoriaClinica = "HC" + identificacion + "CBI";
+
 		boolean vNombres = verificarNombres(nombres);
 		boolean vApellidos = verificarApellidos(apellidos);
 		boolean vEdad = verificarEdad(edad);
 		boolean vTel = verificarTelefono(telefono);
 		boolean vId = verificarId(identificacion);
+		boolean vIdUnico = verificarIdUnico(identificacion);
 
 		if (!(vNombres && vApellidos && vEdad && vTel && vId)) {
-			JOptionPane.showMessageDialog(null, "Dato(s) Ingresado(s) No Válido(s)", "ERROR - REGISTRO DE PACIENTE", JOptionPane.ERROR_MESSAGE);
-			return null;
+			JOptionPane.showMessageDialog(null, "Dato(s) Ingresado(s) No Válido(s)", "ERROR - REGISTRO DE PACIENTE",
+					JOptionPane.ERROR_MESSAGE);
+			return;
 		}
-		return new Paciente(nombres, apellidos, nombreCompleto, Integer.parseInt(edad), telefono, identificacion);
+		if (!vIdUnico) {
+			JOptionPane.showMessageDialog(null,
+					"La Identificación Ingresada Ya Se Encuentra Asociada a un Paciente Existente.",
+					"ERROR - REGISTRO DE PACIENTE", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 
+		PanelConfirmarPaciente panelConfirmarPaciente = new PanelConfirmarPaciente(new Paciente(nombres, apellidos,
+				nombreCompleto, Integer.parseInt(edad), telefono, tipoId, identificacion, idHistoriaClinica));
+		VistaMenuPrincipal.mostrarPanel(panelConfirmarPaciente);
 	} // public void validarDatosPaciente()
 
 	private boolean verificarNombres(String nombres) {
@@ -78,5 +90,13 @@ public class ControladorRegistroPaciente {
 		}
 		return true;
 	} // private boolean verificarId(String id)
+
+	private boolean verificarIdUnico(String id) {
+		if (!modeloGestorDatosPaciente.validarIdUnico(id)) {
+			panelRegistrarPaciente.setCampoId("");
+			return false;
+		}
+		return true;
+	}
 
 } // public class ControladorRegistroPaciente

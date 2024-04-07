@@ -30,6 +30,9 @@ public class VistaMenuPrincipal extends JFrame {
 	private static JPanel panelDinamico;
 	private RoundedButton buttonGestionPacientes;
 	private RoundedButton buttonPrincipal;
+	private PanelPrincipal panelPrincipal;
+	private PanelGestionPacientes panelGestionPacientes; 
+	private PanelRegistrarOrden panelRegistrarOrden;
 
 	/**
 	 * Launch the application.
@@ -54,8 +57,9 @@ public class VistaMenuPrincipal extends JFrame {
 		// Deshabilitar la redimensión del JFrame:
 		setResizable(false);
 		
-		PanelPrincipal panelPrincipal = new PanelPrincipal();
-		PanelGestionPacientes panelGestionPacientes = new PanelGestionPacientes();
+		panelPrincipal = new PanelPrincipal();
+	    panelGestionPacientes = new PanelGestionPacientes();
+		panelRegistrarOrden = new PanelRegistrarOrden();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1540, 820);
@@ -116,6 +120,22 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonGestionPacientes.setForeground(new Color(255, 255, 255));
 		buttonGestionPacientes.setBackground(new Color(0, 172, 168));
 		buttonGestionPacientes.setFocusable(false);
+		
+		// Creación de RoundedButton para el Registro de Órdenes 
+		buttonGestionPacientes = new RoundedButton("Registro de Órdenes", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
+		buttonGestionPacientes.setBounds(0, 346, 337, 57);
+		panelMenu.add(buttonGestionPacientes);
+		buttonGestionPacientes.setText("Registro de Órdenes");
+		buttonGestionPacientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarPanel(panelRegistrarOrden);
+			}
+		});
+		buttonGestionPacientes.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonGestionPacientes.setForeground(new Color(255, 255, 255));
+		buttonGestionPacientes.setBackground(new Color(0, 172, 168));
+		buttonGestionPacientes.setFocusable(false);
+		
 		
 		// Creación de JPanel Dinámico:
 		panelDinamico = new JPanel();

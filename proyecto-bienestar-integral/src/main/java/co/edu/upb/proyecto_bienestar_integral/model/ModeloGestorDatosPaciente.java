@@ -1,8 +1,10 @@
 package co.edu.upb.proyecto_bienestar_integral.model;
 
 import java.math.BigInteger;
+import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class ModeloGestorDatosPaciente {
+	
 	private boolean validarDatoNumBig(String dato, BigInteger minimo) {
 		try {
 			BigInteger num = new BigInteger(dato);
@@ -40,5 +42,25 @@ public class ModeloGestorDatosPaciente {
 	public boolean validarApellidos(String apellidos) {
 		return !apellidos.isBlank();
 	} // public boolean validarApellidos(String apellidos)
+	
+	public boolean validarIdUnico(String id) {
+		BigInteger numId = new BigInteger(id);
+		int cantidadPacientes = SistemaDeSalud.conseguirPacientes().getTamano();
+		Lista<Paciente> pacientes = SistemaDeSalud.conseguirPacientes();
+		if(numId.compareTo(new BigInteger("500000000")) >= 0) {
+			for(int ii = cantidadPacientes - 1; ii >= 0; ii-- ) {
+				if(pacientes.obtenerElemento(ii).getIdentificacion().equals(id)) {
+					return false;
+				}
+			}
+		} else {
+			for(int jj = 0; jj < cantidadPacientes; jj++) {
+				if(pacientes.obtenerElemento(jj).getIdentificacion().equals(id)) {
+					return false;
+				}
+			}
+		} 
+		return true;
+	} // public boolean validarIdUnico(String id) 
 
-}
+} // public class ModeloGestorDatosPaciente

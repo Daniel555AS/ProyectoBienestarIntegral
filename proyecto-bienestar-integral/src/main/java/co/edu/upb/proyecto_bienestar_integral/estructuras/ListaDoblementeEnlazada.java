@@ -158,7 +158,7 @@ public class ListaDoblementeEnlazada<T> implements Lista<T> {
         if (estaVacia()) {
             throw new NoSuchElementException("ERROR: La lista está vacía.");
         }
-        Nodo nodoActual = cabeza;
+        Nodo<T> nodoActual = cabeza;
         int posicion = 0;
         while (nodoActual != null) {
             if (nodoActual.valor.equals(valor)) {
