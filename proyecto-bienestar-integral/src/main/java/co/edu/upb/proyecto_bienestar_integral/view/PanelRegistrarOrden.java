@@ -207,6 +207,10 @@ public class PanelRegistrarOrden extends JPanel {
 	public String getCampoIdHistoriaClinica() {
 		return campoIdHistoriaClinica.getText();
 	}
+	
+	public String getLblNombrePaciente() {
+		return lblNombrePaciente.getText();
+	}
 
 	public TipoEspecialidad getComboBoxEspecialidades() {
 		return (TipoEspecialidad) comboBoxEspecialidades.getSelectedItem();

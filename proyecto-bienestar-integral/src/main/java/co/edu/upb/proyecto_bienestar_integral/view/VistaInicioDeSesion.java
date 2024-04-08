@@ -5,6 +5,8 @@ import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 
 import java.awt.EventQueue;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +14,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -74,10 +77,15 @@ public class VistaInicioDeSesion extends JFrame {
 		campoId = new JTextField();
 		campoId.setBackground(new Color(241, 241, 241));
 		campoId.setFont(new Font("Montserrat", Font.PLAIN, 30));
-		campoId.setBounds(73, 10, 556, 54);
+		campoId.setBounds(119, 10, 510, 54);
 		campoId.setBorder(null);
 		panelRedondeadoId.add(campoId);
 		campoId.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(22, 10, 64, 54);
+		setImageLabel(lblNewLabel, "Media\\Usuario.png");
+		panelRedondeadoId.add(lblNewLabel);
 
 		// Creación de JLabel con el texto: "Identificación: ":
 		JLabel lblId = new JLabel("Identificación: ");
@@ -102,9 +110,14 @@ public class VistaInicioDeSesion extends JFrame {
 		campoContrasena = new JPasswordField();
 		campoContrasena.setBackground(new Color(241, 241, 241));
 		campoContrasena.setFont(new Font("Calibri", Font.BOLD, 30));
-		campoContrasena.setBounds(73, 10, 556, 54);
+		campoContrasena.setBounds(119, 10, 472, 54);
 		campoContrasena.setBorder(null);
 		panelRedondeadoContrasena.add(campoContrasena);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(22, 10, 69, 54);
+		setImageLabel(lblNewLabel_1, "Media\\ContrasenaLogo.png");
+		panelRedondeadoContrasena.add(lblNewLabel_1);
 		
 		// Creación de RoundedButton para Iniciar Sesión:
 		RoundedButton buttonIngresar = new RoundedButton("Ingresar", new Color(23, 174, 191), new Color(0, 139, 139), 1000, 70);
@@ -130,4 +143,10 @@ public class VistaInicioDeSesion extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
+	private void setImageLabel(JLabel label, String root) {
+        ImageIcon image = new ImageIcon(root); 
+        ImageIcon icon = new ImageIcon(image.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_DEFAULT));
+        label.setIcon(icon);
+        this.repaint();
+	}
 } // public class VistaInicioDeSesion extends JFrame

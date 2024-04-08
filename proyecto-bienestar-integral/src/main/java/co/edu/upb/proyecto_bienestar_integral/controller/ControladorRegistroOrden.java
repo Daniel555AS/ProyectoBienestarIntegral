@@ -17,12 +17,16 @@ public class ControladorRegistroOrden {
 
 	public void validarDatos() {
 		String idHistoriaClinica = panelRegistrarOrden.getCampoIdHistoriaClinica();
-		if (!modeloRegistroOrden.verificarIdHistoriaClinica(idHistoriaClinica)) {
+		String paciente = panelRegistrarOrden.getLblNombrePaciente();
+		if (!modeloRegistroOrden.verificarIdHistoriaClinica(paciente)) {
 			panelRegistrarOrden.setCampoIdHistoriaClinica("");
 			JOptionPane.showMessageDialog(null, "No se ha Encontrado Paciente Asociado al ID de Historia Clínica",
 					"ERROR - REGISTRO DE ORDEN MÉDICA", JOptionPane.ERROR_MESSAGE);		
 			return;
 		}
+		String identificadorOrden = modeloRegistroOrden.generarIdentificarOrden(idHistoriaClinica, "examen", "especialidad");
+		//Orden orden = new Orden();
+		//PanelConfirmarOrden panelConfirmarOrden = new PanelConfirmarOrden();
 	}
 
 } // public class ControladorRegistroOrden

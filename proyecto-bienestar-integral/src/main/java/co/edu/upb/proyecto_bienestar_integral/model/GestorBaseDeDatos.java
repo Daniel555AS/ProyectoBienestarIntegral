@@ -10,8 +10,8 @@ import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 
 public class GestorBaseDeDatos {
-	private static final String URL = "";
-    private static final String USUARIO = "";
+	private static final String URL = "jdbc:mysql://localhost:3307/bienestar_integral";
+    private static final String USUARIO = "root";
     private static final String CONTRASENA = "";
 
     public static Connection obtenerConexion() throws SQLException {
