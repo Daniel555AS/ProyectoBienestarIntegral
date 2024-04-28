@@ -2,6 +2,7 @@ package co.edu.upb.proyecto_bienestar_integral.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 
 public class Orden {
@@ -71,6 +72,16 @@ public class Orden {
 	public ProfesionalSalud getProfesionalAsignado() {
 		return profesionalAsignado;
 	}
+	
+    public String getFechaFormateada() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        return sdf.format(fecha);
+    }
+    
+    public String getHoraFormateada() {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        return formatter.format(hora);
+    }
 	
 	// Métodos Setters:
 	public void setHora(Time hora) {

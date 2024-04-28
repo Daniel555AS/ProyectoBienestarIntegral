@@ -17,7 +17,7 @@ public class ModeloRegistroOrden {
 	
 	public ProfesionalSalud obtenerProfesionalSalud(String especialidad) {
 		Lista<ProfesionalSalud> profesionalesSalud = SistemaDeSalud.conseguirProfesionalesSalud();
-		ProfesionalSalud profesional = null;
+		ProfesionalSalud profesional;
 		for(int ii = 0; ii < profesionalesSalud.getTamano(); ii++) {
 			profesional = profesionalesSalud.obtenerElemento(ii);
 			if(profesional.getEspecialidad().equals(especialidad) && profesional.getServicio().equals("Exámenes")) {

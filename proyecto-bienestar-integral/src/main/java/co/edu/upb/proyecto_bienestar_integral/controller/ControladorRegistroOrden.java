@@ -33,12 +33,14 @@ public class ControladorRegistroOrden {
 	private Orden creacionDeOrden() {
 		String idHistoriaClinica = panelRegistrarOrden.getCampoIdHistoriaClinica();
 		String especialidad = panelRegistrarOrden.getEspecialidad().getNombre();
+		String abrEspecialidad = panelRegistrarOrden.getEspecialidad().getAbreviatura();
 		String tipoExamen = panelRegistrarOrden.getExamen().getNombre();
+		String abrTipoExamen = panelRegistrarOrden.getExamen().getAbreviatura();
 		String descripcionExamen = panelRegistrarOrden.getExamen().getDescripcion();
 		Date fechaOrden = panelRegistrarOrden.getFechaOrden();
 		int costoExamen = panelRegistrarOrden.getExamen().getCosto();
 		ProfesionalSalud profesional = modeloRegistroOrden.obtenerProfesionalSalud(especialidad);
-		String identificadorOrden = modeloRegistroOrden.generarIdentificarOrden(idHistoriaClinica, "examen", "especialidad");
+		String identificadorOrden = modeloRegistroOrden.generarIdentificarOrden(idHistoriaClinica, abrTipoExamen, abrEspecialidad);
 		return new Orden(identificadorOrden, especialidad, tipoExamen, idHistoriaClinica, costoExamen, descripcionExamen, fechaOrden, profesional);
 	}
 	

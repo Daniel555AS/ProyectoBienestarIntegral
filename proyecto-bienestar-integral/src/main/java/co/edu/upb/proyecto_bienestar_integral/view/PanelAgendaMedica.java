@@ -36,9 +36,9 @@ public class PanelAgendaMedica extends JPanel {
 	private JTable tablaAgendaMedica;
 	private DefaultTableModel modeloTabla;
 	private Orden ordenActual;
+	private RoundedButton buttonContinuar;
 	private ModeloAgendaMedica modeloAgendaMedica;
 	private ControladorAgendaMedica controladorAgendaMedica;
-	private RoundedButton buttonContinuar;
 
 	/**
 	 * Create the panel.
@@ -120,7 +120,7 @@ public class PanelAgendaMedica extends JPanel {
 		buttonContinuar.setText("Continuar");
 		buttonContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				controladorAgendaMedica.validarHoraSeleccionada();
 			}
 		});
 		buttonContinuar.setFont(new Font("Montserrat", Font.BOLD, 25));

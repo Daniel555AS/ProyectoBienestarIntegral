@@ -24,6 +24,7 @@ import javax.swing.event.DocumentListener;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JScrollBar;
+import javax.swing.JTextArea;
 
 public class PanelRegistrarOrden extends JPanel {
 
@@ -49,22 +50,23 @@ public class PanelRegistrarOrden extends JPanel {
 	private JScrollBar scrollBar;
 	private JLabel lblFecha;
 	private JDateChooser calendarioFecha;
-	
+
 	private ControladorRegistroOrden controladorRegistroOrden;
 	private ModeloRegistroOrden modeloRegistroOrden;
+
 	/**
 	 * Create the panel.
 	 */
 	public PanelRegistrarOrden() {
 		modeloRegistroOrden = new ModeloRegistroOrden();
 		controladorRegistroOrden = new ControladorRegistroOrden(this, modeloRegistroOrden);
-			
+
 		setLayout(null);
 		// Creación de JPanel para fondo de PanelGestionPacientes:
 		panelFondo = new JPanel();
 		panelFondo.setBackground(new Color(255, 255, 255));
-		//panelFondo.setBounds(0, 0, 1203, 783);
-		panelFondo.setBounds(0, 0, 1203, 986);
+		// panelFondo.setBounds(0, 0, 1203, 783);
+		panelFondo.setBounds(0, 0, 1203, 920);
 		add(panelFondo);
 		panelFondo.setLayout(null);
 
@@ -75,7 +77,6 @@ public class PanelRegistrarOrden extends JPanel {
 		panelDecorativoSup.setBounds(0, 47, 1203, 142);
 		panelFondo.add(panelDecorativoSup);
 		panelDecorativoSup.setLayout(null);
-		
 
 		// Creación de JLabel con el texto: "Registrar Orden Médica":
 		lblRegistrarOrdenMedica = new JLabel("Registrar Orden Médica");
@@ -113,7 +114,7 @@ public class PanelRegistrarOrden extends JPanel {
 
 		// Creación de JTextField para ingresar ID de la Historia Clínica del Paciente;
 		campoIdHistoriaClinica = new JTextField();
-		campoIdHistoriaClinica.setBounds(26, 0, 753, 73);
+		campoIdHistoriaClinica.setBounds(26, 2, 739, 71);
 		panelIdHistoriaClinica.add(campoIdHistoriaClinica);
 		campoIdHistoriaClinica.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		campoIdHistoriaClinica.setBorder(null);
@@ -214,29 +215,29 @@ public class PanelRegistrarOrden extends JPanel {
 		buttonContinuar.setFont(new Font("Montserrat", Font.BOLD, 25));
 		buttonContinuar.setForeground(new Color(255, 255, 255));
 		buttonContinuar.setBackground(new Color(23, 174, 191));
-		buttonContinuar.setBounds(400, 860, 320, 57);
+		buttonContinuar.setBounds(400, 889, 320, 57);
 		buttonContinuar.setFocusable(false);
 		panelFondo.add(buttonContinuar);
-		
+
 		scrollBar = new JScrollBar();
 		scrollBar.setMaximum(200);
-		scrollBar.setBounds(1170, 188, 23, 790);
+		scrollBar.setBounds(1170, 188, 23, 780);
 		panelFondo.add(scrollBar);
-		
+
 		lblFecha = new JLabel("Fecha:");
 		lblFecha.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		lblFecha.setBounds(41, 685, 248, 43);
 		panelFondo.add(lblFecha);
-		
-        // Agrega AdjustmentListener al JScrollBar
-        scrollBar.addAdjustmentListener(new AdjustmentListener() {
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                int scrollValue = e.getValue();
-                // Desplaza el panel verticalmente según el valor del JScrollBar
-                panelFondo.setLocation(panelFondo.getX(), -scrollValue);
-            }
-        });
-    
+
+		// Agrega AdjustmentListener al JScrollBar
+		scrollBar.addAdjustmentListener(new AdjustmentListener() {
+			public void adjustmentValueChanged(AdjustmentEvent e) {
+				int scrollValue = e.getValue();
+				// Desplaza el panel verticalmente según el valor del JScrollBar:
+				panelFondo.setLocation(panelFondo.getX(), -scrollValue);
+			}
+		});
+
 		// Creación de JDateChooser para la selección de la fecha de nacimiento del paciente:
 		calendarioFecha = new JDateChooser();
 		calendarioFecha.setDateFormatString("y/MM/d");
@@ -248,14 +249,25 @@ public class PanelRegistrarOrden extends JPanel {
 		calendarioFecha.getJCalendar().setFont(new Font("Montserrat", Font.PLAIN, 14));
 		calendarioFecha.getDateEditor().getUiComponent().setFont(new Font("Montserrat", Font.PLAIN, 25));
 		panelFondo.add(calendarioFecha);
+
+		// Creación de JTextArea dentro de JScrollPane
+		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		textArea.setBackground(new Color(241, 241, 241));
+		// Configurar el JTextArea para que el texto se ajuste automáticamente al ancho del área de visualización:
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
 		
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(310, 778, 789, 95);
+		panelFondo.add(scrollPane);
 
 	} // public PanelRegistrarOrden()
-	
+
 	public String getCampoIdHistoriaClinica() {
 		return campoIdHistoriaClinica.getText();
 	}
-	
+
 	public String getLblNombrePaciente() {
 		return lblNombrePaciente.getText();
 	}
@@ -271,13 +283,13 @@ public class PanelRegistrarOrden extends JPanel {
 	public void setCampoIdHistoriaClinica(String texto) {
 		campoIdHistoriaClinica.setText(texto);
 	}
-	
+
 	public Date getFechaOrden() {
-	    java.util.Date utilDate = calendarioFecha.getDate();
-	    if (utilDate != null) {
-	        return new java.sql.Date(utilDate.getTime());
-	    } else {
-	        return null;
-	    }
+		java.util.Date utilDate = calendarioFecha.getDate();
+		if (utilDate != null) {
+			return new java.sql.Date(utilDate.getTime());
+		} else {
+			return null;
+		}
 	}
 }

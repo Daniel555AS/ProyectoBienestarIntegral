@@ -295,7 +295,7 @@ public class GestorBaseDeDatos {
 	private static ProfesionalSalud obtenerProfesionalSaludAsignado(String id) {
 		Lista<ProfesionalSalud> profesionales = SistemaDeSalud.conseguirProfesionalesSalud();
 		for(int ii = 0; ii < profesionales.getTamano(); ii++) {
-			if(profesionales.obtenerElemento(ii).equals(id)) {
+			if(profesionales.obtenerElemento(ii).getIdentificacion().equals(id)) {
 				return profesionales.obtenerElemento(ii);
 			}
 		}
