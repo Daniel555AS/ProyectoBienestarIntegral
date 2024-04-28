@@ -6,12 +6,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
+
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
@@ -27,16 +31,14 @@ public class PanelRegistrarPaciente extends JPanel {
 	private RoundedPanel panelApellidos;
 	private RoundedPanel panelTelefono;
 	private RoundedPanel panelId;
-	private RoundedPanel panelEdad;
 	private JTextField campoNombres;
 	private JTextField campoApellidos;
 	private JTextField campoTelefono;
 	private JTextField campoId;
-	private JTextField campoEdad;
 	private JLabel lblApellidos;
 	private JLabel lblGestionPacientes;
-	private JLabel lblAos;
 	private JComboBox<String> comboBoxTipoId;
+	private JDateChooser calendarioNacimiento;
 	
 	private ControladorRegistroPaciente controladorRegistroPaciente;
 	private ModeloGestorDatosPaciente modeloGestorDatosPaciente;
@@ -45,8 +47,7 @@ public class PanelRegistrarPaciente extends JPanel {
 	 */
 	public PanelRegistrarPaciente() {
 		modeloGestorDatosPaciente = new ModeloGestorDatosPaciente();
-		controladorRegistroPaciente = new ControladorRegistroPaciente(this, modeloGestorDatosPaciente);
-		
+		controladorRegistroPaciente = new ControladorRegistroPaciente(this, modeloGestorDatosPaciente);		
 		
 		setLayout(null);
 		// Creación de JPanel como fondo para PanelRegistraPaciente:
@@ -87,27 +88,6 @@ public class PanelRegistrarPaciente extends JPanel {
 		panelNombres.add(campoNombres);
 		campoNombres.setColumns(10);
 
-		// Creación de RoundedPanel decorativo para el ingreso de Edad:
-		panelEdad = new RoundedPanel(50);
-		panelEdad.setBackground(new Color(241, 241, 241));
-		panelEdad.setBounds(632, 429, 310, 74);
-		panelFondo.add(panelEdad);
-		panelEdad.setLayout(null);
-		
-		// Creación de JTextField como campo para ingresar la edad del paciente:
-		campoEdad = new JTextField();
-		campoEdad.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		campoEdad.setColumns(10);
-		campoEdad.setBorder(null);
-		campoEdad.setBackground((Color) null);
-		campoEdad.setBounds(23, 0, 131, 74);
-		panelEdad.add(campoEdad);
-		
-		lblAos = new JLabel("Años");
-		lblAos.setBounds(184, 23, 94, 24);
-		panelEdad.add(lblAos);
-		lblAos.setFont(new Font("Montserrat", Font.PLAIN, 30));
-
 		// Creación de JComboBox para la determinación de opciones de Tipo de
 		// Identificación:
 		comboBoxTipoId = new JComboBox<String>();
@@ -127,12 +107,24 @@ public class PanelRegistrarPaciente extends JPanel {
 		
 		// Creación de JTextField como campo para ingresar el teléfono del paciente:
 		campoTelefono = new JTextField();
+		campoTelefono.setBounds(21, 0, 478, 74);
+		panelTelefono.add(campoTelefono);
 		campoTelefono.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		campoTelefono.setColumns(10);
 		campoTelefono.setBorder(null);
 		campoTelefono.setBackground((Color) null);
-		campoTelefono.setBounds(20, 0, 478, 74);
-		panelTelefono.add(campoTelefono);
+		
+		// Creación de JDateChooser para la selección de la fecha de nacimiento del paciente:
+		calendarioNacimiento = new JDateChooser();
+		calendarioNacimiento.setDateFormatString("y/MM/d");
+		calendarioNacimiento.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		calendarioNacimiento.setBounds(632, 429, 520, 74);
+		calendarioNacimiento.getJCalendar().setFont(new Font("Montserrat", Font.PLAIN, 18));
+		calendarioNacimiento.getDateEditor().getUiComponent().setFont(new Font("Montserrat", Font.PLAIN, 25));
+		panelFondo.add(calendarioNacimiento);
 
 		// Creación de JLabel con el el texto: "Nombres:"
 		JLabel lblNombres = new JLabel("Nombres:");
@@ -174,7 +166,7 @@ public class PanelRegistrarPaciente extends JPanel {
 		buttonContinuar.setFont(new Font("Montserrat", Font.BOLD, 25));
 		buttonContinuar.setForeground(new Color(255, 255, 255));
 		buttonContinuar.setBackground(new Color(23, 174, 191));
-		buttonContinuar.setBounds(832, 581, 320, 57);
+		buttonContinuar.setBounds(832, 664, 320, 57);
 		buttonContinuar.setFocusable(false);
 		panelFondo.add(buttonContinuar);
 
@@ -190,10 +182,10 @@ public class PanelRegistrarPaciente extends JPanel {
 		lblId.setBounds(64, 540, 202, 24);
 		panelFondo.add(lblId);
 
-		// Creación de JLabel con el texto: "Edad":
-		JLabel lblEdad = new JLabel("Edad:");
+		// Creación de JLabel con el texto: "Fecha de Nacimiento":
+		JLabel lblEdad = new JLabel("Fecha de Nacimiento:");
 		lblEdad.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		lblEdad.setBounds(648, 395, 145, 24);
+		lblEdad.setBounds(648, 395, 280, 24);
 		panelFondo.add(lblEdad);
 
 		// Creación de RoundedPanel decorativo para el ingreso de Identificación:
@@ -234,13 +226,17 @@ public class PanelRegistrarPaciente extends JPanel {
 		return campoId.getText();
 	}
 	
-	// Método público que retorna el String ingresado en campoEdad:
-	public String getEdad() {
-		return campoEdad.getText();
-	}
-	
 	public String getTipoId() {
 		return (String) comboBoxTipoId.getSelectedItem();
+	}
+	
+	public Date getFechaNacimiento() {
+	    java.util.Date utilDate = calendarioNacimiento.getDate();
+	    if (utilDate != null) {
+	        return new java.sql.Date(utilDate.getTime());
+	    } else {
+	        return null;
+	    }
 	}
 	
 	// Métodos setters para los campos JTextField:
@@ -264,8 +260,9 @@ public class PanelRegistrarPaciente extends JPanel {
 		campoId.setText(texto);
 	}
 	
-	public void setCampoEdad(String texto) {
-		campoEdad.setText(texto);
+	public void setFechaNacimiento(Date fecha) {
+		calendarioNacimiento.setDate(fecha);
 	}
+	
 		
 } // public class PanelRegistrarPaciente extends JPanel

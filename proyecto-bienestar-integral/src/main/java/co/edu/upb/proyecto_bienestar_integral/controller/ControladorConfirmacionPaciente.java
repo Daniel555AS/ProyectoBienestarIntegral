@@ -31,7 +31,7 @@ public class ControladorConfirmacionPaciente {
 		panelRegistrarPaciente.setCampoNombres(paciente.getNombres());
 		panelRegistrarPaciente.setCampoApellidos(paciente.getApellidos());
 		panelRegistrarPaciente.setCampoTelefono(paciente.getTelefono());
-		panelRegistrarPaciente.setCampoEdad(String.valueOf(paciente.getEdad()));
+		panelRegistrarPaciente.setFechaNacimiento(paciente.getFechaNacimiento());
 		panelRegistrarPaciente.setcomboBoxTipoId(paciente.getTipoId());
 		panelRegistrarPaciente.setCampoId(paciente.getIdentificacion());
 		

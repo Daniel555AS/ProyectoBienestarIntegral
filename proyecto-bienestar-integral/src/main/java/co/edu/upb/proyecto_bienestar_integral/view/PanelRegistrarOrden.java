@@ -4,18 +4,26 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.sql.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 
-import co.edu.upb.proyecto_bienestar_integral.view.componentes.RoundedButton;
-import co.edu.upb.proyecto_bienestar_integral.view.componentes.RoundedPanel;
+import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
+import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import com.toedter.calendar.JDateChooser;
+
+import javax.swing.JScrollBar;
 
 public class PanelRegistrarOrden extends JPanel {
 
@@ -38,18 +46,25 @@ public class PanelRegistrarOrden extends JPanel {
 	private JTextField campoIdHistoriaClinica;
 	private JLabel lblNombrePaciente;
 	private RoundedPanel panelPacienteEncontrado;
-
+	private JScrollBar scrollBar;
+	private JLabel lblFecha;
+	private JDateChooser calendarioFecha;
+	
+	private ControladorRegistroOrden controladorRegistroOrden;
+	private ModeloRegistroOrden modeloRegistroOrden;
 	/**
 	 * Create the panel.
 	 */
 	public PanelRegistrarOrden() {
-
+		modeloRegistroOrden = new ModeloRegistroOrden();
+		controladorRegistroOrden = new ControladorRegistroOrden(this, modeloRegistroOrden);
+			
 		setLayout(null);
-
 		// Creación de JPanel para fondo de PanelGestionPacientes:
 		panelFondo = new JPanel();
 		panelFondo.setBackground(new Color(255, 255, 255));
-		panelFondo.setBounds(0, 0, 1203, 783);
+		//panelFondo.setBounds(0, 0, 1203, 783);
+		panelFondo.setBounds(0, 0, 1203, 986);
 		add(panelFondo);
 		panelFondo.setLayout(null);
 
@@ -60,6 +75,7 @@ public class PanelRegistrarOrden extends JPanel {
 		panelDecorativoSup.setBounds(0, 47, 1203, 142);
 		panelFondo.add(panelDecorativoSup);
 		panelDecorativoSup.setLayout(null);
+		
 
 		// Creación de JLabel con el texto: "Registrar Orden Médica":
 		lblRegistrarOrdenMedica = new JLabel("Registrar Orden Médica");
@@ -192,18 +208,50 @@ public class PanelRegistrarOrden extends JPanel {
 		buttonContinuar.setText("Continuar");
 		buttonContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				controladorRegistroOrden.validarDatos();
 			}
 		});
 		buttonContinuar.setFont(new Font("Montserrat", Font.BOLD, 25));
 		buttonContinuar.setForeground(new Color(255, 255, 255));
 		buttonContinuar.setBackground(new Color(23, 174, 191));
-		buttonContinuar.setBounds(779, 690, 320, 57);
+		buttonContinuar.setBounds(400, 860, 320, 57);
 		buttonContinuar.setFocusable(false);
 		panelFondo.add(buttonContinuar);
+		
+		scrollBar = new JScrollBar();
+		scrollBar.setMaximum(200);
+		scrollBar.setBounds(1170, 188, 23, 790);
+		panelFondo.add(scrollBar);
+		
+		lblFecha = new JLabel("Fecha:");
+		lblFecha.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		lblFecha.setBounds(41, 685, 248, 43);
+		panelFondo.add(lblFecha);
+		
+        // Agrega AdjustmentListener al JScrollBar
+        scrollBar.addAdjustmentListener(new AdjustmentListener() {
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                int scrollValue = e.getValue();
+                // Desplaza el panel verticalmente según el valor del JScrollBar
+                panelFondo.setLocation(panelFondo.getX(), -scrollValue);
+            }
+        });
+    
+		// Creación de JDateChooser para la selección de la fecha de nacimiento del paciente:
+		calendarioFecha = new JDateChooser();
+		calendarioFecha.setDateFormatString("y/MM/d");
+		calendarioFecha.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		calendarioFecha.setBounds(310, 667, 612, 74);
+		calendarioFecha.getJCalendar().setFont(new Font("Montserrat", Font.PLAIN, 14));
+		calendarioFecha.getDateEditor().getUiComponent().setFont(new Font("Montserrat", Font.PLAIN, 25));
+		panelFondo.add(calendarioFecha);
+		
 
 	} // public PanelRegistrarOrden()
-
+	
 	public String getCampoIdHistoriaClinica() {
 		return campoIdHistoriaClinica.getText();
 	}
@@ -212,15 +260,24 @@ public class PanelRegistrarOrden extends JPanel {
 		return lblNombrePaciente.getText();
 	}
 
-	public TipoEspecialidad getComboBoxEspecialidades() {
+	public TipoEspecialidad getEspecialidad() {
 		return (TipoEspecialidad) comboBoxEspecialidades.getSelectedItem();
 	}
 
-	public TipoExamen getComboBoxExamenes() {
+	public TipoExamen getExamen() {
 		return (TipoExamen) comboBoxExamenes.getSelectedItem();
 	}
 
 	public void setCampoIdHistoriaClinica(String texto) {
 		campoIdHistoriaClinica.setText(texto);
+	}
+	
+	public Date getFechaOrden() {
+	    java.util.Date utilDate = calendarioFecha.getDate();
+	    if (utilDate != null) {
+	        return new java.sql.Date(utilDate.getTime());
+	    } else {
+	        return null;
+	    }
 	}
 }

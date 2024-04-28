@@ -1,6 +1,9 @@
 package co.edu.upb.proyecto_bienestar_integral.model;
 
 import java.math.BigInteger;
+import java.sql.Date;
+import java.util.Calendar;
+
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class ModeloGestorDatosPaciente {
@@ -62,5 +65,24 @@ public class ModeloGestorDatosPaciente {
 		} 
 		return true;
 	} // public boolean validarIdUnico(String id) 
+	
+	public boolean validarFechaNacimiento(Date fechaNacimiento) {
+	    if (fechaNacimiento != null) {
+	        Date fechaActual = new Date(System.currentTimeMillis()); // Obtener la fecha actual del sistema
+	        // Creación de un Calendar para la manipulación de fechas:
+	        Calendar calFechaSeleccionada = Calendar.getInstance();
+	        Calendar calFechaActual = Calendar.getInstance();
+	        calFechaSeleccionada.setTime(fechaNacimiento);
+	        calFechaActual.setTime(fechaActual);
+
+	        // Asegurarse de que la fecha seleccionada no sea mayor que la fecha actual
+	        calFechaActual.add(Calendar.DAY_OF_MONTH, 0); 
+	        if (!calFechaSeleccionada.after(calFechaActual)) {
+	            // La fecha seleccionada es válida
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 
 } // public class ModeloGestorDatosPaciente

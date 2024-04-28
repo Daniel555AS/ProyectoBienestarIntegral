@@ -1,20 +1,24 @@
 package co.edu.upb.proyecto_bienestar_integral.model;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Persona {
 	
 	private String nombres;
 	private String apellidos;
 	private String nombreCompleto;
-	private int edad; // en años 
+	private Date fechaNacimiento;
 	private String telefono;
 	private String tipoId;
 	private String identificacion;
 	
-	public Persona(String nombres, String apellidos, String nombreCompleto, int edad, String telefono, String tipoId, String identificacion) {
+	public Persona(String nombres, String apellidos, String nombreCompleto, Date fechaNacimiento, String telefono, String tipoId, String identificacion) {
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.nombreCompleto = nombreCompleto;
-		this.edad = edad;
+		this.fechaNacimiento = fechaNacimiento;
 		this.telefono = telefono;
 		this.tipoId = tipoId;
 		this.identificacion = identificacion;
@@ -33,8 +37,8 @@ public class Persona {
 		return nombreCompleto;
 	}
 	
-	public int getEdad() {
-		return edad;
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 	
 	public String getTelefono() {
@@ -48,5 +52,33 @@ public class Persona {
 	public String getIdentificacion() {
 		return identificacion;
 	}
+	
+    public String getCadenaEdadEnAniosYMeses() {
+        Calendar calNacimiento = Calendar.getInstance();
+        calNacimiento.setTime(fechaNacimiento);
+        
+        Calendar calActual = Calendar.getInstance();
+        
+        int anios = calActual.get(Calendar.YEAR) - calNacimiento.get(Calendar.YEAR);
+        int meses = calActual.get(Calendar.MONTH) - calNacimiento.get(Calendar.MONTH);
+        
+        if (meses < 0) {
+            anios--;
+            meses += 12;
+        }
+        
+        String edad = anios + " años";
+        
+        if (meses > 0) {
+            edad += " y " + meses + " meses";
+        }
+        
+        return edad;
+    }
+    
+    public String getFechaNacimientoFormateada() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        return sdf.format(fechaNacimiento);
+    }
 		
 } // public class Persona

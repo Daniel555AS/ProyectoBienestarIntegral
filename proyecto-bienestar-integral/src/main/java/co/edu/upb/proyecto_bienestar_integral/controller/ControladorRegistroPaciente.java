@@ -1,7 +1,7 @@
 package co.edu.upb.proyecto_bienestar_integral.controller;
 
+import java.sql.Date;
 import javax.swing.JOptionPane;
-
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
 
@@ -18,7 +18,7 @@ public class ControladorRegistroPaciente {
 	public void validarDatosPaciente() {
 		String nombres = panelRegistrarPaciente.getNombres().trim();
 		String apellidos = panelRegistrarPaciente.getApellidos().trim();
-		String edad = panelRegistrarPaciente.getEdad();
+		Date fechaNacimiento = panelRegistrarPaciente.getFechaNacimiento();
 		String telefono = panelRegistrarPaciente.getTelefono();
 		String tipoId = panelRegistrarPaciente.getTipoId();
 		String identificacion = panelRegistrarPaciente.getId();
@@ -27,12 +27,12 @@ public class ControladorRegistroPaciente {
 
 		boolean vNombres = verificarNombres(nombres);
 		boolean vApellidos = verificarApellidos(apellidos);
-		boolean vEdad = verificarEdad(edad);
+		boolean vFechaNacimiento = verificarFechaNacimiento(fechaNacimiento);
 		boolean vTel = verificarTelefono(telefono);
 		boolean vId = verificarId(identificacion);
 		boolean vIdUnico = verificarIdUnico(identificacion);
 
-		if (!(vNombres && vApellidos && vEdad && vTel && vId)) {
+		if (!(vNombres && vApellidos && vTel && vId && vFechaNacimiento)) {
 			JOptionPane.showMessageDialog(null, "Dato(s) Ingresado(s) No Válido(s)", "ERROR - REGISTRO DE PACIENTE",
 					JOptionPane.ERROR_MESSAGE);
 			return;
@@ -45,7 +45,7 @@ public class ControladorRegistroPaciente {
 		}
 
 		PanelConfirmarPaciente panelConfirmarPaciente = new PanelConfirmarPaciente(new Paciente(nombres, apellidos,
-				nombreCompleto, Integer.parseInt(edad), telefono, tipoId, identificacion, idHistoriaClinica));
+				nombreCompleto, fechaNacimiento, telefono, tipoId, identificacion, idHistoriaClinica));
 		VistaMenuPrincipal.mostrarPanel(panelConfirmarPaciente);
 	} // public void validarDatosPaciente()
 
@@ -66,14 +66,15 @@ public class ControladorRegistroPaciente {
 		panelRegistrarPaciente.setCampoApellidos("");
 		return false;
 	} // private boolean verificarNombres(String apellidos)
-
-	private boolean verificarEdad(String edad) {
-		if (!modeloGestorDatosPaciente.validarEdad(edad)) {
-			panelRegistrarPaciente.setCampoEdad("");
-			return false;
+	
+	private boolean verificarFechaNacimiento(Date fechaNacimiento) {
+		if(modeloGestorDatosPaciente.validarFechaNacimiento(fechaNacimiento)) {
+			panelRegistrarPaciente.setFechaNacimiento(fechaNacimiento);
+			return true;
 		}
-		return true;
-	} // private boolean verificarEdad(String edad)
+		panelRegistrarPaciente.setFechaNacimiento(null);
+		return false;
+	}
 
 	private boolean verificarTelefono(String telefono) {
 		if (!modeloGestorDatosPaciente.validarTelefono(telefono)) {

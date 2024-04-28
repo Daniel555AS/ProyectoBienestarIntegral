@@ -34,6 +34,7 @@ public enum TipoExamen {
 	private String abreviatura;
 	private int costo;
 	private String descripcion;
+	private ProfesionalSalud profesionalSalud;
 
 	private TipoExamen(String nombre, String abreviatura, int costo, String descripcion) {
 		this.nombre = nombre;

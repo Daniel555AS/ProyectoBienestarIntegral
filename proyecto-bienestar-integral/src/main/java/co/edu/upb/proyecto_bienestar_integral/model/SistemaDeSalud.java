@@ -8,10 +8,14 @@ public class SistemaDeSalud {
 	
 	private static Lista<PersonaAdministrativa> administrativos;
 	private static Lista<Paciente> pacientes;
+	private static Lista<Orden> ordenes;
+	private static Lista<ProfesionalSalud> profesionalesSalud;
 	
 	public static void iniciarSistemaDeSalud() {
 		administrativos = GestorBaseDeDatos.obtenerPersonasAdministrativas();
 		pacientes = GestorBaseDeDatos.obtenerPacientes();
+		profesionalesSalud = GestorBaseDeDatos.obtenerProfesionalesSalud();
+		ordenes = GestorBaseDeDatos.obtenerOrdenes();
 		ordenarPacientesPorId();
 	}
 	
@@ -23,9 +27,22 @@ public class SistemaDeSalud {
 		return administrativos;
 	}
 	
+	public static Lista<Orden> conseguirOrdenes() {
+		return ordenes;
+	}
+	
+	public static Lista<ProfesionalSalud> conseguirProfesionalesSalud() {
+		return profesionalesSalud;
+	}
+	
 	public static void ordenarPacientesPorId() {
 		ComparadorIdentificacionPaciente comparador = new ComparadorIdentificacionPaciente();
 		pacientes.ordenar(comparador);
+	}
+	
+	public static void ordenarOrdenesPorFecha() {
+		ComparadorFechaHoraOrdenes comparador = new ComparadorFechaHoraOrdenes();
+		ordenes.ordenar(comparador);
 	}
 	
 	public static void iniciarEspecialidades() {

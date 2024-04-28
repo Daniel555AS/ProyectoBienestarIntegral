@@ -55,39 +55,40 @@ public class PanelConfirmarOrden extends JPanel {
 		
 		// Creación de JLabel con el el texto: "Paciente:"
 		lblPaciente = new JLabel("Paciente:");
-		lblPaciente.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		lblPaciente.setBounds(39, 218, 248, 43);
+		lblPaciente.setFont(new Font("Montserrat", Font.PLAIN, 23));
+		lblPaciente.setBounds(39, 210, 248, 43);
 		panelFondo.add(lblPaciente);
 		
 		// Creación de JLabel con el texto: "ID Historia Clínica:":
 		lblIdHistoriaClinica = new JLabel("ID Historia Clínica:");
-		lblIdHistoriaClinica.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		lblIdHistoriaClinica.setBounds(39, 286, 248, 43);
+		lblIdHistoriaClinica.setFont(new Font("Montserrat", Font.PLAIN, 23));
+		lblIdHistoriaClinica.setBounds(39, 290, 248, 43);
 		panelFondo.add(lblIdHistoriaClinica);
 		
 		// Creación de JLabel con el texto: "ID Orden:":
 		lblIdOrden = new JLabel("ID Orden:");
-		lblIdOrden.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		lblIdOrden.setBounds(39, 352, 248, 43);
+		lblIdOrden.setFont(new Font("Montserrat", Font.PLAIN, 23));
+		lblIdOrden.setBounds(39, 370, 248, 43);
 		panelFondo.add(lblIdOrden);
 		
 		// Creación de JLabel con el texto: "Especialidad:":
 		lblEspecialidad = new JLabel("Especialidad:");
-		lblEspecialidad.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		lblEspecialidad.setBounds(39, 430, 248, 43);
+		lblEspecialidad.setFont(new Font("Montserrat", Font.PLAIN, 23));
+		lblEspecialidad.setBounds(39, 450, 248, 43);
 		panelFondo.add(lblEspecialidad);
 		
 		// Creación de JLabel con el texto: "Examen:":
 		lblExamen = new JLabel("Examen:");
-		lblExamen.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		lblExamen.setBounds(39, 495, 248, 43);
+		lblExamen.setFont(new Font("Montserrat", Font.PLAIN, 23));
+		lblExamen.setBounds(39, 530, 248, 43);
 		panelFondo.add(lblExamen);
 		
 		// Creación de JLabel con el texto: "Descripción:":
-		lblDescripcion = new JLabel("Descripción");
-		lblDescripcion.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		lblDescripcion.setBounds(39, 568, 248, 43);
+		lblDescripcion = new JLabel("Descripción:");
+		lblDescripcion.setFont(new Font("Montserrat", Font.PLAIN, 23));
+		lblDescripcion.setBounds(39, 600, 248, 43);
 		panelFondo.add(lblDescripcion);
 
 	}
+	
 }

@@ -37,7 +37,7 @@ public class PanelConfirmarPaciente extends JPanel {
 	private JLabel lblIdHistoriaClinicaPaciente;
 	private JLabel lblTelefonoPaciente;
 	private JLabel lblEdadPaciente;
-	
+	private JLabel lblFechaNacimiento;
 	private ModeloConfirmacionPaciente modeloConfirmacionPaciente;
 	private ControladorConfirmacionPaciente controladorConfirmacionPaciente;
 	/**
@@ -90,35 +90,35 @@ public class PanelConfirmarPaciente extends JPanel {
 
 		// Creación de JLabel con el texto: "Nombres:":
 		lblNombres = new JLabel("Nombres:");
-		lblNombres.setFont(new Font("Montserrat", Font.BOLD, 30));
+		lblNombres.setFont(new Font("Montserrat", Font.BOLD, 25));
 		lblNombres.setBounds(60, 222, 170, 49);
 		panelFondo.add(lblNombres);
 
 		// Creación de JLabel con el texto: "Apellidos:":
 		lblApellidos = new JLabel("Apellidos:");
-		lblApellidos.setFont(new Font("Montserrat", Font.BOLD, 30));
-		lblApellidos.setBounds(60, 310, 164, 49);
+		lblApellidos.setFont(new Font("Montserrat", Font.BOLD, 25));
+		lblApellidos.setBounds(60, 287, 164, 49);
 		panelFondo.add(lblApellidos);
 
 		// Creación de JLabel con el texto: "Identificación:":
 		lblIdentificacion = new JLabel("Identificación:");
-		lblIdentificacion.setFont(new Font("Montserrat", Font.BOLD, 30));
-		lblIdentificacion.setBounds(60, 398, 237, 49);
+		lblIdentificacion.setFont(new Font("Montserrat", Font.BOLD, 25));
+		lblIdentificacion.setBounds(60, 352, 237, 49);
 		panelFondo.add(lblIdentificacion);
 
 		lblTelefono = new JLabel("Teléfono:");
-		lblTelefono.setFont(new Font("Montserrat", Font.BOLD, 30));
-		lblTelefono.setBounds(60, 486, 155, 49);
+		lblTelefono.setFont(new Font("Montserrat", Font.BOLD, 25));
+		lblTelefono.setBounds(60, 417, 155, 49);
 		panelFondo.add(lblTelefono);
 
 		lblEdad = new JLabel("Edad:");
-		lblEdad.setFont(new Font("Montserrat", Font.BOLD, 30));
-		lblEdad.setBounds(60, 574, 100, 49);
+		lblEdad.setFont(new Font("Montserrat", Font.BOLD, 25));
+		lblEdad.setBounds(60, 482, 100, 49);
 		panelFondo.add(lblEdad);
 
 		lblIdHistoriaClinica = new JLabel("ID Historía Clínica:");
-		lblIdHistoriaClinica.setFont(new Font("Montserrat", Font.BOLD, 30));
-		lblIdHistoriaClinica.setBounds(60, 662, 301, 49);
+		lblIdHistoriaClinica.setFont(new Font("Montserrat", Font.BOLD, 25));
+		lblIdHistoriaClinica.setBounds(60, 612, 301, 49);
 		panelFondo.add(lblIdHistoriaClinica);
 
 		// Creación de RoundedButton para la confirmación de datos del Paciente:
@@ -138,40 +138,50 @@ public class PanelConfirmarPaciente extends JPanel {
 
 		// Creación de JLabel con los Nombres del Paciente Actual a confirmar:
 		lblNombresPaciente = new JLabel(pacienteActual.getNombres());
-		lblNombresPaciente.setFont(new Font("Montserrat", Font.PLAIN, 30));
+		lblNombresPaciente.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		lblNombresPaciente.setBounds(382, 222, 797, 49);
 		panelFondo.add(lblNombresPaciente);
 
 		// Creación de JLabel con los Apellidos del Paciente Actual a confirmar:
 		lblApellidosPaciente = new JLabel(pacienteActual.getApellidos());
-		lblApellidosPaciente.setFont(new Font("Montserrat", Font.PLAIN, 30));
-		lblApellidosPaciente.setBounds(387, 310, 789, 49);
+		lblApellidosPaciente.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		lblApellidosPaciente.setBounds(382, 287, 789, 49);
 		panelFondo.add(lblApellidosPaciente);
 
 		// Creación de JLabel con la el ID de Historia Clínica del Paciente Actual a
 		// Confirmar:
 		lblIdHistoriaClinicaPaciente = new JLabel(pacienteActual.getIdHistoriaClinica());
-		lblIdHistoriaClinicaPaciente.setFont(new Font("Montserrat", Font.PLAIN, 30));
-		lblIdHistoriaClinicaPaciente.setBounds(387, 657, 789, 49);
+		lblIdHistoriaClinicaPaciente.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		lblIdHistoriaClinicaPaciente.setBounds(382, 612, 789, 49);
 		panelFondo.add(lblIdHistoriaClinicaPaciente);
 
 		// Creación de JLabel con la Identificación del Paciente Actual a Confirmar:
 		lblIdPaciente = new JLabel(pacienteActual.getTipoId() + "  " + pacienteActual.getIdentificacion());
-		lblIdPaciente.setFont(new Font("Montserrat", Font.PLAIN, 30));
-		lblIdPaciente.setBounds(382, 398, 789, 49);
+		lblIdPaciente.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		lblIdPaciente.setBounds(382, 352, 789, 49);
 		panelFondo.add(lblIdPaciente);
 		
 		// Creación de JLabel con el Teléfono del Paciente Actual a Confirmar:
 		lblTelefonoPaciente = new JLabel(pacienteActual.getTelefono());
-		lblTelefonoPaciente.setFont(new Font("Montserrat", Font.PLAIN, 30));
-		lblTelefonoPaciente.setBounds(382, 486, 789, 49);
+		lblTelefonoPaciente.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		lblTelefonoPaciente.setBounds(382, 417, 789, 49);
 		panelFondo.add(lblTelefonoPaciente);
 	    
 		// Creación de JLabel con la Edad del Paciente Actual a Confirmar:
-		lblEdadPaciente = new JLabel(pacienteActual.getEdad() + "  Años");
-		lblEdadPaciente.setFont(new Font("Montserrat", Font.PLAIN, 30));
-		lblEdadPaciente.setBounds(382, 574, 789, 49);
+		lblEdadPaciente = new JLabel(pacienteActual.getCadenaEdadEnAniosYMeses());
+		lblEdadPaciente.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		lblEdadPaciente.setBounds(382, 482, 789, 49);
 		panelFondo.add(lblEdadPaciente);
+		
+		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:");
+		lblFechaDeNacimiento.setFont(new Font("Montserrat", Font.BOLD, 25));
+		lblFechaDeNacimiento.setBounds(60, 547, 301, 49);
+		panelFondo.add(lblFechaDeNacimiento);
+			
+		lblFechaNacimiento = new JLabel(pacienteActual.getFechaNacimientoFormateada());
+		lblFechaNacimiento.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		lblFechaNacimiento.setBounds(382, 547, 789, 49);
+		panelFondo.add(lblFechaNacimiento);
 
 	} // public PanelConfirmarPaciente()
 	
@@ -179,5 +189,4 @@ public class PanelConfirmarPaciente extends JPanel {
 	public Paciente getPacienteActual() {
 		return pacienteActual;
 	}
-	
 } 
