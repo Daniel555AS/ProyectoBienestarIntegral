@@ -13,5 +13,10 @@ public class ModeloConfirmarOrden {
 		}
 		return "";
 	}
+	
+	public void agregarOrden(Orden orden) {
+		SistemaDeSalud.conseguirOrdenes().agregarAlFinal(orden);
+		GestorBaseDeDatos.agregarOrdenBD(orden);
+	} // public void agregarPaciente(Paciente paciente)
 
 } // public class ModeloConfirmarOrden 

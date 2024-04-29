@@ -65,7 +65,7 @@ public class PanelRegistrarPaciente extends JPanel {
 		panelFondo.add(panelDecorativoSup);
 		panelDecorativoSup.setLayout(null);
 
-		// Creación de JLabel con el texto: "Gestión de Pacientes":
+		// Creación de JLabel con el texto: "Registrar Paciente":
 		lblGestionPacientes = new JLabel("Registrar Paciente");
 		lblGestionPacientes.setForeground(new Color(240, 255, 240));
 		lblGestionPacientes.setFont(new Font("Montserrat", Font.BOLD, 40));

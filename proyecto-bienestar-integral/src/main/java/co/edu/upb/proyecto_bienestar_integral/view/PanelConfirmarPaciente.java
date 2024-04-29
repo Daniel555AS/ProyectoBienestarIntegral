@@ -1,6 +1,7 @@
 package co.edu.upb.proyecto_bienestar_integral.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -182,7 +183,7 @@ public class PanelConfirmarPaciente extends JPanel {
 		lblFechaNacimiento.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		lblFechaNacimiento.setBounds(382, 547, 789, 49);
 		panelFondo.add(lblFechaNacimiento);
-
+		
 	} // public PanelConfirmarPaciente()
 	
 	// Método get para el atributo pacienteActual:

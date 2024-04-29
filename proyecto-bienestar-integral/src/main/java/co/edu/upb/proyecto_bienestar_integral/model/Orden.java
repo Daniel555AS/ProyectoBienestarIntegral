@@ -3,7 +3,6 @@ package co.edu.upb.proyecto_bienestar_integral.model;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 
 public class Orden {
 	// Atributos de la Clase Orden:
@@ -17,10 +16,11 @@ public class Orden {
 	private Time hora;
 	private boolean estado;
 	private ProfesionalSalud profesionalAsignado;
+	private String comentario;
 
 	// Constructor de la Clase Orden:
 	public Orden(String identificador, String especialidad, String tipoExamen, String idPaciente, int costo,
-			String descripcion, Date fecha, ProfesionalSalud profesionalAsignado) {
+			String descripcion, Date fecha, ProfesionalSalud profesionalAsignado, String comentario) {
 		this.identificador = identificador;
 		this.especialidad = especialidad;
 		this.tipoExamen = tipoExamen;
@@ -29,6 +29,7 @@ public class Orden {
 		this.descripcion = descripcion;
 		this.fecha = fecha;
 		this.profesionalAsignado = profesionalAsignado;
+		this.comentario = comentario;
 		this.estado = false;
 	}
 
@@ -69,6 +70,10 @@ public class Orden {
 		return hora;
 	}
 	
+	public String getComentario() {
+		return comentario;
+	}
+	
 	public ProfesionalSalud getProfesionalAsignado() {
 		return profesionalAsignado;
 	}
@@ -90,6 +95,10 @@ public class Orden {
 	
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+	
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
 	}
 
 } // public class Orden

@@ -144,9 +144,23 @@ public class VistaInicioDeSesion extends JFrame {
 	}
 	
 	private void setImageLabel(JLabel label, String root) {
-        ImageIcon image = new ImageIcon(root); 
-        ImageIcon icon = new ImageIcon(image.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_DEFAULT));
-        label.setIcon(icon);
-        this.repaint();
+	    ImageIcon imageIcon = new ImageIcon(root); 
+	    Image image = imageIcon.getImage();
+	    
+	    // Obtener el tamaño del JLabel
+	    int labelWidth = label.getWidth();
+	    int labelHeight = label.getHeight();
+	    
+	    // Escalar la imagen al tamaño del JLabel
+	    Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+	    
+	    // Crear un nuevo ImageIcon con la imagen escalada
+	    ImageIcon scaledIcon = new ImageIcon(scaledImage);
+	    
+	    // Establecer el nuevo ImageIcon en el JLabel
+	    label.setIcon(scaledIcon);
+	    
+	    this.repaint();
 	}
+	
 } // public class VistaInicioDeSesion extends JFrame

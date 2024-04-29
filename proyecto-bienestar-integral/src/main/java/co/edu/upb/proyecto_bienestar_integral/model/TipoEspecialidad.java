@@ -3,7 +3,7 @@ package co.edu.upb.proyecto_bienestar_integral.model;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public enum TipoEspecialidad {
-	CARDIOLOGIA("Cardilogía", "CAR" ,new ListaEnlazada<>()),
+	CARDIOLOGIA("Cardiología", "CAR" ,new ListaEnlazada<>()),
 	NEUROLOGIA("Neurología", "NEU", new ListaEnlazada<>()),
 	OFTALMOLOGIA("Oftalmología", "OFT" ,new ListaEnlazada<>());
 	

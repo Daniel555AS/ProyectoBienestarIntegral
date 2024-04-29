@@ -1,7 +1,5 @@
 package co.edu.upb.proyecto_bienestar_integral.model;
 
-import java.util.Comparator;
-
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class SistemaDeSalud {

@@ -9,9 +9,11 @@ import co.edu.upb.proyecto_bienestar_integral.model.*;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
 
 public class ControladorAgendaMedica {
+	// Atributos de la Clase ControladorAgendaMedica:
 	private ModeloAgendaMedica modeloAgendaMedica;
 	private PanelAgendaMedica panelAgendaMedica;
-
+	
+	// Constructor de la Clase ControladorAgendaMedica:
 	public ControladorAgendaMedica(ModeloAgendaMedica modeloAgendaMedica, PanelAgendaMedica panelAgendaMedica) {
 		this.modeloAgendaMedica = modeloAgendaMedica;
 		this.panelAgendaMedica = panelAgendaMedica;

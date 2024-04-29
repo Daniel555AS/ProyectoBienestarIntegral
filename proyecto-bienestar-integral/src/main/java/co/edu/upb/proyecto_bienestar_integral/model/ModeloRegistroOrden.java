@@ -1,5 +1,8 @@
 package co.edu.upb.proyecto_bienestar_integral.model;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class ModeloRegistroOrden {
@@ -26,6 +29,25 @@ public class ModeloRegistroOrden {
 		}
 		return null;
 	}
+	
+	public boolean validarFecha(Date fecha) {
+	    if (fecha != null) {
+	        Date fechaActual = new Date(System.currentTimeMillis()); // Obtener la fecha actual del sistema
+	        // Creación de un Calendar para la manipulación de fechas:
+	        Calendar calFechaSeleccionada = Calendar.getInstance();
+	        Calendar calFechaActual = Calendar.getInstance();
+	        calFechaSeleccionada.setTime(fecha);
+	        calFechaActual.setTime(fechaActual);
+
+	        // Asegurarse de que la fecha seleccionada sea después de la fecha actual:
+	        calFechaActual.add(Calendar.DAY_OF_MONTH, 0); 
+	        if (calFechaSeleccionada.after(calFechaActual)) {
+	            // La fecha seleccionada es válida
+	            return true;
+	        }
+	    }
+	    return false;
+	} // public boolean validarFecha(Date fecha)
 	
 
 }

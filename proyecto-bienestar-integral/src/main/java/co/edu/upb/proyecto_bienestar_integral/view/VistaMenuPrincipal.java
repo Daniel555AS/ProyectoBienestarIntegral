@@ -35,6 +35,7 @@ public class VistaMenuPrincipal extends JFrame {
 	private PanelPrincipal panelPrincipal;
 	private PanelGestionPacientes panelGestionPacientes;
 	private PanelRegistrarOrden panelRegistrarOrden;
+	private PanelAutorizarExamen panelAutorizarExamen;
 	private RoundedButton buttonRegistroExamenes;
 	private RoundedButton buttonRegistroCitas;
 	private RoundedButton buttonRegistroOrdenes;
@@ -65,6 +66,7 @@ public class VistaMenuPrincipal extends JFrame {
 		panelPrincipal = new PanelPrincipal();
 		panelGestionPacientes = new PanelGestionPacientes();
 		panelRegistrarOrden = new PanelRegistrarOrden();
+		panelAutorizarExamen = new PanelAutorizarExamen("Media\\ImagenExamenes.jpg", "Módulo Para la Autorización de Exámenes de Nuestros Pacientes");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1540, 820);
@@ -144,17 +146,18 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroOrdenes.setFocusable(false);
 
 		// Creación de RoundedButton para el Registro de Exámenes
-		buttonRegistroExamenes = new RoundedButton("Registro de Exámenes", new Color(0, 172, 168),
+		buttonRegistroExamenes = new RoundedButton("Autorización de Exámenes", new Color(0, 172, 168),
 				new Color(0, 204, 199), 1000, 0);
 		buttonRegistroExamenes.setBounds(0, 455, 337, 57);
 		panelMenu.add(buttonRegistroExamenes);
-		buttonRegistroExamenes.setText("Registro de Exámenes");
+		buttonRegistroExamenes.setText("Autorización de Exámenes");
 		buttonRegistroExamenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				panelAutorizarExamen.setCampoIdHistoriaClinica("");
+				mostrarPanel(panelAutorizarExamen);
 			}
 		});
-		buttonRegistroExamenes.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonRegistroExamenes.setFont(new Font("Montserrat", Font.BOLD, 21));
 		buttonRegistroExamenes.setForeground(new Color(255, 255, 255));
 		buttonRegistroExamenes.setBackground(new Color(0, 172, 168));
 		buttonRegistroExamenes.setFocusable(false);

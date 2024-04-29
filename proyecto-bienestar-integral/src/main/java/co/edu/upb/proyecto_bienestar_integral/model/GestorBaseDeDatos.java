@@ -6,11 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.sql.Date;
-
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
-import co.edu.upb.proyecto_bienestar_integral.model.*;
 
 public class GestorBaseDeDatos {
 	private static final String URL = "";
@@ -191,8 +188,7 @@ public class GestorBaseDeDatos {
 
 		return profesionalesSalud;
 	}
-	
-	
+
 	public static Lista<Orden> obtenerOrdenes() {
 		Lista<Orden> ordenes = new ListaDoblementeEnlazada<>();
 		Connection conexion = null;
@@ -204,7 +200,7 @@ public class GestorBaseDeDatos {
 			consulta = conexion.prepareStatement("SELECT * FROM ordenes");
 			resultados = consulta.executeQuery();
 
-			while (resultados.next()) {			
+			while (resultados.next()) {
 				String identificador = resultados.getString("id_orden");
 				String especialidad = resultados.getString("especialidad");
 				String tipoExamen = resultados.getString("examen");
@@ -215,12 +211,14 @@ public class GestorBaseDeDatos {
 				Date fecha = resultados.getDate("fecha");
 				Time hora = resultados.getTime("hora");
 				String idProfesionalAsignado = resultados.getString("id_profesional_asignado");
+				String comentario = resultados.getString("comentario");
 				ProfesionalSalud profesionalAsigando = obtenerProfesionalSaludAsignado(idProfesionalAsignado);
-				
-				Orden orden = new Orden(identificador, especialidad, tipoExamen, idPaciente, costo, descripcion, fecha,profesionalAsigando);
+
+				Orden orden = new Orden(identificador, especialidad, tipoExamen, idPaciente, costo, descripcion, fecha,
+						profesionalAsigando, comentario);
 				orden.setHora(hora);
 				orden.setEstado(estado);
-			
+
 				ordenes.agregarAlFinal(orden);
 			}
 		} catch (SQLException e) {
@@ -253,6 +251,66 @@ public class GestorBaseDeDatos {
 		return ordenes;
 	} // public static Lista<Paciente> obtenerPacientes()
 	
+    public static Pila<Orden> obtenerPilaOrdenesPorAutorizar(String idHistoriaClinica) {
+        Pila<Orden> ordenes = new Pila<>();
+        Connection conexion = null;
+        PreparedStatement consulta = null;
+        ResultSet resultados = null;
+
+        try {
+            conexion = obtenerConexion();
+            String sql = "SELECT * FROM ordenes WHERE id_historia_clinica_paciente = ? AND estado = false ORDER BY fecha ASC";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, idHistoriaClinica);
+            resultados = consulta.executeQuery();
+
+            while (resultados.next()) {
+                String identificador = resultados.getString("id_orden");
+                String especialidad = resultados.getString("especialidad");
+                String tipoExamen = resultados.getString("examen");
+                int costo = resultados.getInt("costo");
+                String descripcion = resultados.getString("descripcion");
+                Date fecha = resultados.getDate("fecha");
+                Time hora = resultados.getTime("hora");
+                String idProfesionalAsignado = resultados.getString("id_profesional_asignado");
+                String comentario = resultados.getString("comentario");
+                ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(idProfesionalAsignado);
+
+                Orden orden = new Orden(identificador, especialidad, tipoExamen, idHistoriaClinica, costo, descripcion, fecha, profesionalAsignado, comentario);
+                orden.setHora(hora);
+                ordenes.push(orden);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cierre de recursos
+            if (resultados != null) {
+                try {
+                    resultados.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (consulta != null) {
+                try {
+                    consulta.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return ordenes;
+    }
+	
+
 	public static void agregarPacienteBD(Paciente paciente) {
 		Connection conexion = null;
 		PreparedStatement consulta = null;
@@ -291,11 +349,53 @@ public class GestorBaseDeDatos {
 			}
 		}
 	} // public static void agregarPacienteBD(Paciente paciente)
-	
+
+	public static void agregarOrdenBD(Orden orden) {
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement(
+					"INSERT INTO ordenes (id_orden, especialidad, examen, id_historia_clinica_paciente, costo, descripcion, comentario, estado, fecha, hora, id_profesional_asignado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			consulta.setString(1, orden.getIdentificador());
+			consulta.setString(2, orden.getEspecialidad());
+			consulta.setString(3, orden.getTipoExamen());
+			consulta.setString(4, orden.getIdPaciente());
+			consulta.setInt(5, orden.getCosto());
+			consulta.setString(6, orden.getDescripcion());
+			consulta.setString(7, orden.getComentario());
+			consulta.setBoolean(8, orden.getEstado());
+			consulta.setDate(9, orden.getFecha());
+			consulta.setTime(10, orden.getHora());
+			consulta.setString(11, orden.getProfesionalAsignado().getIdentificacion());
+
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	} // public static void agregarOrdenBD(Orden orden)
+
 	private static ProfesionalSalud obtenerProfesionalSaludAsignado(String id) {
 		Lista<ProfesionalSalud> profesionales = SistemaDeSalud.conseguirProfesionalesSalud();
-		for(int ii = 0; ii < profesionales.getTamano(); ii++) {
-			if(profesionales.obtenerElemento(ii).getIdentificacion().equals(id)) {
+		for (int ii = 0; ii < profesionales.getTamano(); ii++) {
+			if (profesionales.obtenerElemento(ii).getIdentificacion().equals(id)) {
 				return profesionales.obtenerElemento(ii);
 			}
 		}
