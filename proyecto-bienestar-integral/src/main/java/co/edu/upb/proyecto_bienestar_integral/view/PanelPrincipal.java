@@ -16,6 +16,7 @@ public class PanelPrincipal extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelPrincipal() {
+		
 		setLayout(null);
 		
 		// Creación de JPanel para fondo de PanelPrincipal:

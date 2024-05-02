@@ -55,8 +55,7 @@ public class PanelRegistrarOrden extends JPanel {
         modeloRegistroOrden = new ModeloRegistroOrden();
         controladorRegistroOrden = new ControladorRegistroOrden(this, modeloRegistroOrden);
 
-        setLayout(null);
-
+        setLayout(null); // Establecimiento de Absolute Layout.
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(0, 0, 1192, 783);
         add(scrollPane);

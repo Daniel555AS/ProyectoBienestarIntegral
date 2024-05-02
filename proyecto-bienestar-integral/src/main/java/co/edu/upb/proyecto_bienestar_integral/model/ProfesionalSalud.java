@@ -23,4 +23,8 @@ public class ProfesionalSalud extends Persona {
 	public String getServicio() {
 		return servicio;
 	}
+	
+	public String getNombreEId() {
+		return getNombreCompleto() + " - CC " + getIdentificacion();
+	} 
 } // public class ProfesionalSalud extends Persona

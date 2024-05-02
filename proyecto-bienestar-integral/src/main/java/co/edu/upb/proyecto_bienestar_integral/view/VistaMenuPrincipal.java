@@ -34,8 +34,9 @@ public class VistaMenuPrincipal extends JFrame {
 	private RoundedButton buttonPrincipal;
 	private PanelPrincipal panelPrincipal;
 	private PanelGestionPacientes panelGestionPacientes;
-	private PanelRegistrarOrden panelRegistrarOrden;
 	private PanelAutorizarExamen panelAutorizarExamen;
+	private PanelRegistrarOrden panelRegistrarOrden;
+	private PanelSeleccionCita panelSeleccionCita;
 	private RoundedButton buttonRegistroExamenes;
 	private RoundedButton buttonRegistroCitas;
 	private RoundedButton buttonRegistroOrdenes;
@@ -66,7 +67,6 @@ public class VistaMenuPrincipal extends JFrame {
 		panelPrincipal = new PanelPrincipal();
 		panelGestionPacientes = new PanelGestionPacientes();
 		panelRegistrarOrden = new PanelRegistrarOrden();
-		panelAutorizarExamen = new PanelAutorizarExamen("Media\\ImagenExamenes.jpg", "Módulo Para la Autorización de Exámenes de Nuestros Pacientes");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1540, 820);
@@ -153,7 +153,7 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroExamenes.setText("Autorización de Exámenes");
 		buttonRegistroExamenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelAutorizarExamen.setCampoIdHistoriaClinica("");
+				panelAutorizarExamen = new PanelAutorizarExamen("Media\\ImagenExamenes.jpg", "Módulo Para la Autorización de Exámenes de Nuestros Pacientes");
 				mostrarPanel(panelAutorizarExamen);
 			}
 		});
@@ -170,7 +170,8 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroCitas.setText("Registro de Citas");
 		buttonRegistroCitas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				panelSeleccionCita = new PanelSeleccionCita();
+				mostrarPanel(panelSeleccionCita);
 			}
 		});
 		buttonRegistroCitas.setFont(new Font("Montserrat", Font.BOLD, 25));

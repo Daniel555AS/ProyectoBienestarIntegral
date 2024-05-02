@@ -9,11 +9,9 @@ import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.SwingConstants;
 
@@ -98,8 +96,7 @@ public class PanelGestionPacientes extends JPanel {
 		RoundedPanel panelDecoraCen = new RoundedPanel(10);
 		panelDecoraCen.setBackground(new Color(169, 169, 169));
 		panelDecoraCen.setBounds(597, 297, 4, 449);
-		panelFondo.add(panelDecoraCen);
-			
+		panelFondo.add(panelDecoraCen);		
 	} // public PanelGestionPacientes() 
 	
 	// Método private void que permite insertar una imagen con relación al tamaño definido de un JLabel:

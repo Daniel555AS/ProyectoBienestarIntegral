@@ -7,16 +7,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
-
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
-
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 

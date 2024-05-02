@@ -4,6 +4,10 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 
+import com.jgoodies.common.base.Objects;
+
+import co.edu.upb.proyecto_bienestar_integral.estructuras.Lista;
+
 public class Orden {
 	// Atributos de la Clase Orden:
 	private String identificador;
@@ -87,6 +91,27 @@ public class Orden {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         return formatter.format(hora);
     }
+    
+    public String getFechaYHoraFormateada() {
+    	return getFechaFormateada() + " - " + getHoraFormateada();
+    }
+    
+    public String getNombreYIdPaciente() {
+    	Lista<Paciente> pacientes = SistemaDeSalud.conseguirPacientes();
+    	for(int ii = 0; ii < pacientes.getTamano(); ii++) {
+    		if(pacientes.obtenerElemento(ii).getIdHistoriaClinica().equals(idPaciente)) {
+    			return pacientes.obtenerElemento(ii).getNombreCompleto();
+    		}
+    	}
+    	return "";
+    }
+    
+    public String getMensajeEstado() {
+    	if(estado) {
+    		return "Orden Autorizada";
+    	}
+    	return "Orden No Autorizada";
+    }
 	
 	// Métodos Setters:
 	public void setHora(Time hora) {
@@ -97,8 +122,28 @@ public class Orden {
 		this.estado = estado;
 	}
 	
+	// Método public void para establecer un comentario para una Orden:
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
+	
+	// Modificación del método .equals() correspondiente a la Clase Orden:
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Orden orden = (Orden) o;
+        return costo == orden.costo &&
+                estado == orden.estado &&
+                Objects.equals(identificador, orden.identificador) &&
+                Objects.equals(especialidad, orden.especialidad) &&
+                Objects.equals(tipoExamen, orden.tipoExamen) &&
+                Objects.equals(idPaciente, orden.idPaciente) &&
+                Objects.equals(descripcion, orden.descripcion) &&
+                Objects.equals(fecha, orden.fecha) &&
+                Objects.equals(hora, orden.hora) &&
+                Objects.equals(profesionalAsignado, orden.profesionalAsignado) &&
+                Objects.equals(comentario, orden.comentario);
+    } // public boolean equals(Object o) 
 
 } // public class Orden

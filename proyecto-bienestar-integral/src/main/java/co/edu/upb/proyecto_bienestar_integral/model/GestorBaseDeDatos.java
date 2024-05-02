@@ -391,6 +391,38 @@ public class GestorBaseDeDatos {
 			}
 		}
 	} // public static void agregarOrdenBD(Orden orden)
+	
+	 public static void actualizarEstadoOrden(String idOrden) {
+	        Connection conexion = null;
+	        PreparedStatement consulta = null;
+
+	        try {
+	            conexion = obtenerConexion();
+	            String sql = "UPDATE ordenes SET estado = true WHERE id_orden = ?";
+	            consulta = conexion.prepareStatement(sql);
+	            consulta.setString(1, idOrden);
+	            consulta.executeUpdate();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            // Cierre de recursos
+	            if (consulta != null) {
+	                try {
+	                    consulta.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	            if (conexion != null) {
+	                try {
+	                    conexion.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    }
+	
 
 	private static ProfesionalSalud obtenerProfesionalSaludAsignado(String id) {
 		Lista<ProfesionalSalud> profesionales = SistemaDeSalud.conseguirProfesionalesSalud();

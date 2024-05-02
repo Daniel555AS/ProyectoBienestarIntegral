@@ -8,4 +8,10 @@ public class ModeloAutorizarExamen {
 		return GestorBaseDeDatos.obtenerPilaOrdenesPorAutorizar(idHistoriaClinica);
 	}
 	
+	public void eliminarOrdenCima(String idHistoriaClinica) {
+		GestorBaseDeDatos.obtenerPilaOrdenesPorAutorizar(idHistoriaClinica).pop();
+	}
+	
+	
+	
 } // public class ModeloAutorizarExamen 

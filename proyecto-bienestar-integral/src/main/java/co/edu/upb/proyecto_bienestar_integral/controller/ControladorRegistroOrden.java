@@ -65,7 +65,4 @@ public class ControladorRegistroOrden {
 		return true;
 	}
 	
-
-	
-
 } // public class ControladorRegistroOrden

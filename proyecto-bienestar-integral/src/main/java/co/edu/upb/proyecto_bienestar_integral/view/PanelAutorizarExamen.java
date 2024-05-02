@@ -75,12 +75,12 @@ public class PanelAutorizarExamen extends JPanel {
 		// Creación de JTextField como campo para ingresar los apellidos del paciente:
 		campoIdHistoriaClinica = new JTextField();
 		campoIdHistoriaClinica.setBounds(20, 0, 789, 74);
-		panelIDHistoriaClinica.add(campoIdHistoriaClinica);
 		campoIdHistoriaClinica.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		campoIdHistoriaClinica.setColumns(10);
 		campoIdHistoriaClinica.setBorder(null);
 		campoIdHistoriaClinica.setBackground((Color) null);
-
+		panelIDHistoriaClinica.add(campoIdHistoriaClinica);
+		
 		// Creación de JLabel con el texto: "ID HC:":
 		lblidHC = new JLabel("ID HC:");
 		lblidHC.setFont(new Font("Montserrat", Font.BOLD, 30));
@@ -109,7 +109,7 @@ public class PanelAutorizarExamen extends JPanel {
 		buttonRegresar = new RoundedButton("", new Color(203, 53, 53), new Color(234, 68, 68), 1000, 60);
 		buttonRegresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorAutorizarExamen.verificacionOrdenes();
+				controladorAutorizarExamen.verificacionOrdenes(getCampoIdHistoriaClinica());
 			}
 		});
 		buttonRegresar.setBounds(1003, 200, 85, 72);
