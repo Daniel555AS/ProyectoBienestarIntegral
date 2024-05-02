@@ -9,6 +9,9 @@ import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 public class ModeloGestorDatosPaciente {
 	
 	private boolean validarDatoNumBig(String dato, BigInteger minimo) {
+	    if (!dato.matches("\\d+")) { // Verificar si la cadena contiene solo dígitos
+	        return false;
+	    }
 		try {
 			BigInteger num = new BigInteger(dato);
 			return num.compareTo(minimo) >= 0;
@@ -47,6 +50,9 @@ public class ModeloGestorDatosPaciente {
 	} // public boolean validarApellidos(String apellidos)
 	
 	public boolean validarIdUnico(String id) {
+	    if (id.isEmpty()) {
+	        return false;
+	    }
 		BigInteger numId = new BigInteger(id);
 		int cantidadPacientes = SistemaDeSalud.conseguirPacientes().getTamano();
 		Lista<Paciente> pacientes = SistemaDeSalud.conseguirPacientes();

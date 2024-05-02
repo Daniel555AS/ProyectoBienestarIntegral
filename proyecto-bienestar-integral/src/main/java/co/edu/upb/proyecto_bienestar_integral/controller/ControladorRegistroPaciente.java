@@ -30,13 +30,13 @@ public class ControladorRegistroPaciente {
 		boolean vFechaNacimiento = verificarFechaNacimiento(fechaNacimiento);
 		boolean vTel = verificarTelefono(telefono);
 		boolean vId = verificarId(identificacion);
-		boolean vIdUnico = verificarIdUnico(identificacion);
 
 		if (!(vNombres && vApellidos && vTel && vId && vFechaNacimiento)) {
 			JOptionPane.showMessageDialog(null, "Dato(s) Ingresado(s) No Válido(s)", "ERROR - REGISTRO DE PACIENTE",
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		boolean vIdUnico = verificarIdUnico(identificacion);
 		if (!vIdUnico) {
 			JOptionPane.showMessageDialog(null,
 					"La Identificación Ingresada Ya Se Encuentra Asociada a un Paciente Existente.",

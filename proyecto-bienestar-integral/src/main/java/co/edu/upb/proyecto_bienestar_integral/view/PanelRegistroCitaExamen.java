@@ -3,10 +3,13 @@ package co.edu.upb.proyecto_bienestar_integral.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -51,6 +54,10 @@ public class PanelRegistroCitaExamen extends JPanel {
 	private RoundedPanel panelEstado;
 	private JLabel lblEstado;
 	private JLabel lblEstadoEncontrado;
+	private RoundedButton buttonRegistrar;
+	private JLabel lblComentario;
+	private JTextArea textAreaComentario;
+	private JScrollPane innerScrollPaneComentario;
 
 	/**
 	 * Create the panel.
@@ -270,6 +277,29 @@ public class PanelRegistroCitaExamen extends JPanel {
 		lblEstadoEncontrado.setFont(new Font("Montserrat", Font.PLAIN, 25));
 		lblEstadoEncontrado.setBounds(26, 0, 600, 74);
 		panelEstado.add(lblEstadoEncontrado);
+		
+		// Creación de JLabel con el texto: "Comentario:":
+		lblComentario = new JLabel("Comentario:");
+		lblComentario.setFont(new Font("Montserrat", Font.BOLD, 25));
+		lblComentario.setBounds(41, 1224, 248, 43);
+		panelFondo.add(lblComentario);
+
+		// Creación de un JTextArea, sin la posibilidad de ser modificado, dentro de un
+		// JScrollPane,
+		// para asignar el comentario, ingresado anteriormente, correspondiente a la
+		// orden médica actual:
+		textAreaComentario = new JTextArea();
+		textAreaComentario.setFont(new Font("Montserrat", Font.PLAIN, 20));
+		textAreaComentario.setBackground(new Color(241, 241, 241));
+		// Configurar el JTextArea para que el texto se ajuste automáticamente al ancho
+		// del área de visualización:
+		textAreaComentario.setLineWrap(true);
+		textAreaComentario.setWrapStyleWord(true);
+		textAreaComentario.setText("ID No Encontrado");
+		textAreaComentario.setEditable(false);
+		innerScrollPaneComentario = new JScrollPane(textAreaComentario);
+		innerScrollPaneComentario.setBounds(299, 1220, 802, 180);
+		panelFondo.add(innerScrollPaneComentario);
 
 		campoIdOrden.getDocument().addDocumentListener((DocumentListener) new DocumentListener() {
 			@Override
@@ -300,6 +330,7 @@ public class PanelRegistroCitaExamen extends JPanel {
 						lblProfesionalEncontrado.setText(orden.getProfesionalAsignado().getNombreEId());
 						lblCostoEncontrado.setText("$ " + orden.getCosto());
 						lblEstadoEncontrado.setText(orden.getMensajeEstado());
+						textAreaComentario.setText(orden.getComentario());
 						ordenEncontrada = true; // Se encontró la Orden Médica
 						break; // Salir del bucle ya que se encontró la Orden Médica
 					}
@@ -312,14 +343,40 @@ public class PanelRegistroCitaExamen extends JPanel {
 					lblProfesionalEncontrado.setText("ID No Encontrado");
 					lblCostoEncontrado.setText("ID No Encontrado");
 					lblEstadoEncontrado.setText("ID No Encontrado");
+					textAreaComentario.setText("ID No Encontrado");
 				}
 			}
 		});
+		
+		// Creación de RoundedButton para la continuación de procesos:
+		buttonRegistrar = new RoundedButton("Registrar", new Color(23, 174, 191), new Color(0, 139, 139),
+				1000, 60);
+		buttonRegistrar.setText("Registrar");
+		buttonRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		buttonRegistrar.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonRegistrar.setForeground(new Color(255, 255, 255));
+		buttonRegistrar.setBackground(new Color(23, 174, 191));
+		buttonRegistrar.setBounds(430, 1460, 320, 57);
+		buttonRegistrar.setFocusable(false);
+		panelFondo.add(buttonRegistrar);
+		
 
-		panelFondo.setPreferredSize(new Dimension(0, 1250));
+		panelFondo.setPreferredSize(new Dimension(0, 1570));
 	} // public PanelRegistroCitaExamen()
 
 	public String getCampoIdOrden() {
 		return campoIdOrden.getText();
+	}
+	
+	public String getlblEstadoEncontrado() {
+		return lblEstadoEncontrado.getText();
+	}
+	
+	public String getPaciente() {
+		return lblNombrePacienteEncontrado.getText();
 	}
 } // public class PanelRegistroCitaExamen extends JPanel

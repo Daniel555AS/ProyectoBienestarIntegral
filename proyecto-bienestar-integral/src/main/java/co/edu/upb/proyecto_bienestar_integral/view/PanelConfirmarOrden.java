@@ -190,7 +190,7 @@ public class PanelConfirmarOrden extends JPanel {
 		// Creación de un JTextArea, sin la posibilidad de ser modificado, dentro de un
 		// JScrollPane,
 		// para asignar el comentario, ingresado anteriormente, correspondiente a la
-		// orden médica acutal:
+		// orden médica actual:
 		textAreaComentario = new JTextArea();
 		textAreaComentario.setFont(new Font("Montserrat", Font.PLAIN, 20));
 		textAreaComentario.setBackground(new Color(241, 241, 241));

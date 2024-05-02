@@ -66,7 +66,6 @@ public class VistaMenuPrincipal extends JFrame {
 
 		panelPrincipal = new PanelPrincipal();
 		panelGestionPacientes = new PanelGestionPacientes();
-		panelRegistrarOrden = new PanelRegistrarOrden();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1540, 820);
@@ -137,6 +136,7 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroOrdenes.setText("Registro de Órdenes");
 		buttonRegistroOrdenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panelRegistrarOrden = new PanelRegistrarOrden();
 				mostrarPanel(panelRegistrarOrden);
 			}
 		});
