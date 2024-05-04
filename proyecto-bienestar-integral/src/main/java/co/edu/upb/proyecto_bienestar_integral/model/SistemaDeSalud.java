@@ -8,12 +8,14 @@ public class SistemaDeSalud {
 	private static Lista<Paciente> pacientes;
 	private static Lista<Orden> ordenes;
 	private static Lista<ProfesionalSalud> profesionalesSalud;
+	private static Lista<Cita> citas;
 	
 	public static void iniciarSistemaDeSalud() {
 		administrativos = GestorBaseDeDatos.obtenerPersonasAdministrativas();
 		pacientes = GestorBaseDeDatos.obtenerPacientes();
 		profesionalesSalud = GestorBaseDeDatos.obtenerProfesionalesSalud();
 		ordenes = GestorBaseDeDatos.obtenerOrdenes();
+		citas = GestorBaseDeDatos.obtenerCitas();
 		ordenarPacientesPorId();
 	}
 	
@@ -31,6 +33,10 @@ public class SistemaDeSalud {
 	
 	public static Lista<ProfesionalSalud> conseguirProfesionalesSalud() {
 		return profesionalesSalud;
+	}
+	
+	public static Lista<Cita> conseguirCitas() {
+		return citas;
 	}
 	
 	public static void ordenarPacientesPorId() {

@@ -40,6 +40,13 @@
 			<version>1.4</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/uk.co.caprica/vlcj -->
+		<dependency>
+			<groupId>uk.co.caprica</groupId>
+			<artifactId>vlcj</artifactId>
+			<version>4.0.4</version>
+		</dependency>
+
 
 	</dependencies>
 

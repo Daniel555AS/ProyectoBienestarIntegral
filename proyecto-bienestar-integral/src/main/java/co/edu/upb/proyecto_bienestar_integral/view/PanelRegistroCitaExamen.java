@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,6 +14,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.Lista;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 
 public class PanelRegistroCitaExamen extends JPanel {
@@ -58,11 +58,15 @@ public class PanelRegistroCitaExamen extends JPanel {
 	private JLabel lblComentario;
 	private JTextArea textAreaComentario;
 	private JScrollPane innerScrollPaneComentario;
+	private ModeloRegistroCitaExamen modeloRegistroCitaExamen;
+	private ControladorRegistrarCitaExamen controladorRegistrarCitaExamen; 
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelRegistroCitaExamen() {
+		modeloRegistroCitaExamen = new ModeloRegistroCitaExamen();
+		controladorRegistrarCitaExamen = new ControladorRegistrarCitaExamen(modeloRegistroCitaExamen, this);
 		setLayout(null); // Establecimiento Absolute Layout
 		// Creación de JPanel para el fondo de PanelRegistroCitaExamen:
 		JScrollPane scrollPane = new JScrollPane();
@@ -329,6 +333,7 @@ public class PanelRegistroCitaExamen extends JPanel {
 						lblEspecialidadEncontrada.setText(orden.getEspecialidad());
 						lblProfesionalEncontrado.setText(orden.getProfesionalAsignado().getNombreEId());
 						lblCostoEncontrado.setText("$ " + orden.getCosto());
+						lblServicioEncontrado.setText(orden.getTipoExamen());
 						lblEstadoEncontrado.setText(orden.getMensajeEstado());
 						textAreaComentario.setText(orden.getComentario());
 						ordenEncontrada = true; // Se encontró la Orden Médica
@@ -342,6 +347,7 @@ public class PanelRegistroCitaExamen extends JPanel {
 					lblEspecialidadEncontrada.setText("ID No Encontrado");
 					lblProfesionalEncontrado.setText("ID No Encontrado");
 					lblCostoEncontrado.setText("ID No Encontrado");
+					lblServicioEncontrado.setText("ID No Encontrado");
 					lblEstadoEncontrado.setText("ID No Encontrado");
 					textAreaComentario.setText("ID No Encontrado");
 				}
@@ -354,7 +360,7 @@ public class PanelRegistroCitaExamen extends JPanel {
 		buttonRegistrar.setText("Registrar");
 		buttonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controladorRegistrarCitaExamen.Registrar();
 			}
 		});
 		buttonRegistrar.setFont(new Font("Montserrat", Font.BOLD, 25));

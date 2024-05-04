@@ -5,7 +5,8 @@ import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 public enum TipoEspecialidad {
 	CARDIOLOGIA("Cardiología", "CAR" ,new ListaEnlazada<>()),
 	NEUROLOGIA("Neurología", "NEU", new ListaEnlazada<>()),
-	OFTALMOLOGIA("Oftalmología", "OFT" ,new ListaEnlazada<>());
+	OFTALMOLOGIA("Oftalmología", "OFT" ,new ListaEnlazada<>()),
+	MEDICINA_GENERAL("Medicina General" , "G", null);
 	
 	private String nombre;
 	private String abreviatura;
@@ -27,6 +28,15 @@ public enum TipoEspecialidad {
 	
 	public Lista<TipoExamen> getExamenes() {
 		return examenes;
+	}
+	
+	public static ListaDoblementeEnlazada<TipoEspecialidad> obtenerEspecialiades() {
+		ListaDoblementeEnlazada<TipoEspecialidad> especialidades = new ListaDoblementeEnlazada<>();
+		especialidades.agregarAlFinal(MEDICINA_GENERAL);
+		especialidades.agregarAlFinal(CARDIOLOGIA);
+		especialidades.agregarAlFinal(NEUROLOGIA);
+		especialidades.agregarAlFinal(OFTALMOLOGIA);
+		return especialidades;
 	}
 	
 	public void agregarExamen(TipoExamen examen) {

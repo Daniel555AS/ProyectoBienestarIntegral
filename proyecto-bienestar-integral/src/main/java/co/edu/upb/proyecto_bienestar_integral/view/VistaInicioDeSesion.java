@@ -56,8 +56,15 @@ public class VistaInicioDeSesion extends JFrame {
 		// Creación de JPanel con propósito decorativo (Ubicado en la zona derecha del JFrame):
 		JPanel panelDecorativoDer = new JPanel();
 		panelDecorativoDer.setBackground(new Color(0, 139, 139));
-		panelDecorativoDer.setBounds(1179, 0, 347, 783);
+		panelDecorativoDer.setBounds(1065, 0, 461, 783);
 		contentPane.add(panelDecorativoDer);
+		panelDecorativoDer.setLayout(null);
+		
+		JLabel lblLogoProyecto = new JLabel("");
+		lblLogoProyecto.setBackground(Color.ORANGE);
+		lblLogoProyecto.setBounds(36, 222, 404, 391);
+		setImageLabel(lblLogoProyecto, "Media\\BienestarIntegralLogoFondo.png");
+		panelDecorativoDer.add(lblLogoProyecto);
 
 		// Creación de JLabel con el texto: "Iniciar Sesión":
 		JLabel lblIniciarSesion = new JLabel("Iniciar Sesión");
@@ -143,6 +150,7 @@ public class VistaInicioDeSesion extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
+	// Método private void que permite insertar una imagen con relación al tamaño definido de un JLabel:
 	private void setImageLabel(JLabel label, String root) {
 	    ImageIcon imageIcon = new ImageIcon(root); 
 	    Image image = imageIcon.getImage();
@@ -162,5 +170,4 @@ public class VistaInicioDeSesion extends JFrame {
 	    
 	    this.repaint();
 	}
-	
 } // public class VistaInicioDeSesion extends JFrame

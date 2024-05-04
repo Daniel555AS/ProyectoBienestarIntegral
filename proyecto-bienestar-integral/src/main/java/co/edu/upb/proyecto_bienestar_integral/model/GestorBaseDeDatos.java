@@ -10,8 +10,8 @@ import java.sql.Date;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class GestorBaseDeDatos {
-	private static final String URL = "";
-	private static final String USUARIO = "";
+	private static final String URL = "jdbc:mysql://localhost:3307/bienestar_integral";
+	private static final String USUARIO = "root";
 	private static final String CONTRASENA = "";
 
 	public static Connection obtenerConexion() throws SQLException {
@@ -249,7 +249,68 @@ public class GestorBaseDeDatos {
 		}
 
 		return ordenes;
-	} // public static Lista<Paciente> obtenerPacientes()
+	} // public static Lista<Orden> obtenerOrdenes()
+	
+	public static Lista<Cita> obtenerCitas() {
+		Lista<Cita> citas = new ListaDoblementeEnlazada<>();
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+		ResultSet resultados = null;
+
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement("SELECT * FROM citas ORDER BY id_cita ASC");
+			resultados = consulta.executeQuery();
+
+			while (resultados.next()) {
+				String id = resultados.getString("id_cita");
+				String idHistoriaClinicaPaciente = resultados.getString("id_historia_clinica_paciente");
+				String especialidad = resultados.getString("especialidad");
+				String servicio = resultados.getString("servicio");
+				String motivo = resultados.getString("motivo");
+				String profesional = resultados.getString("id_profesional_asignado");
+				int costo = resultados.getInt("costo");
+				boolean estadoPago = resultados.getBoolean("estado_pago");
+				String comentario = resultados.getString("comentario");
+				Date fecha = resultados.getDate("fecha");
+				Time hora = resultados.getTime("hora");
+				ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(profesional);
+
+				 Cita cita = new Cita(id, idHistoriaClinicaPaciente, especialidad, servicio, motivo,
+                         profesionalAsignado, costo, estadoPago, comentario, fecha, hora);
+
+				citas.agregarAlFinal(cita);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (resultados != null) {
+				try {
+					resultados.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return citas;
+	} // public static Lista<Cita> obtenerCitas()
+	
 	
     public static Pila<Orden> obtenerPilaOrdenesPorAutorizar(String idHistoriaClinica) {
         Pila<Orden> ordenes = new Pila<>();
@@ -310,7 +371,6 @@ public class GestorBaseDeDatos {
         return ordenes;
     }
 	
-
 	public static void agregarPacienteBD(Paciente paciente) {
 		Connection conexion = null;
 		PreparedStatement consulta = null;
@@ -349,7 +409,53 @@ public class GestorBaseDeDatos {
 			}
 		}
 	} // public static void agregarPacienteBD(Paciente paciente)
+	
+	public static void agregarCitaBD(Cita cita) {
+		Connection conexion = null;
+		PreparedStatement consulta = null;
 
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement(
+					"INSERT INTO citas (id_cita, id_historia_clinica_paciente, especialidad, servicio, motivo, id_profesional_asignado, costo, estado_pago, comentario, fecha, hora) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			consulta.setString(1, cita.getIdentificador());
+			consulta.setString(2, cita.getIdHistoriaClinicaPaciente());
+			consulta.setString(3, cita.getEspecialidad());
+			consulta.setString(4, cita.getServicio());
+			consulta.setString(5, cita.getMotivo());
+			consulta.setString(6, cita.getProfesionalAsignado().getIdentificacion());
+			consulta.setInt(7, cita.getCosto());
+			consulta.setBoolean(8, cita.getEstadoPago());
+			consulta.setString(9, cita.getComentario());
+			consulta.setDate(10, cita.getFecha());
+			consulta.setTime(11, cita.getHora());
+
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	} // public static void agregarPacienteBD(Paciente paciente)
+	
+	
+	
+	
+	
 	public static void agregarOrdenBD(Orden orden) {
 		Connection conexion = null;
 		PreparedStatement consulta = null;

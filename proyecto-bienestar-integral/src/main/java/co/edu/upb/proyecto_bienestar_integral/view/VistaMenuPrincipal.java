@@ -178,6 +178,24 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroCitas.setForeground(new Color(255, 255, 255));
 		buttonRegistroCitas.setBackground(new Color(0, 172, 168));
 		buttonRegistroCitas.setFocusable(false);
+		
+		RoundedButton rndbtnTaquillaDePagos = new RoundedButton("Autorización de Exámenes", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
+		rndbtnTaquillaDePagos.setText("Taquilla de Pagos");
+		rndbtnTaquillaDePagos.setForeground(Color.WHITE);
+		rndbtnTaquillaDePagos.setFont(new Font("Montserrat", Font.BOLD, 25));
+		rndbtnTaquillaDePagos.setFocusable(false);
+		rndbtnTaquillaDePagos.setBackground(new Color(0, 172, 168));
+		rndbtnTaquillaDePagos.setBounds(0, 511, 337, 57);
+		panelMenu.add(rndbtnTaquillaDePagos);
+			mostrarPanel(new PanelTaquillaPagos());
+		RoundedButton buttonRegistroExamenes_1_1 = new RoundedButton("Autorización de Exámenes", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
+		buttonRegistroExamenes_1_1.setText("Sistema Colas");
+		buttonRegistroExamenes_1_1.setForeground(Color.WHITE);
+		buttonRegistroExamenes_1_1.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonRegistroExamenes_1_1.setFocusable(false);
+		buttonRegistroExamenes_1_1.setBackground(new Color(0, 172, 168));
+		buttonRegistroExamenes_1_1.setBounds(0, 565, 337, 57);
+		panelMenu.add(buttonRegistroExamenes_1_1);
 
 		// Creación de JPanel Dinámico:
 		panelDinamico = new JPanel();
@@ -199,5 +217,4 @@ public class VistaMenuPrincipal extends JFrame {
 		panelDinamico.revalidate();
 		panelDinamico.repaint();
 	} // private void mostrarPanel(JPanel panel)
-
 } // public class VistaMenuPrincipal extends JFrame
