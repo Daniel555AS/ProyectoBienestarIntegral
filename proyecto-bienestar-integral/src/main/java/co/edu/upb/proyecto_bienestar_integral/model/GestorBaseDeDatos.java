@@ -10,8 +10,8 @@ import java.sql.Date;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class GestorBaseDeDatos {
-	private static final String URL = "jdbc:mysql://localhost:3307/bienestar_integral";
-	private static final String USUARIO = "root";
+	private static final String URL = "";
+	private static final String USUARIO = "";
 	private static final String CONTRASENA = "";
 
 	public static Connection obtenerConexion() throws SQLException {
@@ -271,13 +271,14 @@ public class GestorBaseDeDatos {
 				String profesional = resultados.getString("id_profesional_asignado");
 				int costo = resultados.getInt("costo");
 				boolean estadoPago = resultados.getBoolean("estado_pago");
+				boolean estadoAtendido = resultados.getBoolean("estado_atendido");
 				String comentario = resultados.getString("comentario");
 				Date fecha = resultados.getDate("fecha");
 				Time hora = resultados.getTime("hora");
 				ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(profesional);
 
 				 Cita cita = new Cita(id, idHistoriaClinicaPaciente, especialidad, servicio, motivo,
-                         profesionalAsignado, costo, estadoPago, comentario, fecha, hora);
+                         profesionalAsignado, costo, estadoPago, estadoAtendido, comentario, fecha, hora);
 
 				citas.agregarAlFinal(cita);
 			}
@@ -310,6 +311,99 @@ public class GestorBaseDeDatos {
 
 		return citas;
 	} // public static Lista<Cita> obtenerCitas()
+	
+	public static void actualizarEstadoPagoCita(String idCita) {
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
+
+	    try {
+	        conexion = obtenerConexion();
+	        consulta = conexion.prepareStatement("UPDATE citas SET estado_pago = true WHERE id_cita = ?");
+	        consulta.setString(1, idCita);
+	        consulta.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        if (consulta != null) {
+	            try {
+	                consulta.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	}
+	
+	
+	
+	public static Lista<Cita> obtenerCitasPendientesPorPagar() {
+	    Lista<Cita> citas = new ListaDoblementeEnlazada<>();
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
+	    ResultSet resultados = null;
+
+	    try {
+	        conexion = obtenerConexion();
+	        consulta = conexion.prepareStatement("SELECT * FROM citas WHERE estado_pago = false ORDER BY id_cita ASC");
+	        resultados = consulta.executeQuery();
+
+	        while (resultados.next()) {
+	            String id = resultados.getString("id_cita");
+	            String idHistoriaClinicaPaciente = resultados.getString("id_historia_clinica_paciente");
+	            String especialidad = resultados.getString("especialidad");
+	            String servicio = resultados.getString("servicio");
+	            String motivo = resultados.getString("motivo");
+	            String profesional = resultados.getString("id_profesional_asignado");
+	            int costo = resultados.getInt("costo");
+	            boolean estadoPago = resultados.getBoolean("estado_pago");
+	            boolean estadoAtendido = resultados.getBoolean("estado_atendido");
+	            String comentario = resultados.getString("comentario");
+	            Date fecha = resultados.getDate("fecha");
+	            Time hora = resultados.getTime("hora");
+	            ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(profesional);
+
+	            Cita cita = new Cita(id, idHistoriaClinicaPaciente, especialidad, servicio, motivo,
+	                                 profesionalAsignado, costo, estadoPago, estadoAtendido, comentario, fecha, hora);
+
+	            citas.agregarAlFinal(cita);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        if (resultados != null) {
+	            try {
+	                resultados.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (consulta != null) {
+	            try {
+	                consulta.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    return citas;
+	}
 	
 	
     public static Pila<Orden> obtenerPilaOrdenesPorAutorizar(String idHistoriaClinica) {
@@ -417,7 +511,7 @@ public class GestorBaseDeDatos {
 		try {
 			conexion = obtenerConexion();
 			consulta = conexion.prepareStatement(
-					"INSERT INTO citas (id_cita, id_historia_clinica_paciente, especialidad, servicio, motivo, id_profesional_asignado, costo, estado_pago, comentario, fecha, hora) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					"INSERT INTO citas (id_cita, id_historia_clinica_paciente, especialidad, servicio, motivo, id_profesional_asignado, costo, estado_pago, estado_atendido, comentario, fecha, hora) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			consulta.setString(1, cita.getIdentificador());
 			consulta.setString(2, cita.getIdHistoriaClinicaPaciente());
 			consulta.setString(3, cita.getEspecialidad());
@@ -426,9 +520,10 @@ public class GestorBaseDeDatos {
 			consulta.setString(6, cita.getProfesionalAsignado().getIdentificacion());
 			consulta.setInt(7, cita.getCosto());
 			consulta.setBoolean(8, cita.getEstadoPago());
-			consulta.setString(9, cita.getComentario());
-			consulta.setDate(10, cita.getFecha());
-			consulta.setTime(11, cita.getHora());
+			consulta.setBoolean(9, cita.getEstadoAtendido());
+			consulta.setString(10, cita.getComentario());
+			consulta.setDate(11, cita.getFecha());
+			consulta.setTime(12, cita.getHora());
 
 			consulta.executeUpdate();
 		} catch (SQLException e) {

@@ -13,6 +13,7 @@ public class Cita {
 	private ProfesionalSalud profesionalAsignado;
 	private int costo;
 	private boolean estadoPago;
+	private boolean estadoAtendido;
 	private String comentario;
 	private Date fecha;
 	private Time hora;
@@ -28,10 +29,11 @@ public class Cita {
 		this.costo = costo;
 		this.comentario = comentario;
 		this.estadoPago = false;
+		this.estadoAtendido = false;
 	}
 	
 	public Cita(String identificador, String idHistoriaClinicaPaciente, String especialidad, String servicio,
-			String motivo, ProfesionalSalud profesionalAsignado, int costo, boolean estadoPago, String comentario, Date fecha, Time hora) {
+			String motivo, ProfesionalSalud profesionalAsignado, int costo, boolean estadoPago, boolean estadoAtendido, String comentario, Date fecha, Time hora) {
 		this.identificador = identificador;
 		this.idHistoriaClinicaPaciente = idHistoriaClinicaPaciente;
 		this.especialidad = especialidad;
@@ -41,6 +43,7 @@ public class Cita {
 		this.costo = costo;
 		this.comentario = comentario;
 		this.estadoPago = estadoPago;
+		this.estadoAtendido = estadoAtendido;
 		this.fecha = fecha;
 		this.hora = hora;
 	}
@@ -76,6 +79,10 @@ public class Cita {
 	
 	public boolean getEstadoPago() {
 		return estadoPago;
+	}
+	
+	public boolean getEstadoAtendido() {
+		return estadoAtendido;
 	}
 	
 	public String getComentario( ) {

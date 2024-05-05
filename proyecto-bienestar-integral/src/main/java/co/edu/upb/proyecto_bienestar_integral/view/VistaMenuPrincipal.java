@@ -40,6 +40,7 @@ public class VistaMenuPrincipal extends JFrame {
 	private RoundedButton buttonRegistroExamenes;
 	private RoundedButton buttonRegistroCitas;
 	private RoundedButton buttonRegistroOrdenes;
+	private RoundedButton buttonTaquilla;
 
 	/**
 	 * Launch the application.
@@ -63,7 +64,7 @@ public class VistaMenuPrincipal extends JFrame {
 	public VistaMenuPrincipal() {
 		// Deshabilitar la redimensión del JFrame:
 		setResizable(false);
-
+		panelDinamico = new JPanel();
 		panelPrincipal = new PanelPrincipal();
 		panelGestionPacientes = new PanelGestionPacientes();
 
@@ -104,7 +105,7 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonPrincipal.setText("Principal");
 		buttonPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPanel(panelPrincipal);
+				mostrarPanel(new PanelPrincipal());
 			}
 		});
 		buttonPrincipal.setFont(new Font("Montserrat", Font.BOLD, 25));
@@ -131,7 +132,7 @@ public class VistaMenuPrincipal extends JFrame {
 		// Creación de RoundedButton para el Registro de Órdenes
 		buttonRegistroOrdenes = new RoundedButton("Registro de Órdenes", new Color(0, 172, 168), new Color(0, 204, 199),
 				1000, 0);
-		buttonRegistroOrdenes.setBounds(0, 399, 337, 57);
+		buttonRegistroOrdenes.setBounds(0, 342, 337, 57);
 		panelMenu.add(buttonRegistroOrdenes);
 		buttonRegistroOrdenes.setText("Registro de Órdenes");
 		buttonRegistroOrdenes.addActionListener(new ActionListener() {
@@ -148,7 +149,7 @@ public class VistaMenuPrincipal extends JFrame {
 		// Creación de RoundedButton para el Registro de Exámenes
 		buttonRegistroExamenes = new RoundedButton("Autorización de Exámenes", new Color(0, 172, 168),
 				new Color(0, 204, 199), 1000, 0);
-		buttonRegistroExamenes.setBounds(0, 455, 337, 57);
+		buttonRegistroExamenes.setBounds(0, 398, 337, 57);
 		panelMenu.add(buttonRegistroExamenes);
 		buttonRegistroExamenes.setText("Autorización de Exámenes");
 		buttonRegistroExamenes.addActionListener(new ActionListener() {
@@ -165,7 +166,7 @@ public class VistaMenuPrincipal extends JFrame {
 		// Creación de RoundedButton para el Registro de Citas:
 		buttonRegistroCitas = new RoundedButton("Registro de Citas", new Color(0, 172, 168), new Color(0, 204, 199),
 				1000, 0);
-		buttonRegistroCitas.setBounds(0, 343, 337, 57);
+		buttonRegistroCitas.setBounds(0, 453, 337, 57);
 		panelMenu.add(buttonRegistroCitas);
 		buttonRegistroCitas.setText("Registro de Citas");
 		buttonRegistroCitas.addActionListener(new ActionListener() {
@@ -179,29 +180,26 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroCitas.setBackground(new Color(0, 172, 168));
 		buttonRegistroCitas.setFocusable(false);
 		
-		RoundedButton rndbtnTaquillaDePagos = new RoundedButton("Autorización de Exámenes", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
-		rndbtnTaquillaDePagos.setText("Taquilla de Pagos");
-		rndbtnTaquillaDePagos.setForeground(Color.WHITE);
-		rndbtnTaquillaDePagos.setFont(new Font("Montserrat", Font.BOLD, 25));
-		rndbtnTaquillaDePagos.setFocusable(false);
-		rndbtnTaquillaDePagos.setBackground(new Color(0, 172, 168));
-		rndbtnTaquillaDePagos.setBounds(0, 511, 337, 57);
-		panelMenu.add(rndbtnTaquillaDePagos);
-			mostrarPanel(new PanelTaquillaPagos());
-		RoundedButton buttonRegistroExamenes_1_1 = new RoundedButton("Autorización de Exámenes", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
-		buttonRegistroExamenes_1_1.setText("Sistema Colas");
-		buttonRegistroExamenes_1_1.setForeground(Color.WHITE);
-		buttonRegistroExamenes_1_1.setFont(new Font("Montserrat", Font.BOLD, 25));
-		buttonRegistroExamenes_1_1.setFocusable(false);
-		buttonRegistroExamenes_1_1.setBackground(new Color(0, 172, 168));
-		buttonRegistroExamenes_1_1.setBounds(0, 565, 337, 57);
-		panelMenu.add(buttonRegistroExamenes_1_1);
-
+		// Creación de RoundedButton para la Taquilla:
+		buttonTaquilla = new RoundedButton("Taquilla", new Color(0, 172, 168), new Color(0, 204, 199),
+				1000, 0);
+		buttonTaquilla.setBounds(0, 509, 337, 57);
+		panelMenu.add(buttonTaquilla);
+		buttonTaquilla.setText("Taquilla");
+		buttonTaquilla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarPanel(new PanelTaquillaPagos());
+			}
+		});
+		buttonTaquilla.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonTaquilla.setForeground(new Color(255, 255, 255));
+		buttonTaquilla.setBackground(new Color(0, 172, 168));
+		buttonTaquilla.setFocusable(false);
+			
 		// Creación de JPanel Dinámico:
-		panelDinamico = new JPanel();
+		panelDinamico.setLayout(new BorderLayout(0, 0));
 		panelDinamico.setBounds(336, 0, 1203, 783);
 		contentPane.add(panelDinamico);
-		panelDinamico.setLayout(new BorderLayout(0, 0));
 		mostrarPanel(panelPrincipal);
 		
 		// Centrar el JFrame en la pantalla:
