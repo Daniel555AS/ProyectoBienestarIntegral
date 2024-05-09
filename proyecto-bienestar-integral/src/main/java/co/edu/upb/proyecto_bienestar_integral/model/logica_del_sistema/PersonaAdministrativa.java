@@ -1,4 +1,4 @@
-package co.edu.upb.proyecto_bienestar_integral.model;
+package co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema;
 
 import java.sql.Date;
 

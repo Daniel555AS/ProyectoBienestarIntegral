@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.RoundedButton;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import javax.swing.JTextArea;

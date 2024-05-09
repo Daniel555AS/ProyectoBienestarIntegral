@@ -29,6 +29,11 @@ public class PanelColasSeleccionConsultas extends JPanel {
 	private JLabel lblIconoMedicinaInterna;
 	private JLabel lblIconoGastro;
 	private RoundedButton buttonMedicinaGeneral;
+	private RoundedButton buttonCardiologia;
+	private RoundedButton buttonNeurologia;
+	private RoundedButton buttonOftalmologia;
+	private RoundedButton buttonGastroenterologia;
+	private RoundedButton buttonMedicinaInterna;
 	private ModeloColaCitasConsulta modeloColaCitasConsulta;
 	private PanelMirarColaConsulta panelMirarColaConsulta;
 	private ControladorColaCitasConsulta controladorColaCitasConsulta;
@@ -59,20 +64,20 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		panelFondo.add(panelDecorativoSup);
 		panelDecorativoSup.setLayout(null);
 
-		// Creación de JLabel con el texto: "Registro de Cita":
+		// Creación de JLabel con el texto: "Sistema Gestor de Colas: Selección":
 		lblSistemaGestorColasSeleccion = new JLabel("Sistema Gestor de Colas: Selección");
 		lblSistemaGestorColasSeleccion.setForeground(new Color(240, 255, 240));
 		lblSistemaGestorColasSeleccion.setFont(new Font("Montserrat", Font.BOLD, 40));
 		lblSistemaGestorColasSeleccion.setBounds(45, 43, 973, 57);
 		panelDecorativoSup.add(lblSistemaGestorColasSeleccion);
 
-		// Creación de RoundedButton para la continuación de procesos:
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Medicina General:
 		buttonMedicinaGeneral = new RoundedButton("Medicina General", new Color(23, 174, 191), new Color(0, 139, 139),
 				1000, 60);
 		buttonMedicinaGeneral.setText("Medicina General");
 		buttonMedicinaGeneral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorColaCitasConsulta.accederCola("G101", "Medicina General", "Valoración", "Control");
+				controladorColaCitasConsulta.accederCola("A101", "Medicina General", "Valoración", "Control");
 			}
 		});
 		buttonMedicinaGeneral.setFont(new Font("Montserrat", Font.BOLD, 25));
@@ -81,56 +86,81 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		buttonMedicinaGeneral.setBounds(46, 398, 320, 57);
 		buttonMedicinaGeneral.setFocusable(false);
 		panelFondo.add(buttonMedicinaGeneral);
-
-		RoundedButton rndbtnCardiologa = new RoundedButton("Medicina General", new Color(23, 174, 191),
+		
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Cardiología:
+		buttonCardiologia = new RoundedButton("Cardiología", new Color(23, 174, 191),
 				new Color(0, 139, 139), 1000, 60);
-		rndbtnCardiologa.setText("Cardiología");
-		rndbtnCardiologa.setForeground(Color.WHITE);
-		rndbtnCardiologa.setFont(new Font("Montserrat", Font.BOLD, 25));
-		rndbtnCardiologa.setFocusable(false);
-		rndbtnCardiologa.setBackground(new Color(23, 174, 191));
-		rndbtnCardiologa.setBounds(452, 398, 320, 57);
-		panelFondo.add(rndbtnCardiologa);
-
-		RoundedButton rndbtnNeurologa = new RoundedButton("Medicina General", new Color(23, 174, 191),
+		buttonCardiologia.setText("Cardiología");
+		buttonCardiologia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorColaCitasConsulta.accederCola("C304", "Cardiología", "Valoración", "Control");
+			}
+		});
+		buttonCardiologia.setForeground(Color.WHITE);
+		buttonCardiologia.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonCardiologia.setFocusable(false);
+		buttonCardiologia.setBackground(new Color(23, 174, 191));
+		buttonCardiologia.setBounds(452, 398, 320, 57);
+		panelFondo.add(buttonCardiologia);
+		
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Neurología:
+		buttonNeurologia = new RoundedButton("Neurología", new Color(23, 174, 191),
 				new Color(0, 139, 139), 1000, 60);
-		rndbtnNeurologa.setText("Neurología");
-		rndbtnNeurologa.setForeground(Color.WHITE);
-		rndbtnNeurologa.setFont(new Font("Montserrat", Font.BOLD, 25));
-		rndbtnNeurologa.setFocusable(false);
-		rndbtnNeurologa.setBackground(new Color(23, 174, 191));
-		rndbtnNeurologa.setBounds(847, 398, 320, 57);
-		panelFondo.add(rndbtnNeurologa);
-
-		RoundedButton rndbtnOftalmologa = new RoundedButton("Medicina General", new Color(23, 174, 191),
+		buttonNeurologia.setText("Neurología");
+		buttonNeurologia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorColaCitasConsulta.accederCola("B200", "Neurología", "Valoración", "Control");
+			}
+		});
+		buttonNeurologia.setForeground(Color.WHITE);
+		buttonNeurologia.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonNeurologia.setFocusable(false);
+		buttonNeurologia.setBackground(new Color(23, 174, 191));
+		buttonNeurologia.setBounds(847, 398, 320, 57);
+		panelFondo.add(buttonNeurologia);
+		
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Oftalmología:
+		buttonOftalmologia = new RoundedButton("Oftalmología", new Color(23, 174, 191),
 				new Color(0, 139, 139), 1000, 60);
-		rndbtnOftalmologa.setText("Oftalmología");
-		rndbtnOftalmologa.setForeground(Color.WHITE);
-		rndbtnOftalmologa.setFont(new Font("Montserrat", Font.BOLD, 25));
-		rndbtnOftalmologa.setFocusable(false);
-		rndbtnOftalmologa.setBackground(new Color(23, 174, 191));
-		rndbtnOftalmologa.setBounds(46, 686, 320, 57);
-		panelFondo.add(rndbtnOftalmologa);
-
-		RoundedButton buttonMedicinaGeneral_1_1 = new RoundedButton("Medicina General", new Color(23, 174, 191),
+		buttonOftalmologia.setText("Oftalmología");
+		buttonOftalmologia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorColaCitasConsulta.accederCola("B204", "Oftalmología", "Valoración", "Control");
+			}
+		});
+		buttonOftalmologia.setForeground(Color.WHITE);
+		buttonOftalmologia.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonOftalmologia.setFocusable(false);
+		buttonOftalmologia.setBackground(new Color(23, 174, 191));
+		buttonOftalmologia.setBounds(46, 686, 320, 57);
+		panelFondo.add(buttonOftalmologia);
+		
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Medicina Interna:
+		buttonMedicinaInterna = new RoundedButton("Medicina Interna", new Color(23, 174, 191),
 				new Color(0, 139, 139), 1000, 60);
-		buttonMedicinaGeneral_1_1.setText("Medicina Interna");
-		buttonMedicinaGeneral_1_1.setForeground(Color.WHITE);
-		buttonMedicinaGeneral_1_1.setFont(new Font("Montserrat", Font.BOLD, 25));
-		buttonMedicinaGeneral_1_1.setFocusable(false);
-		buttonMedicinaGeneral_1_1.setBackground(new Color(23, 174, 191));
-		buttonMedicinaGeneral_1_1.setBounds(452, 686, 320, 57);
-		panelFondo.add(buttonMedicinaGeneral_1_1);
-
-		RoundedButton buttonMedicinaGeneral_1_1_1 = new RoundedButton("Medicina General", new Color(23, 174, 191),
+		buttonMedicinaInterna.setText("Medicina Interna");
+		buttonMedicinaInterna.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorColaCitasConsulta.accederCola("C300", "Medicina Interna", "Valoración", "Control");
+			}
+		});
+		buttonMedicinaInterna.setForeground(Color.WHITE);
+		buttonMedicinaInterna.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonMedicinaInterna.setFocusable(false);
+		buttonMedicinaInterna.setBackground(new Color(23, 174, 191));
+		buttonMedicinaInterna.setBounds(452, 686, 320, 57);
+		panelFondo.add(buttonMedicinaInterna);
+		
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Gastroenterología:
+		buttonGastroenterologia = new RoundedButton("Gastroenterología", new Color(23, 174, 191),
 				new Color(0, 139, 139), 1000, 60);
-		buttonMedicinaGeneral_1_1_1.setText("Gastroenterologia");
-		buttonMedicinaGeneral_1_1_1.setForeground(Color.WHITE);
-		buttonMedicinaGeneral_1_1_1.setFont(new Font("Montserrat", Font.BOLD, 25));
-		buttonMedicinaGeneral_1_1_1.setFocusable(false);
-		buttonMedicinaGeneral_1_1_1.setBackground(new Color(23, 174, 191));
-		buttonMedicinaGeneral_1_1_1.setBounds(847, 686, 320, 57);
-		panelFondo.add(buttonMedicinaGeneral_1_1_1);
+		buttonGastroenterologia.setText("Gastroenterología");
+		buttonGastroenterologia.setForeground(Color.WHITE);
+		buttonGastroenterologia.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonGastroenterologia.setFocusable(false);
+		buttonGastroenterologia.setBackground(new Color(23, 174, 191));
+		buttonGastroenterologia.setBounds(847, 686, 320, 57);
+		panelFondo.add(buttonGastroenterologia);
 
 		lblIconoMedicinaGeneral = new JLabel("");
 		lblIconoMedicinaGeneral.setBounds(24, 214, 360, 214);

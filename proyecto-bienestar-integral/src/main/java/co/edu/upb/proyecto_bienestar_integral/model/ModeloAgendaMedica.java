@@ -3,6 +3,8 @@ package co.edu.upb.proyecto_bienestar_integral.model;
 import java.sql.Date;
 
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
 
 public class ModeloAgendaMedica {
 

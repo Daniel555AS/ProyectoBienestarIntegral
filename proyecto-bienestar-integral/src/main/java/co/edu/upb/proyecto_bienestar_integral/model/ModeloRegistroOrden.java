@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ProfesionalSalud;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
 
 public class ModeloRegistroOrden {
 

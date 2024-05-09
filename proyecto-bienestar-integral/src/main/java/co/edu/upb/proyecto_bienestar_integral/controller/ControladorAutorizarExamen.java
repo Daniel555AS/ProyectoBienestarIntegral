@@ -1,6 +1,11 @@
 package co.edu.upb.proyecto_bienestar_integral.controller;
 
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.GestorBaseDeDatos;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ProfesionalSalud;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
 
 import javax.swing.JOptionPane;

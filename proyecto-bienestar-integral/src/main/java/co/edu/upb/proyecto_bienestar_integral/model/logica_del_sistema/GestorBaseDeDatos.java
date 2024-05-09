@@ -1,4 +1,4 @@
-package co.edu.upb.proyecto_bienestar_integral.model;
+package co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Date;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
-import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
 
 public class GestorBaseDeDatos {
 	private static final String URL = ""; // Url de Base de Datos

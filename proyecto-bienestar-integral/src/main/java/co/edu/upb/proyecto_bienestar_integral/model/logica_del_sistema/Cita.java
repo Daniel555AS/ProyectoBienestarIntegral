@@ -1,9 +1,7 @@
-package co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema;
+package co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema;
 
 import java.sql.Date;
 import java.sql.Time;
-
-import co.edu.upb.proyecto_bienestar_integral.model.ProfesionalSalud;
 
 public class Cita {
 

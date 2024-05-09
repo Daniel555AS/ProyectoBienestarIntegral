@@ -1,4 +1,8 @@
-package co.edu.upb.proyecto_bienestar_integral.model;
+package co.edu.upb.proyecto_bienestar_integral.model.logica_gestion_pacientes;
+
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.GestorBaseDeDatos;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
 
 public class ModeloConfirmacionPaciente {
 

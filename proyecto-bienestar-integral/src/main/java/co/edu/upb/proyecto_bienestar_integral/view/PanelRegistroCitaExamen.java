@@ -14,6 +14,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.Lista;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 

@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_gestion_pacientes.ModeloGestorDatosPaciente;
 
 public class PanelRegistrarPaciente extends JPanel {
 

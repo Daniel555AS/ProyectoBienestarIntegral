@@ -1,6 +1,8 @@
 package co.edu.upb.proyecto_bienestar_integral.model;
 
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.PersonaAdministrativa;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
 
 public class ModeloGestorInicioDeSesion {
 

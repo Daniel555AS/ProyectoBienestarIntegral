@@ -2,6 +2,8 @@ package co.edu.upb.proyecto_bienestar_integral.model;
 
 import java.util.Comparator;
 
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
+
 public class ComparadorFechaHoraOrdenes implements Comparator<Orden> {
     @Override
     public int compare(Orden o1, Orden o2) {

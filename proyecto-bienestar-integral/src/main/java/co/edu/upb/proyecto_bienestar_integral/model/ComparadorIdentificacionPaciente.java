@@ -3,6 +3,8 @@ package co.edu.upb.proyecto_bienestar_integral.model;
 import java.math.BigInteger;
 import java.util.Comparator;
 
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
+
 public class ComparadorIdentificacionPaciente implements Comparator<Paciente> {
     @Override
     public int compare(Paciente paciente1, Paciente paciente2) {

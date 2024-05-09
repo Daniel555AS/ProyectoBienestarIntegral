@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 
 public class PanelCambiarEstadoOrden extends JPanel {

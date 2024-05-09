@@ -1,7 +1,8 @@
-package co.edu.upb.proyecto_bienestar_integral.model;
+package co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema;
 
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
-import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
+import co.edu.upb.proyecto_bienestar_integral.model.ComparadorFechaHoraOrdenes;
+import co.edu.upb.proyecto_bienestar_integral.model.ComparadorIdentificacionPaciente;
 
 public class SistemaDeSalud {
 	

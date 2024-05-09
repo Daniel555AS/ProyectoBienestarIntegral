@@ -12,10 +12,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import co.edu.upb.proyecto_bienestar_integral.model.TipoEspecialidad;
+
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.TipoEspecialidad;
 
 public class PanelRegistroCitaValoracionControl extends JPanel {
 

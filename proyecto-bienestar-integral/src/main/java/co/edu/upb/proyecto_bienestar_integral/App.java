@@ -1,7 +1,7 @@
 package co.edu.upb.proyecto_bienestar_integral;
 
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
-import co.edu.upb.proyecto_bienestar_integral.model.SistemaDeSalud;
 
 public class App {
     public static void main( String[] args ){

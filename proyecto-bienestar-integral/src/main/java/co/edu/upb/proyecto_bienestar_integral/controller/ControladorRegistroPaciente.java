@@ -3,6 +3,8 @@ package co.edu.upb.proyecto_bienestar_integral.controller;
 import java.sql.Date;
 import javax.swing.JOptionPane;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_gestion_pacientes.ModeloGestorDatosPaciente;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
 
 public class ControladorRegistroPaciente {

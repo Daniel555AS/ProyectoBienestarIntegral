@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_gestion_pacientes.ModeloConfirmacionPaciente;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 
 public class PanelConfirmarPaciente extends JPanel {

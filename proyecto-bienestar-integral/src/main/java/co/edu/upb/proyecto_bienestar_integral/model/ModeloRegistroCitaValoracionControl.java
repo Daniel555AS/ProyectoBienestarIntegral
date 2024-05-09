@@ -5,7 +5,10 @@ import java.util.regex.Pattern;
 
 import co.edu.upb.proyecto_bienestar_integral.estructuras.Lista;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.ListaDoblementeEnlazada;
-import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Cita;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ProfesionalSalud;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.TipoEspecialidad;
 
 public class ModeloRegistroCitaValoracionControl {
 	
