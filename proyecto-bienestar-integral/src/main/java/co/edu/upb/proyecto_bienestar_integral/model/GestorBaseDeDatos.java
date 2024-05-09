@@ -8,11 +8,12 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Date;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
 
 public class GestorBaseDeDatos {
-	private static final String URL = "";
-	private static final String USUARIO = "";
-	private static final String CONTRASENA = "";
+	private static final String URL = ""; // Url de Base de Datos
+	private static final String USUARIO = ""; // Usuario de Base de Datos
+	private static final String CONTRASENA = ""; // Contraseña de Base de Datos
 
 	public static Connection obtenerConexion() throws SQLException {
 		return DriverManager.getConnection(URL, USUARIO, CONTRASENA);
@@ -250,7 +251,7 @@ public class GestorBaseDeDatos {
 
 		return ordenes;
 	} // public static Lista<Orden> obtenerOrdenes()
-	
+
 	public static Lista<Cita> obtenerCitas() {
 		Lista<Cita> citas = new ListaDoblementeEnlazada<>();
 		Connection conexion = null;
@@ -277,8 +278,8 @@ public class GestorBaseDeDatos {
 				Time hora = resultados.getTime("hora");
 				ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(profesional);
 
-				 Cita cita = new Cita(id, idHistoriaClinicaPaciente, especialidad, servicio, motivo,
-                         profesionalAsignado, costo, estadoPago, estadoAtendido, comentario, fecha, hora);
+				Cita cita = new Cita(id, idHistoriaClinicaPaciente, especialidad, servicio, motivo, profesionalAsignado,
+						costo, estadoPago, estadoAtendido, comentario, fecha, hora);
 
 				citas.agregarAlFinal(cita);
 			}
@@ -311,160 +312,210 @@ public class GestorBaseDeDatos {
 
 		return citas;
 	} // public static Lista<Cita> obtenerCitas()
-	
+
 	public static void actualizarEstadoPagoCita(String idCita) {
-	    Connection conexion = null;
-	    PreparedStatement consulta = null;
+		Connection conexion = null;
+		PreparedStatement consulta = null;
 
-	    try {
-	        conexion = obtenerConexion();
-	        consulta = conexion.prepareStatement("UPDATE citas SET estado_pago = true WHERE id_cita = ?");
-	        consulta.setString(1, idCita);
-	        consulta.executeUpdate();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        // Cierre de recursos
-	        if (consulta != null) {
-	            try {
-	                consulta.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	        if (conexion != null) {
-	            try {
-	                conexion.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement("UPDATE citas SET estado_pago = true WHERE id_cita = ?");
+			consulta.setString(1, idCita);
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
-	
-	
-	
+
 	public static Lista<Cita> obtenerCitasPendientesPorPagar() {
-	    Lista<Cita> citas = new ListaDoblementeEnlazada<>();
-	    Connection conexion = null;
-	    PreparedStatement consulta = null;
-	    ResultSet resultados = null;
+		Lista<Cita> citas = new ListaDoblementeEnlazada<>();
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+		ResultSet resultados = null;
 
-	    try {
-	        conexion = obtenerConexion();
-	        consulta = conexion.prepareStatement("SELECT * FROM citas WHERE estado_pago = false ORDER BY id_cita ASC");
-	        resultados = consulta.executeQuery();
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement("SELECT * FROM citas WHERE estado_pago = false ORDER BY id_cita ASC");
+			resultados = consulta.executeQuery();
 
-	        while (resultados.next()) {
-	            String id = resultados.getString("id_cita");
-	            String idHistoriaClinicaPaciente = resultados.getString("id_historia_clinica_paciente");
-	            String especialidad = resultados.getString("especialidad");
-	            String servicio = resultados.getString("servicio");
-	            String motivo = resultados.getString("motivo");
-	            String profesional = resultados.getString("id_profesional_asignado");
-	            int costo = resultados.getInt("costo");
-	            boolean estadoPago = resultados.getBoolean("estado_pago");
-	            boolean estadoAtendido = resultados.getBoolean("estado_atendido");
-	            String comentario = resultados.getString("comentario");
-	            Date fecha = resultados.getDate("fecha");
-	            Time hora = resultados.getTime("hora");
-	            ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(profesional);
+			while (resultados.next()) {
+				String id = resultados.getString("id_cita");
+				String idHistoriaClinicaPaciente = resultados.getString("id_historia_clinica_paciente");
+				String especialidad = resultados.getString("especialidad");
+				String servicio = resultados.getString("servicio");
+				String motivo = resultados.getString("motivo");
+				String profesional = resultados.getString("id_profesional_asignado");
+				int costo = resultados.getInt("costo");
+				boolean estadoPago = resultados.getBoolean("estado_pago");
+				boolean estadoAtendido = resultados.getBoolean("estado_atendido");
+				String comentario = resultados.getString("comentario");
+				Date fecha = resultados.getDate("fecha");
+				Time hora = resultados.getTime("hora");
+				ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(profesional);
 
-	            Cita cita = new Cita(id, idHistoriaClinicaPaciente, especialidad, servicio, motivo,
-	                                 profesionalAsignado, costo, estadoPago, estadoAtendido, comentario, fecha, hora);
+				Cita cita = new Cita(id, idHistoriaClinicaPaciente, especialidad, servicio, motivo, profesionalAsignado,
+						costo, estadoPago, estadoAtendido, comentario, fecha, hora);
 
-	            citas.agregarAlFinal(cita);
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        // Cierre de recursos
-	        if (resultados != null) {
-	            try {
-	                resultados.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	        if (consulta != null) {
-	            try {
-	                consulta.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	        if (conexion != null) {
-	            try {
-	                conexion.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
+				citas.agregarAlFinal(cita);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (resultados != null) {
+				try {
+					resultados.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
-	    return citas;
+		return citas;
 	}
-	
-	
-    public static Pila<Orden> obtenerPilaOrdenesPorAutorizar(String idHistoriaClinica) {
-        Pila<Orden> ordenes = new Pila<>();
-        Connection conexion = null;
-        PreparedStatement consulta = null;
-        ResultSet resultados = null;
 
-        try {
-            conexion = obtenerConexion();
-            String sql = "SELECT * FROM ordenes WHERE id_historia_clinica_paciente = ? AND estado = false ORDER BY fecha ASC";
-            consulta = conexion.prepareStatement(sql);
-            consulta.setString(1, idHistoriaClinica);
-            resultados = consulta.executeQuery();
+	public static Pila<Orden> obtenerPilaOrdenesPorAutorizar(String idHistoriaClinica) {
+		Pila<Orden> ordenes = new Pila<>();
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+		ResultSet resultados = null;
 
-            while (resultados.next()) {
-                String identificador = resultados.getString("id_orden");
-                String especialidad = resultados.getString("especialidad");
-                String tipoExamen = resultados.getString("examen");
-                int costo = resultados.getInt("costo");
-                String descripcion = resultados.getString("descripcion");
-                Date fecha = resultados.getDate("fecha");
-                Time hora = resultados.getTime("hora");
-                String idProfesionalAsignado = resultados.getString("id_profesional_asignado");
-                String comentario = resultados.getString("comentario");
-                ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(idProfesionalAsignado);
+		try {
+			conexion = obtenerConexion();
+			String sql = "SELECT * FROM ordenes WHERE id_historia_clinica_paciente = ? AND estado = false ORDER BY fecha ASC";
+			consulta = conexion.prepareStatement(sql);
+			consulta.setString(1, idHistoriaClinica);
+			resultados = consulta.executeQuery();
 
-                Orden orden = new Orden(identificador, especialidad, tipoExamen, idHistoriaClinica, costo, descripcion, fecha, profesionalAsignado, comentario);
-                orden.setHora(hora);
-                ordenes.push(orden);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Cierre de recursos
-            if (resultados != null) {
-                try {
-                    resultados.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (consulta != null) {
-                try {
-                    consulta.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+			while (resultados.next()) {
+				String identificador = resultados.getString("id_orden");
+				String especialidad = resultados.getString("especialidad");
+				String tipoExamen = resultados.getString("examen");
+				int costo = resultados.getInt("costo");
+				String descripcion = resultados.getString("descripcion");
+				Date fecha = resultados.getDate("fecha");
+				Time hora = resultados.getTime("hora");
+				String idProfesionalAsignado = resultados.getString("id_profesional_asignado");
+				String comentario = resultados.getString("comentario");
+				ProfesionalSalud profesionalAsignado = obtenerProfesionalSaludAsignado(idProfesionalAsignado);
 
-        return ordenes;
-    }
-	
+				Orden orden = new Orden(identificador, especialidad, tipoExamen, idHistoriaClinica, costo, descripcion,
+						fecha, profesionalAsignado, comentario);
+				orden.setHora(hora);
+				ordenes.push(orden);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (resultados != null) {
+				try {
+					resultados.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return ordenes;
+	}
+
+	public static Cola<Cita> obtenerColaCitas(String especialidad, String motivo1, String motivo2) {
+		Cola<Cita> colaCitas = new Cola<>();
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+		ResultSet resultados = null;
+
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement(
+					"SELECT * FROM colas_espera WHERE especialidad = ? AND (motivo = ? OR motivo = ?)");
+			consulta.setString(1, especialidad);
+			consulta.setString(2, motivo1);
+			consulta.setString(3, motivo2);
+			resultados = consulta.executeQuery();
+
+			while (resultados.next()) {
+				String idCita = resultados.getString("id_cita_en_cola");
+				Cita cita = obtenerCitaSegunId(idCita);
+				if (cita != null) {
+					colaCitas.enqueue(cita);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (resultados != null) {
+				try {
+					resultados.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return colaCitas;
+	}
+
 	public static void agregarPacienteBD(Paciente paciente) {
 		Connection conexion = null;
 		PreparedStatement consulta = null;
@@ -503,7 +554,7 @@ public class GestorBaseDeDatos {
 			}
 		}
 	} // public static void agregarPacienteBD(Paciente paciente)
-	
+
 	public static void agregarCitaBD(Cita cita) {
 		Connection conexion = null;
 		PreparedStatement consulta = null;
@@ -546,11 +597,7 @@ public class GestorBaseDeDatos {
 			}
 		}
 	} // public static void agregarPacienteBD(Paciente paciente)
-	
-	
-	
-	
-	
+
 	public static void agregarOrdenBD(Orden orden) {
 		Connection conexion = null;
 		PreparedStatement consulta = null;
@@ -592,38 +639,133 @@ public class GestorBaseDeDatos {
 			}
 		}
 	} // public static void agregarOrdenBD(Orden orden)
-	
-	 public static void actualizarEstadoOrden(String idOrden) {
-	        Connection conexion = null;
-	        PreparedStatement consulta = null;
 
-	        try {
-	            conexion = obtenerConexion();
-	            String sql = "UPDATE ordenes SET estado = true WHERE id_orden = ?";
-	            consulta = conexion.prepareStatement(sql);
-	            consulta.setString(1, idOrden);
-	            consulta.executeUpdate();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            // Cierre de recursos
-	            if (consulta != null) {
-	                try {
-	                    consulta.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
+	public static void agregarCitaColasEsperaBD(Cita cita) {
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement(
+					"INSERT INTO colas_espera (id_cita_en_cola, id_historia_clinica_paciente, especialidad, motivo) VALUES (?, ?, ?, ?)");
+			consulta.setString(1, cita.getIdentificador());
+			consulta.setString(2, cita.getIdHistoriaClinicaPaciente());
+			consulta.setString(3, cita.getEspecialidad());
+			consulta.setString(4, cita.getMotivo());
+
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	} // public void agregarCitaColasEsperaBD(Cita cita)
+
+	public static void actualizarEstadoOrden(String idOrden) {
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+
+		try {
+			conexion = obtenerConexion();
+			String sql = "UPDATE ordenes SET estado = true WHERE id_orden = ?";
+			consulta = conexion.prepareStatement(sql);
+			consulta.setString(1, idOrden);
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static void actualizarEstadoAtendidoCita(String idCita) {
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
+
+	    try {
+	        conexion = obtenerConexion();
+	        consulta = conexion.prepareStatement("UPDATE citas SET estado_atendido = true WHERE id_cita = ?");
+	        consulta.setString(1, idCita);
+	        consulta.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        if (consulta != null) {
+	            try {
+	                consulta.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
 	            }
-	            if (conexion != null) {
-	                try {
-	                    conexion.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
+	        }
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
 	            }
 	        }
 	    }
+	}
 	
+
+	public static void eliminarCitaDeColaEspera(String idCitaEnCola) {
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement("DELETE FROM colas_espera WHERE id_cita_en_cola = ?");
+			consulta.setString(1, idCitaEnCola);
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	private static ProfesionalSalud obtenerProfesionalSaludAsignado(String id) {
 		Lista<ProfesionalSalud> profesionales = SistemaDeSalud.conseguirProfesionalesSalud();
@@ -633,6 +775,30 @@ public class GestorBaseDeDatos {
 			}
 		}
 		return null;
+	}
+
+	private static Cita obtenerCitaSegunId(String id) {
+		Cita cita = null;
+		Lista<Cita> citas = SistemaDeSalud.conseguirCitas();
+		for (int ii = citas.getTamano() - 1; ii >= 0; ii--) {
+			cita = citas.obtenerElemento(ii);
+			if (cita.getIdentificador().equals(id)) {
+				return cita;
+			}
+		}
+		return cita;
+	}
+
+	private static Paciente obtenerPacienteSegunId(String id) {
+		Paciente paciente = null;
+		Lista<Paciente> pacientes = SistemaDeSalud.conseguirPacientes();
+		for (int ii = 0; ii < pacientes.getTamano(); ii++) {
+			paciente = pacientes.obtenerElemento(ii);
+			if (paciente.getIdentificacion().equals(id)) {
+				return paciente;
+			}
+		}
+		return paciente;
 	}
 
 } // public class GestorBaseDeDatos

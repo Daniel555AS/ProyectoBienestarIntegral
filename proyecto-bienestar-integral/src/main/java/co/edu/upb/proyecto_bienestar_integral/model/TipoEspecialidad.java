@@ -6,7 +6,9 @@ public enum TipoEspecialidad {
 	CARDIOLOGIA("Cardiología", "CAR" ,new ListaEnlazada<>()),
 	NEUROLOGIA("Neurología", "NEU", new ListaEnlazada<>()),
 	OFTALMOLOGIA("Oftalmología", "OFT" ,new ListaEnlazada<>()),
-	MEDICINA_GENERAL("Medicina General" , "G", null);
+	MEDICINA_GENERAL("Medicina General" , "G", null),
+	MEDICINA_INTERNA("Medicina Interna", "MI", new ListaEnlazada<>()),
+	GASTROENTEROLOGIA("Gastroenterología", "GT", new ListaEnlazada<>());
 	
 	private String nombre;
 	private String abreviatura;
@@ -30,12 +32,14 @@ public enum TipoEspecialidad {
 		return examenes;
 	}
 	
-	public static ListaDoblementeEnlazada<TipoEspecialidad> obtenerEspecialiades() {
+	public static ListaDoblementeEnlazada<TipoEspecialidad> obtenerCategoriasMedicas() {
 		ListaDoblementeEnlazada<TipoEspecialidad> especialidades = new ListaDoblementeEnlazada<>();
 		especialidades.agregarAlFinal(MEDICINA_GENERAL);
 		especialidades.agregarAlFinal(CARDIOLOGIA);
 		especialidades.agregarAlFinal(NEUROLOGIA);
 		especialidades.agregarAlFinal(OFTALMOLOGIA);
+		especialidades.agregarAlFinal(MEDICINA_INTERNA);
+		especialidades.agregarAlFinal(GASTROENTEROLOGIA);
 		return especialidades;
 	}
 	
@@ -43,8 +47,10 @@ public enum TipoEspecialidad {
 		this.getExamenes().agregarAlFinal(examen);
 	}
 	
+	// Método toString:
     @Override
     public String toString() {
         return nombre;
     }
-}
+    
+} // public enum TipoEspecialidad 

@@ -1,7 +1,9 @@
-package co.edu.upb.proyecto_bienestar_integral.model;
+package co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema;
 
 import java.sql.Date;
 import java.sql.Time;
+
+import co.edu.upb.proyecto_bienestar_integral.model.ProfesionalSalud;
 
 public class Cita {
 
@@ -109,5 +111,10 @@ public class Cita {
 	public void setEstadoPago(boolean estadoPago) {
 		this.estadoPago = estadoPago;
 	}
+	
+	public void setEstadoAtendido(boolean estadoAtendido) {
+		this.estadoAtendido = estadoAtendido;
+	}
+	
 
 } // public class Cita

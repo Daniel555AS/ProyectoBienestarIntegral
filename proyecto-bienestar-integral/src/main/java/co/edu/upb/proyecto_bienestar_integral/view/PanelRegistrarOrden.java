@@ -166,6 +166,8 @@ public class PanelRegistrarOrden extends JPanel {
         comboBoxEspecialidades.addItem(TipoEspecialidad.CARDIOLOGIA);
         comboBoxEspecialidades.addItem(TipoEspecialidad.NEUROLOGIA);
         comboBoxEspecialidades.addItem(TipoEspecialidad.OFTALMOLOGIA);
+        comboBoxEspecialidades.addItem(TipoEspecialidad.GASTROENTEROLOGIA);
+        comboBoxEspecialidades.addItem(TipoEspecialidad.MEDICINA_INTERNA);
         panelFondo.add(comboBoxEspecialidades);
         comboBoxEspecialidades.addActionListener(new ActionListener() {
             @Override

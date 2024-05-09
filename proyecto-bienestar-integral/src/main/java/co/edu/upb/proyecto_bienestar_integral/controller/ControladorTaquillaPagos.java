@@ -24,6 +24,12 @@ public class ControladorTaquillaPagos {
 		modeloTaquillaPagos.pagarCita(panelTaquillaPagos.getCitaIdentificada());
 		JOptionPane.showMessageDialog(null, "Pago Confirmado con Éxtio", "OPERACIÓN EXITOSA",
 				JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null,
+				"Se ha Agregado la Cita a la Cola de Espera: "
+						+ panelTaquillaPagos.getCitaIdentificada().getEspecialidad() + " - "
+						+ panelTaquillaPagos.getCitaIdentificada().getMotivo(),
+				"OPERACIÓN EXITOSA", JOptionPane.INFORMATION_MESSAGE);
+		panelTaquillaPagos.setCampoIdCitaNull();
 	}
 
 } // public class ControladorTaquillaPagos

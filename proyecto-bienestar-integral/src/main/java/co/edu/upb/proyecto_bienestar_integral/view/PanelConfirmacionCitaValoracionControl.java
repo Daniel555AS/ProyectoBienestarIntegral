@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.RoundedButton;
 
 public class PanelConfirmacionCitaValoracionControl extends JPanel {

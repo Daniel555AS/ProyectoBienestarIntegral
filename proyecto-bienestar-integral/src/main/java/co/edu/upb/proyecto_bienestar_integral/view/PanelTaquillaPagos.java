@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.Lista;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 import javax.swing.SwingConstants;
@@ -185,6 +186,11 @@ public class PanelTaquillaPagos extends JPanel {
 	public Cita getCitaIdentificada() {
 		return citaIdentificada;
 	}
+	
+	// Métodos Setters:
+	public void setCampoIdCitaNull() {
+		campoIdCita.setText("");
+	}
 
 	// Método private void que permite insertar una imagen con relación al tamaño
 	// definido de un JLabel:
@@ -206,6 +212,6 @@ public class PanelTaquillaPagos extends JPanel {
 		label.setIcon(scaledIcon);
 
 		this.repaint();
-	}
+	} // private void setImageLabel(JLabel label, String root) 
 
 } // public class PanelTaquillaPagos extends JPanel

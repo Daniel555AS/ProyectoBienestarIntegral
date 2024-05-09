@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.Lista;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.ListaDoblementeEnlazada;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
 
 public class ControladorRegistrarCitaExamen {
 
@@ -59,7 +60,7 @@ public class ControladorRegistrarCitaExamen {
 
 	private String obtenerIdCita(Orden orden) {
 		String idCita = "";
-		ListaDoblementeEnlazada<TipoEspecialidad> especialidades = TipoEspecialidad.obtenerEspecialiades();
+		ListaDoblementeEnlazada<TipoEspecialidad> especialidades = TipoEspecialidad.obtenerCategoriasMedicas();
 		for (int ii = 0; ii < especialidades.getTamano(); ii++) {
 			TipoEspecialidad especialidad = especialidades.obtenerElemento(ii);
 			if (especialidad.getNombre().equals(orden.getEspecialidad())) {

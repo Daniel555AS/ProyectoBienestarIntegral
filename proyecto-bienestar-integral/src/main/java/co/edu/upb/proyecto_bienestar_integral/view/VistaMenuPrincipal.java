@@ -41,6 +41,7 @@ public class VistaMenuPrincipal extends JFrame {
 	private RoundedButton buttonRegistroCitas;
 	private RoundedButton buttonRegistroOrdenes;
 	private RoundedButton buttonTaquilla;
+	private RoundedButton buttonColas;
 
 	/**
 	 * Launch the application.
@@ -183,7 +184,7 @@ public class VistaMenuPrincipal extends JFrame {
 		// Creación de RoundedButton para la Taquilla:
 		buttonTaquilla = new RoundedButton("Taquilla", new Color(0, 172, 168), new Color(0, 204, 199),
 				1000, 0);
-		buttonTaquilla.setBounds(0, 509, 337, 57);
+		buttonTaquilla.setBounds(0, 506, 337, 57);
 		panelMenu.add(buttonTaquilla);
 		buttonTaquilla.setText("Taquilla");
 		buttonTaquilla.addActionListener(new ActionListener() {
@@ -195,6 +196,24 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonTaquilla.setForeground(new Color(255, 255, 255));
 		buttonTaquilla.setBackground(new Color(0, 172, 168));
 		buttonTaquilla.setFocusable(false);
+		
+		// Creación de RoundedButton para el Sistema de Colas:
+		buttonColas = new RoundedButton("Gestionar Colas", new Color(0, 172, 168), new Color(0, 204, 199),
+				1000, 0);
+		buttonColas.setBounds(0, 558, 337, 57);
+		panelMenu.add(buttonColas);
+		buttonColas.setText("Gestionar Colas");
+		buttonColas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarPanel(new PanelSistemaColas());
+			}
+		});
+		buttonColas.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonColas.setForeground(new Color(255, 255, 255));
+		buttonColas.setBackground(new Color(0, 172, 168));
+		buttonColas.setFocusable(false);
+		
+		
 			
 		// Creación de JPanel Dinámico:
 		panelDinamico.setLayout(new BorderLayout(0, 0));

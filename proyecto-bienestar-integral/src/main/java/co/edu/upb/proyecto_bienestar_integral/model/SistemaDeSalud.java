@@ -1,6 +1,7 @@
 package co.edu.upb.proyecto_bienestar_integral.model;
 
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logicadelsistema.Cita;
 
 public class SistemaDeSalud {
 	
@@ -57,9 +58,25 @@ public class SistemaDeSalud {
 		
 		// Asignar exámenes correspondientes a Neurología:
 		TipoEspecialidad.NEUROLOGIA.agregarExamen(TipoExamen.ELECTROENCEFALOGRAMA);
+		TipoEspecialidad.NEUROLOGIA.agregarExamen(TipoExamen.TOMOGRAFIA_COMPUTARIZADA);
+		TipoEspecialidad.NEUROLOGIA.agregarExamen(TipoExamen.ELECTROMIOGRAFIA);
 		
 		// Asignar exámenes correspondientes a Oftalmología:
 		TipoEspecialidad.OFTALMOLOGIA.agregarExamen(TipoExamen.TONOMETRIA);
+		TipoEspecialidad.OFTALMOLOGIA.agregarExamen(TipoExamen.QUERATOMETRIA);
+		TipoEspecialidad.OFTALMOLOGIA.agregarExamen(TipoExamen.GONIOSCOPIA);
+		
+		// Asignar exámenes correspondinetes a Medicina Interna:
+		TipoEspecialidad.MEDICINA_INTERNA.agregarExamen(TipoExamen.HEMOGRAMA);
+		TipoEspecialidad.MEDICINA_INTERNA.agregarExamen(TipoExamen.PERFIL_LIPIDICO);
+		TipoEspecialidad.MEDICINA_INTERNA.agregarExamen(TipoExamen.PERFIL_METABOLICO_BASICO);
+		
+		// Asignar exámenes correspondientes a Gastroenterología:
+		TipoEspecialidad.GASTROENTEROLOGIA.agregarExamen(TipoExamen.COLONOSCOPIA);
+		TipoEspecialidad.GASTROENTEROLOGIA.agregarExamen(TipoExamen.ENDOSCOPIA_DIGESTIVA_ALTA);
+		TipoEspecialidad.GASTROENTEROLOGIA.agregarExamen(TipoExamen.MANOMETRIA_ESOFAGICA);
+		
+		
 	} // public static void iniciarEspecialidades() 
 	
 } // public class SistemaDeSalud 
