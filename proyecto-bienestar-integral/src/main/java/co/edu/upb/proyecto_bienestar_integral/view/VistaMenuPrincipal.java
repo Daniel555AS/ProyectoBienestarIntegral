@@ -42,6 +42,7 @@ public class VistaMenuPrincipal extends JFrame {
 	private RoundedButton buttonRegistroOrdenes;
 	private RoundedButton buttonTaquilla;
 	private RoundedButton buttonColas;
+	private RoundedButton buttonBuscarHistoriaClinica;
 
 	/**
 	 * Launch the application.
@@ -212,8 +213,26 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonColas.setForeground(new Color(255, 255, 255));
 		buttonColas.setBackground(new Color(0, 172, 168));
 		buttonColas.setFocusable(false);
+			
+		// Creación de RoundedButton para el Sistema de Colas:
+		buttonBuscarHistoriaClinica = new RoundedButton("Buscar Historia Clínica", new Color(0, 172, 168), new Color(0, 204, 199),
+				1000, 0);
+		buttonBuscarHistoriaClinica.setBounds(0, 613, 337, 57);
+		panelMenu.add(buttonBuscarHistoriaClinica);
+		buttonBuscarHistoriaClinica.setText("Buscar Historia Clínica");
+		buttonBuscarHistoriaClinica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarPanel(new PanelBuscarHistoriaClinica("Media\\LogoBusquedaHC.png","Módulo para la Búsqueda de Historias Clínicas de Nuestros Pacientes"));
+			}
+		});
+		buttonBuscarHistoriaClinica.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonBuscarHistoriaClinica.setForeground(new Color(255, 255, 255));
+		buttonBuscarHistoriaClinica.setBackground(new Color(0, 172, 168));
+		buttonBuscarHistoriaClinica.setFocusable(false);
 		
+
 		
+		//0, 613, 337, 57
 			
 		// Creación de JPanel Dinámico:
 		panelDinamico.setLayout(new BorderLayout(0, 0));

@@ -28,14 +28,13 @@ public class PanelPrincipal extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private JLabel lblGestionPacientes;
-
+	private JLabel lblImagenPrincipal;
 
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelPrincipal() {
-		
+	public PanelPrincipal() {	
 		setLayout(null);
 		
 		// Creación de JPanel para fondo de PanelPrincipal:
@@ -59,13 +58,32 @@ public class PanelPrincipal extends JPanel {
 		lblGestionPacientes.setBounds(47, 44, 188, 49);
 		panelDecorativoSup.add(lblGestionPacientes);
 		
-		JLabel lblNewLabel_1 = new JLabel("¡Tu Salud es Nuestro Compromiso!");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Montserrat", Font.BOLD | Font.ITALIC, 30));
-		lblNewLabel_1.setBounds(201, 697, 790, 52);
-		panelFondo.add(lblNewLabel_1);
-		
+		lblImagenPrincipal = new JLabel("");
+		lblImagenPrincipal.setBounds(42, 215, 1095, 516);
+		panelFondo.add(lblImagenPrincipal);	
+		setImageLabel(lblImagenPrincipal, "Media\\ImagenPanelPrincipal.png");
 	} 
-    
-    
+	
+	// Método private void que permite insertar una imagen con relación al tamaño
+	// definido de un JLabel:
+	private void setImageLabel(JLabel label, String root) {
+		ImageIcon imageIcon = new ImageIcon(root);
+		Image image = imageIcon.getImage();
+
+		// Obtener el tamaño del JLabel
+		int labelWidth = label.getWidth();
+		int labelHeight = label.getHeight();
+
+		// Escalar la imagen al tamaño del JLabel
+		Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+		// Crear un nuevo ImageIcon con la imagen escalada
+		ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+		// Establecer el nuevo ImageIcon en el JLabel
+		label.setIcon(scaledIcon);
+
+		this.repaint();
+	} // private void setImageLabel(JLabel label, String root) 
+		
 } // public class PanelPrincipal extends JPanel 

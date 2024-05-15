@@ -1,9 +1,7 @@
 package co.edu.upb.proyecto_bienestar_integral.controller;
 
 import java.sql.Time;
-
 import javax.swing.JOptionPane;
-
 import co.edu.upb.proyecto_bienestar_integral.estructuras.Lista;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;

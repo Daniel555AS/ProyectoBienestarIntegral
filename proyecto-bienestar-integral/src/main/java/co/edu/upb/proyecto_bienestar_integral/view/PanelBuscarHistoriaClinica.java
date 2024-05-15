@@ -10,12 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
-import co.edu.upb.proyecto_bienestar_integral.controller.*;
-import co.edu.upb.proyecto_bienestar_integral.model.*;
 import javax.swing.SwingConstants;
+import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
+import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.controller.*;
 
-public class PanelAutorizarExamen extends JPanel {
+public class PanelBuscarHistoriaClinica extends JPanel {
 
 	/**
 	 * 
@@ -24,25 +24,26 @@ public class PanelAutorizarExamen extends JPanel {
 
 	private JPanel panelFondo;
 	private JPanel panelDecorativoSup;
-	private JLabel lblAutorizacionExames;
-	private RoundedPanel panelIDHistoriaClinica;
-	private JLabel lblidHC;
-	private JLabel lblImagenExamenes;
-	private JLabel lblTxtAutorizacionExa;
-	private RoundedButton buttonRegresar;
+	private JPanel panelIDHistoriaClinica;
+	private JLabel lblBuscarHistoriaClinica;
+	private JLabel lblIdHC;
+	private JLabel lblImagenBuscarHistoriaClinica;
+	private JLabel lblTxtBuscarHistoriaClinica;
 	private JTextField campoIdHistoriaClinica;
-	private ModeloAutorizarExamen modeloAutorizarExamen;
-	private ControladorAutorizarExamen controladorAutorizarExamen;
+	private RoundedButton buttonBuscar;
+	private ModeloBuscarHistoriaClinica modeloBuscarHistoriaClinica;
+	private ControladorBuscarHistoriaClinica controladorBuscarHistoriaClinica;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelAutorizarExamen(String rutaImagen, String mensaje) {
-		modeloAutorizarExamen = new ModeloAutorizarExamen();
-		controladorAutorizarExamen = new ControladorAutorizarExamen(modeloAutorizarExamen, this);
+	public PanelBuscarHistoriaClinica(String rutaImagen, String mensaje) {
+		modeloBuscarHistoriaClinica = new ModeloBuscarHistoriaClinica();
+		controladorBuscarHistoriaClinica = new ControladorBuscarHistoriaClinica(modeloBuscarHistoriaClinica, this);
 
-		setLayout(null); // Establecimiento Absolute Layout
-		// Creación de JPanel como fondo para PanelAutorizarExamen:
+		setLayout(null);
+
+		// Creación de JPanel como fondo para PanelBuscarHistoriaClinica:
 		panelFondo = new JPanel();
 		panelFondo.setBackground(new Color(255, 255, 255));
 		panelFondo.setBounds(0, 0, 1203, 783);
@@ -57,12 +58,12 @@ public class PanelAutorizarExamen extends JPanel {
 		panelFondo.add(panelDecorativoSup);
 		panelDecorativoSup.setLayout(null);
 
-		// Creación de JLabel con el texto: "Autorización de Exámenes":
-		lblAutorizacionExames = new JLabel("Autorización de Exámenes");
-		lblAutorizacionExames.setForeground(new Color(240, 255, 240));
-		lblAutorizacionExames.setFont(new Font("Montserrat", Font.BOLD, 40));
-		lblAutorizacionExames.setBounds(45, 43, 973, 57);
-		panelDecorativoSup.add(lblAutorizacionExames);
+		// Creación de JLabel con el texto: "Buscar Historia Clínica":
+		lblBuscarHistoriaClinica = new JLabel("Buscar Historia Clínica");
+		lblBuscarHistoriaClinica.setForeground(new Color(240, 255, 240));
+		lblBuscarHistoriaClinica.setFont(new Font("Montserrat", Font.BOLD, 40));
+		lblBuscarHistoriaClinica.setBounds(45, 43, 973, 57);
+		panelDecorativoSup.add(lblBuscarHistoriaClinica);
 
 		// Creación de RoundedPanel decorativo para el ingreso del ID de Historia
 		// Clínica de un Paciente:
@@ -83,52 +84,48 @@ public class PanelAutorizarExamen extends JPanel {
 		panelIDHistoriaClinica.add(campoIdHistoriaClinica);
 
 		// Creación de JLabel con el texto: "ID HC:":
-		lblidHC = new JLabel("ID HC:");
-		lblidHC.setFont(new Font("Montserrat", Font.BOLD, 30));
-		lblidHC.setBounds(35, 228, 109, 24);
-		panelFondo.add(lblidHC);
+		lblIdHC = new JLabel("ID HC:");
+		lblIdHC.setFont(new Font("Montserrat", Font.BOLD, 30));
+		lblIdHC.setBounds(35, 228, 109, 24);
+		panelFondo.add(lblIdHC);
 
 		// Creación de JLabel para la inserción de imagen ilustrativa al proceso de
-		// autorizar exámenes:
-		lblImagenExamenes = new JLabel("");
-		lblImagenExamenes.setBounds(338, 307, 469, 372);
-		setImageLabel(lblImagenExamenes, rutaImagen);
-		panelFondo.add(lblImagenExamenes);
+		// buscar la Historia Clínica de un Paciente:
+		lblImagenBuscarHistoriaClinica = new JLabel("");
+		lblImagenBuscarHistoriaClinica.setBounds(338, 307, 469, 372);
+		setImageLabel(lblImagenBuscarHistoriaClinica, rutaImagen);
+		panelFondo.add(lblImagenBuscarHistoriaClinica);
 
 		// Creación de JLabel con el propósito de mostrar texto relacionado con el
-		// proceso de Autorización de Exámenes:
-		lblTxtAutorizacionExa = new JLabel(mensaje);
-		lblTxtAutorizacionExa.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTxtAutorizacionExa.setFont(new Font("Montserrat", Font.ITALIC, 30));
-		lblTxtAutorizacionExa.setBounds(81, 702, 1067, 44);
-		panelFondo.add(lblTxtAutorizacionExa);
+		// proceso de Buscar la Historia Clínica de un Paciente:
+		lblTxtBuscarHistoriaClinica = new JLabel(mensaje);
+		lblTxtBuscarHistoriaClinica.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTxtBuscarHistoriaClinica.setFont(new Font("Montserrat", Font.ITALIC, 24));
+		lblTxtBuscarHistoriaClinica.setBounds(81, 702, 1067, 44);
+		panelFondo.add(lblTxtBuscarHistoriaClinica);
 
-		// Creación de RoundedButton con imagen insertada, con el propósito de buscar
-		// las Órdenes de Exámenes por autorizar de un paciente, según su ID de Historia
-		// Clínica:
-		buttonRegresar = new RoundedButton("", new Color(203, 53, 53), new Color(234, 68, 68), 1000, 60);
-		buttonRegresar.addActionListener(new ActionListener() {
+		// Creación de RoundedButton con imagen insertada, con el propósito de buscar la
+		// Historia Clínica de un Paciente, según el ID ingresado:
+		buttonBuscar = new RoundedButton("", new Color(203, 53, 53), new Color(234, 68, 68), 1000, 60);
+		buttonBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controladorAutorizarExamen.verificacionOrdenes(getCampoIdHistoriaClinica());
+				controladorBuscarHistoriaClinica.verificarExistenciaHistoriaClinica(getCampoIdHistoriaClinica());
 			}
 		});
-		buttonRegresar.setBounds(1003, 200, 85, 72);
-		buttonRegresar.setFocusable(false);
-		panelFondo.add(buttonRegresar);
-		setImageButton(buttonRegresar, "Media\\ImagenBuscar.jpg");
+		buttonBuscar.setBounds(1003, 200, 85, 72);
+		buttonBuscar.setFocusable(false);
+		panelFondo.add(buttonBuscar);
+		setImageButton(buttonBuscar, "Media\\ImagenBuscar.jpg");
+	}
 
-	} // public PanelAutorizarExamen()
-
-	// Métodos Getters:
-	// Método para obtener la cadena de texto ingresada en campoIdHistoriaClinica:
+	// Getters:
 	public String getCampoIdHistoriaClinica() {
 		return campoIdHistoriaClinica.getText();
 	}
 
-	// Métodos Setters:
-	// Método para establecer un texto en campoIdHistoriaClinica:
-	public void setCampoIdHistoriaClinica(String texto) {
-		campoIdHistoriaClinica.setText(texto);
+	// Setters:
+	public void setCampoIdHistoriaClinica(String id) {
+		campoIdHistoriaClinica.setText(id);
 	}
 
 	// Método private void para insertar imagen en JLabel, según las dimensiones de
@@ -159,4 +156,4 @@ public class PanelAutorizarExamen extends JPanel {
 		button.setBorderPainted(false);
 	} // private static void setImageButton(JButton button, String imagePath)
 
-} // public class PanelAutorizarExamen extends JPanel
+}
