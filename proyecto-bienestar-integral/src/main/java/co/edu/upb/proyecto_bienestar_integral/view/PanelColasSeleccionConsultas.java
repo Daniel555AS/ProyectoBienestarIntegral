@@ -71,7 +71,8 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		lblSistemaGestorColasSeleccion.setBounds(45, 43, 973, 57);
 		panelDecorativoSup.add(lblSistemaGestorColasSeleccion);
 
-		// Creación de RoundedButton para el acceso a la Cola de Espera de Medicina General:
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Medicina
+		// General:
 		buttonMedicinaGeneral = new RoundedButton("Medicina General", new Color(23, 174, 191), new Color(0, 139, 139),
 				1000, 60);
 		buttonMedicinaGeneral.setText("Medicina General");
@@ -86,10 +87,9 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		buttonMedicinaGeneral.setBounds(46, 398, 320, 57);
 		buttonMedicinaGeneral.setFocusable(false);
 		panelFondo.add(buttonMedicinaGeneral);
-		
+
 		// Creación de RoundedButton para el acceso a la Cola de Espera de Cardiología:
-		buttonCardiologia = new RoundedButton("Cardiología", new Color(23, 174, 191),
-				new Color(0, 139, 139), 1000, 60);
+		buttonCardiologia = new RoundedButton("Cardiología", new Color(23, 174, 191), new Color(0, 139, 139), 1000, 60);
 		buttonCardiologia.setText("Cardiología");
 		buttonCardiologia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,10 +102,9 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		buttonCardiologia.setBackground(new Color(23, 174, 191));
 		buttonCardiologia.setBounds(452, 398, 320, 57);
 		panelFondo.add(buttonCardiologia);
-		
+
 		// Creación de RoundedButton para el acceso a la Cola de Espera de Neurología:
-		buttonNeurologia = new RoundedButton("Neurología", new Color(23, 174, 191),
-				new Color(0, 139, 139), 1000, 60);
+		buttonNeurologia = new RoundedButton("Neurología", new Color(23, 174, 191), new Color(0, 139, 139), 1000, 60);
 		buttonNeurologia.setText("Neurología");
 		buttonNeurologia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -118,10 +117,10 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		buttonNeurologia.setBackground(new Color(23, 174, 191));
 		buttonNeurologia.setBounds(847, 398, 320, 57);
 		panelFondo.add(buttonNeurologia);
-		
+
 		// Creación de RoundedButton para el acceso a la Cola de Espera de Oftalmología:
-		buttonOftalmologia = new RoundedButton("Oftalmología", new Color(23, 174, 191),
-				new Color(0, 139, 139), 1000, 60);
+		buttonOftalmologia = new RoundedButton("Oftalmología", new Color(23, 174, 191), new Color(0, 139, 139), 1000,
+				60);
 		buttonOftalmologia.setText("Oftalmología");
 		buttonOftalmologia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,10 +133,11 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		buttonOftalmologia.setBackground(new Color(23, 174, 191));
 		buttonOftalmologia.setBounds(46, 686, 320, 57);
 		panelFondo.add(buttonOftalmologia);
-		
-		// Creación de RoundedButton para el acceso a la Cola de Espera de Medicina Interna:
-		buttonMedicinaInterna = new RoundedButton("Medicina Interna", new Color(23, 174, 191),
-				new Color(0, 139, 139), 1000, 60);
+
+		// Creación de RoundedButton para el acceso a la Cola de Espera de Medicina
+		// Interna:
+		buttonMedicinaInterna = new RoundedButton("Medicina Interna", new Color(23, 174, 191), new Color(0, 139, 139),
+				1000, 60);
 		buttonMedicinaInterna.setText("Medicina Interna");
 		buttonMedicinaInterna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,8 +150,9 @@ public class PanelColasSeleccionConsultas extends JPanel {
 		buttonMedicinaInterna.setBackground(new Color(23, 174, 191));
 		buttonMedicinaInterna.setBounds(452, 686, 320, 57);
 		panelFondo.add(buttonMedicinaInterna);
-		
-		// Creación de RoundedButton para el acceso a la Cola de Espera de Gastroenterología:
+
+		// Creación de RoundedButton para el acceso a la Cola de Espera de
+		// Gastroenterología:
 		buttonGastroenterologia = new RoundedButton("Gastroenterología", new Color(23, 174, 191),
 				new Color(0, 139, 139), 1000, 60);
 		buttonGastroenterologia.setText("Gastroenterología");

@@ -1,21 +1,31 @@
 package co.edu.upb.proyecto_bienestar_integral.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.*;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
+import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class PanelHistoriaClinicaPaciente extends JPanel {
 
@@ -49,6 +59,9 @@ public class PanelHistoriaClinicaPaciente extends JPanel {
 	private RoundedPanel panelDatoFechaNacimiento;
 	private RoundedPanel panelDatoHistoriClinica;
 	private RoundedButton buttonBuscar;
+	private DefaultTableModel modeloTabla;
+	private JScrollPane tablaScrollPane;
+	private JTable tablaHistorialMedico;
 	private ModeloBuscarHistoriaClinica modeloBuscarHistoriaClinica;
 	private ControladorBuscarHistoriaClinica controladorBuscarHistoriaClinica;
 
@@ -118,7 +131,7 @@ public class PanelHistoriaClinicaPaciente extends JPanel {
 		// PanelHistoriaClinicaPaciente:
 		panelDecoraCen = new RoundedPanel(10);
 		panelDecoraCen.setBackground(new Color(169, 169, 169));
-		panelDecoraCen.setBounds(644, 307, 4, 600);
+		panelDecoraCen.setBounds(644, 307, 4, 670);
 		panelFondo.add(panelDecoraCen);
 
 		// Creación de RoundedPanel decorativo, con el propósito de exponer el dato
@@ -233,7 +246,7 @@ public class PanelHistoriaClinicaPaciente extends JPanel {
 		lblDatoHistoriaClinica.setFont(new Font("Montserrat", Font.PLAIN, 22));
 		lblDatoHistoriaClinica.setBounds(24, 0, 413, 50);
 		panelDatoHistoriClinica.add(lblDatoHistoriaClinica);
-		
+
 		// Creación de RoundedButton con imagen insertada, con el propósito de buscar la
 		// Historia Clínica de un Paciente, según el ID ingresado:
 		buttonBuscar = new RoundedButton("", new Color(203, 53, 53), new Color(234, 68, 68), 1000, 60);
@@ -247,7 +260,56 @@ public class PanelHistoriaClinicaPaciente extends JPanel {
 		panelFondo.add(buttonBuscar);
 		setImageButton(buttonBuscar, "Media\\ImagenBuscar.jpg");
 
+		// Crear la tabla y su respectivo modelo:
+		tablaHistorialMedico = new JTable();
+		tablaHistorialMedico.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		modeloTabla = new DefaultTableModel();
+		modeloTabla.addColumn("Fecha");
+		modeloTabla.addColumn("Hora");
+		modeloTabla.addColumn("Especialidad");
+		modeloTabla.addColumn("Servicio");
+		modeloTabla.addColumn("Motivo");
+		modeloTabla.addColumn("Profesional");
+		// Puedes agregar más columnas según sea necesario
+
+		// Asignar el modelo a la tabla
+		tablaHistorialMedico.setModel(modeloTabla);
+		// Deshabilitar la edición de las celdas
+		tablaHistorialMedico.setDefaultEditor(Object.class, null);
+		// Permitir la selección de filas
+		tablaHistorialMedico.setRowSelectionAllowed(true);
+		// / Para seleccionar solo una fila a la vez
+		tablaHistorialMedico.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		// Agregar la tabla a un JScrollPane
+		tablaScrollPane = new JScrollPane(tablaHistorialMedico);
+		tablaScrollPane.setBounds(35, 349, 571, 580);
+		tablaScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		tablaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		panelFondo.add(tablaScrollPane);
+
+		// LLENA TABLA
+
+		// Centrar el contenido de las celdas
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER); // Centrar el contenido
+
+		// Aplicar el renderizador centrado a cada columna de la tabla
+		for (int ii = 0; ii < tablaHistorialMedico.getColumnCount(); ii++) {
+			tablaHistorialMedico.getColumnModel().getColumn(ii).setCellRenderer(centerRenderer);
+		}
+
+		// Cambiar la fuente y el tamaño de la letra del contenido de la Tabla:
+		Font font = new Font("Montserrat", Font.PLAIN, 17);
+		tablaHistorialMedico.setFont(font);
+
+		JTableHeader header = tablaHistorialMedico.getTableHeader();
+
+		// Cambiar la fuente y el tamaño de la letra de la cabecera de la Tabla
+		Font fontHeader = new Font("Montserrat", Font.PLAIN, 19);
+		header.setFont(fontHeader);
+
 		panelFondo.setPreferredSize(new Dimension(0, 1010));
+		tablaHistorialMedico.setPreferredScrollableViewportSize(tablaHistorialMedico.getPreferredSize());
 
 	}
 
@@ -281,6 +343,18 @@ public class PanelHistoriaClinicaPaciente extends JPanel {
 		campoIdHistoriaClinica.setText(id);
 	}
 
+	public void llenarTabla(Lista<Cita> historialMedico) {
+		Cita citaActual;
+		for (int ii = historialMedico.getTamano() - 1; ii >= 0; ii--) {
+			citaActual = historialMedico.obtenerElemento(ii);
+			Object[] fila = { citaActual.getFechaFormateada(), citaActual.getHoraFormateada(),
+					citaActual.getEspecialidad(), citaActual.getServicio(), citaActual.getMotivo(),
+					citaActual.getProfesionalAsignado().getNombreEId() };
+			modeloTabla.addRow(fila);
+		}
+		ajustarAnchoColumnas();
+	}
+
 	// Método private void par insertar imagen en JButton, según las dimensiones de
 	// este componenten:
 	private static void setImageButton(JButton button, String imagePath) {
@@ -291,5 +365,36 @@ public class PanelHistoriaClinicaPaciente extends JPanel {
 		button.setContentAreaFilled(false);
 		button.setBorderPainted(false);
 	} // private static void setImageButton(JButton button, String imagePath)
+
+	// Método para ajustar el ancho de las columnas según el contenido más grande:
+	private void ajustarAnchoColumnas() {
+		// Iterar sobre todas las columnas de la tabla
+		for (int i = 0; i < tablaHistorialMedico.getColumnCount(); i++) {
+			TableColumn columna = tablaHistorialMedico.getColumnModel().getColumn(i);
+			int ancho = 0;
+
+			// Obtener el ancho máximo del encabezado de la columna
+			TableCellRenderer renderer = columna.getHeaderRenderer();
+			if (renderer == null) {
+				renderer = tablaHistorialMedico.getTableHeader().getDefaultRenderer();
+			}
+			Component comp = renderer.getTableCellRendererComponent(tablaHistorialMedico, columna.getHeaderValue(),
+					false, false, 0, 0);
+			ancho = comp.getPreferredSize().width;
+
+			// Iterar sobre todas las filas para obtener el ancho máximo del contenido de la
+			// columna
+			for (int j = 0; j < tablaHistorialMedico.getRowCount(); j++) {
+				TableCellRenderer cellRenderer = tablaHistorialMedico.getCellRenderer(j, i);
+				Component c = tablaHistorialMedico.prepareRenderer(cellRenderer, j, i);
+				int width = c.getPreferredSize().width + tablaHistorialMedico.getIntercellSpacing().width;
+				ancho = Math.max(ancho, width);
+			}
+
+			// Establecer el ancho de la columna al ancho máximo calculado + 10 unidades de
+			// espacio extra
+			columna.setPreferredWidth(ancho + 15);
+		}
+	}
 
 }

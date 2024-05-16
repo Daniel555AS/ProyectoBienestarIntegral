@@ -20,7 +20,7 @@ public class ControladorConfirmarCitaValoracionControl {
 		modeloConfirmacionCitaValoracionControl.agregarCita(panelConfirmacionCitaValoracionControl.getCita());
 		JOptionPane.showMessageDialog(null, "la Cita Ha Sido Registrada Exitosamente", "OPERACIÓN EXITOSA",
 				JOptionPane.INFORMATION_MESSAGE);
-		VistaMenuPrincipal.mostrarPanel(new PanelPrincipal());
+		VistaMenuPrincipal.mostrarPanel(new PanelPrincipal(VistaMenuPrincipal.getAdminActual()));
 	}
 
 }

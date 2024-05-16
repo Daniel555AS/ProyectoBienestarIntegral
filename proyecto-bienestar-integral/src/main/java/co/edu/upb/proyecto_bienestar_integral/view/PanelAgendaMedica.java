@@ -49,7 +49,7 @@ public class PanelAgendaMedica extends JPanel {
 		modeloAgendaMedica = new ModeloAgendaMedica();
 		controladorAgendaMedica = new ControladorAgendaMedica(modeloAgendaMedica, this);
 
-		setLayout(null);
+		setLayout(null); // Establecimiento de Absolute Layout
 		panelFondo = new JPanel();
 		panelFondo.setBackground(Color.WHITE);
 		panelFondo.setBounds(0, 0, 1203, 783);
@@ -63,7 +63,7 @@ public class PanelAgendaMedica extends JPanel {
 		panelFondo.setLayout(null);
 		panelDecorativoSup.setLayout(null);
 
-		lblRegistrarOrdenMedica = new JLabel("Agenda Médica:");
+		lblRegistrarOrdenMedica = new JLabel("Agenda Médica");
 		lblRegistrarOrdenMedica.setForeground(new Color(240, 255, 240));
 		lblRegistrarOrdenMedica.setFont(new Font("Montserrat", Font.BOLD, 40));
 		lblRegistrarOrdenMedica.setBounds(45, 43, 973, 57);
@@ -76,22 +76,18 @@ public class PanelAgendaMedica extends JPanel {
 		modeloTabla.addColumn("ID - Orden");
 		modeloTabla.addColumn("Tipo Examen");
 		modeloTabla.addColumn("ID - Profesional Asignado");
-		// Puedes agregar más columnas según sea necesario
 
-		// Asignar el modelo a la tabla
+		// Asignar el modelo a la tabla:
 		tablaAgendaMedica.setModel(modeloTabla);
-
-		// Deshabilitar la edición de las celdas
+		// Deshabilitar la edición de las celdas:
 		tablaAgendaMedica.setDefaultEditor(Object.class, null);
-
-		// Permitir la selección de filas
+		// Permitir la selección de filas:
 		tablaAgendaMedica.setRowSelectionAllowed(true);
-		tablaAgendaMedica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Para seleccionar solo una fila a la
-																					// vez
-
+		// Para seleccionar solo una fila a la vez: 
+		tablaAgendaMedica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
 		// Agregar la tabla a un JScrollPane
 		JScrollPane scrollPane = new JScrollPane(tablaAgendaMedica);
-		scrollPane.setBounds(50, 235, 1100, 346);
+		scrollPane.setBounds(50, 235, 1100, 385);
 		panelFondo.add(scrollPane);
 
 		llenarTabla();

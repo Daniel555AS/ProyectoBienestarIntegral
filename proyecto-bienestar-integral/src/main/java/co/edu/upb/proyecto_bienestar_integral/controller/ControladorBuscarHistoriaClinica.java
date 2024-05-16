@@ -34,6 +34,7 @@ public class ControladorBuscarHistoriaClinica {
 			panelPaciente.setLblDatoFechaNacimiento(paciente.getFechaNacimientoFormateada());
 			panelPaciente.setLblDatoHistoriaClinica(paciente.getIdHistoriaClinica());
 			panelPaciente.setCampoIdHistoriaClinica(idHistoriaClinica);
+			panelPaciente.llenarTabla(modeloBuscarHistoriaClinica.obtenerHistorialMedico(idHistoriaClinica));
 			VistaMenuPrincipal.mostrarPanel(panelPaciente);
 		} else {
 			PanelBuscarHistoriaClinica panel = new PanelBuscarHistoriaClinica("Media\\\\ImagenOrdenesNoEncontradas.png",

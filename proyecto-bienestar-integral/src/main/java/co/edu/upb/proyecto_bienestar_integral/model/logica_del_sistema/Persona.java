@@ -80,5 +80,9 @@ public class Persona {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         return sdf.format(fechaNacimiento);
     }
+    
+    public String getNombreJuntoId() {
+    	return nombreCompleto + " - " + tipoId + " " + identificacion;
+    }
 		
 } // public class Persona

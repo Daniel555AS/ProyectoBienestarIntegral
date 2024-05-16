@@ -6,17 +6,17 @@ import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDe
 
 public class ModeloGestorInicioDeSesion {
 
-	public boolean validarInicioSesion(String identificacion, String contrasena) {
+	public PersonaAdministrativa validarInicioSesion(String identificacion, String contrasena) {
 		Lista<PersonaAdministrativa> personalAdministrativo = SistemaDeSalud.conseguirPersonalAdministrativo();
 		int cantidadPersonalAdministrativo = personalAdministrativo.getTamano();
-
+		PersonaAdministrativa admin;
 		for (int ii = 0; ii < cantidadPersonalAdministrativo; ii++) {
-			if (personalAdministrativo.obtenerElemento(ii).getIdentificacion().equals(identificacion)
-					&& personalAdministrativo.obtenerElemento(ii).getContrasena().equals(contrasena)) {
-				return true;
+			admin = personalAdministrativo.obtenerElemento(ii);
+			if (admin.getIdentificacion().equals(identificacion) && admin.getContrasena().equals(contrasena)) {
+				return admin;
 			}
 		}
-		return false;
-	} // public boolean validarInicioSesion
+		return null;
+	} // public PersonaAdministrativa validarInicioSesion(String identificacion, String contrasena)
 
 } // public class ModeloGestorInicioDeSesion

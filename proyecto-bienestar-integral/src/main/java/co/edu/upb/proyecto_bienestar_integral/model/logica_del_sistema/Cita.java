@@ -2,6 +2,9 @@ package co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Cita {
 
@@ -97,6 +100,16 @@ public class Cita {
 		return hora;
 	}
 	
+    public String getFechaFormateada() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        return sdf.format(fecha);
+    }
+    
+	public String getHoraFormateada() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		return sdf.format(hora);
+	}
+	
 	// Métos Setters: 
 	public void setHora(Time hora) {
 		this.hora = hora;
@@ -112,6 +125,17 @@ public class Cita {
 	
 	public void setEstadoAtendido(boolean estadoAtendido) {
 		this.estadoAtendido = estadoAtendido;
+	}
+	
+	// Método para establecer la hora actual del sistema
+	public void setHoraActual() {
+		LocalTime now = LocalTime.now();
+		this.hora = Time.valueOf(now);
+	}
+	
+	// Método para establecer la Fecha Actual del Sistema:
+	public void setFechaActual() {
+	    this.fecha = Date.valueOf(LocalDate.now());
 	}
 	
 

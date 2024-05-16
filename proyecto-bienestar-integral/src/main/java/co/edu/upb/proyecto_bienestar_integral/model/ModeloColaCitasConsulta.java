@@ -18,6 +18,9 @@ public class ModeloColaCitasConsulta {
 		for(int ii = SistemaDeSalud.conseguirCitas().getTamano() - 1; ii >= 0; ii--) {
 			if(SistemaDeSalud.conseguirCitas().obtenerElemento(ii).getIdentificador().equals(id)) {
 				SistemaDeSalud.conseguirCitas().obtenerElemento(ii).setEstadoAtendido(true);
+				SistemaDeSalud.conseguirCitas().obtenerElemento(ii).setHoraActual();
+				SistemaDeSalud.conseguirCitas().obtenerElemento(ii).setFechaActual();
+				GestorBaseDeDatos.actualizarFechaHoraActualCita(id);
 				return;
 			}
 		}

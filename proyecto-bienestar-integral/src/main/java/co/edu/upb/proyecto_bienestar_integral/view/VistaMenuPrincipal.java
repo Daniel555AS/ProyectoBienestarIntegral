@@ -1,21 +1,13 @@
 package co.edu.upb.proyecto_bienestar_integral.view;
 
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.PersonaAdministrativa;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
-
-import java.awt.Dimension;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-
 import java.awt.Color;
-import javax.swing.JButton;
-
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -43,6 +35,8 @@ public class VistaMenuPrincipal extends JFrame {
 	private RoundedButton buttonTaquilla;
 	private RoundedButton buttonColas;
 	private RoundedButton buttonBuscarHistoriaClinica;
+	private RoundedButton buttonHistorial;
+	private static PersonaAdministrativa adminActual;
 
 	/**
 	 * Launch the application.
@@ -107,7 +101,7 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonPrincipal.setText("Principal");
 		buttonPrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPanel(new PanelPrincipal());
+				mostrarPanel(new PanelPrincipal(getAdminActual()));
 			}
 		});
 		buttonPrincipal.setFont(new Font("Montserrat", Font.BOLD, 25));
@@ -156,7 +150,8 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroExamenes.setText("Autorización de Exámenes");
 		buttonRegistroExamenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelAutorizarExamen = new PanelAutorizarExamen("Media\\ImagenExamenes.jpg", "Módulo Para la Autorización de Exámenes de Nuestros Pacientes");
+				panelAutorizarExamen = new PanelAutorizarExamen("Media\\ImagenExamenes.jpg",
+						"Módulo Para la Autorización de Exámenes de Nuestros Pacientes");
 				mostrarPanel(panelAutorizarExamen);
 			}
 		});
@@ -181,10 +176,9 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonRegistroCitas.setForeground(new Color(255, 255, 255));
 		buttonRegistroCitas.setBackground(new Color(0, 172, 168));
 		buttonRegistroCitas.setFocusable(false);
-		
+
 		// Creación de RoundedButton para la Taquilla:
-		buttonTaquilla = new RoundedButton("Taquilla", new Color(0, 172, 168), new Color(0, 204, 199),
-				1000, 0);
+		buttonTaquilla = new RoundedButton("Taquilla", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
 		buttonTaquilla.setBounds(0, 506, 337, 57);
 		panelMenu.add(buttonTaquilla);
 		buttonTaquilla.setText("Taquilla");
@@ -197,10 +191,9 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonTaquilla.setForeground(new Color(255, 255, 255));
 		buttonTaquilla.setBackground(new Color(0, 172, 168));
 		buttonTaquilla.setFocusable(false);
-		
+
 		// Creación de RoundedButton para el Sistema de Colas:
-		buttonColas = new RoundedButton("Gestionar Colas", new Color(0, 172, 168), new Color(0, 204, 199),
-				1000, 0);
+		buttonColas = new RoundedButton("Gestionar Colas", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
 		buttonColas.setBounds(0, 558, 337, 57);
 		panelMenu.add(buttonColas);
 		buttonColas.setText("Gestionar Colas");
@@ -213,37 +206,61 @@ public class VistaMenuPrincipal extends JFrame {
 		buttonColas.setForeground(new Color(255, 255, 255));
 		buttonColas.setBackground(new Color(0, 172, 168));
 		buttonColas.setFocusable(false);
-			
-		// Creación de RoundedButton para el Sistema de Colas:
-		buttonBuscarHistoriaClinica = new RoundedButton("Buscar Historia Clínica", new Color(0, 172, 168), new Color(0, 204, 199),
-				1000, 0);
-		buttonBuscarHistoriaClinica.setBounds(0, 613, 337, 57);
+
+		// Creación de RoundedButton para la Búsqueda Historias Clínicas:
+		buttonBuscarHistoriaClinica = new RoundedButton("Buscar Historia Clínica", new Color(0, 172, 168),
+				new Color(0, 204, 199), 1000, 0);
+		buttonBuscarHistoriaClinica.setBounds(0, 614, 337, 57);
 		panelMenu.add(buttonBuscarHistoriaClinica);
 		buttonBuscarHistoriaClinica.setText("Buscar Historia Clínica");
 		buttonBuscarHistoriaClinica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPanel(new PanelBuscarHistoriaClinica("Media\\LogoBusquedaHC.png","Módulo para la Búsqueda de Historias Clínicas de Nuestros Pacientes"));
+				mostrarPanel(new PanelBuscarHistoriaClinica("Media\\LogoBusquedaHC.png",
+						"Módulo para la Búsqueda de Historias Clínicas de Nuestros Pacientes"));
 			}
 		});
 		buttonBuscarHistoriaClinica.setFont(new Font("Montserrat", Font.BOLD, 25));
 		buttonBuscarHistoriaClinica.setForeground(new Color(255, 255, 255));
 		buttonBuscarHistoriaClinica.setBackground(new Color(0, 172, 168));
 		buttonBuscarHistoriaClinica.setFocusable(false);
-		
 
-		
-		//0, 613, 337, 57
-			
+		// Creación de RoundedButton para la observación del Historial del Sistema:
+		buttonHistorial = new RoundedButton("Historial", new Color(0, 172, 168), new Color(0, 204, 199), 1000, 0);
+		buttonHistorial.setBounds(0, 664, 337, 57);
+		panelMenu.add(buttonHistorial);
+		buttonHistorial.setText("Historial");
+		buttonHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarPanel(new PanelHistorial());
+			}
+		});
+		buttonHistorial.setFont(new Font("Montserrat", Font.BOLD, 25));
+		buttonHistorial.setForeground(new Color(255, 255, 255));
+		buttonHistorial.setBackground(new Color(0, 172, 168));
+		buttonHistorial.setFocusable(false);
+
 		// Creación de JPanel Dinámico:
 		panelDinamico.setLayout(new BorderLayout(0, 0));
 		panelDinamico.setBounds(336, 0, 1203, 783);
 		contentPane.add(panelDinamico);
 		mostrarPanel(panelPrincipal);
-		
+
 		// Centrar el JFrame en la pantalla:
 		setLocationRelativeTo(null);
 	}
+	
+	// Getters:
+	public static PersonaAdministrativa getAdminActual() {
+		return adminActual;
+	}
+	
+	// Setters:
+	public static void setAdminActual(PersonaAdministrativa personaAdministrativa) {
+		adminActual = personaAdministrativa;
+	}
 
+	// Método public static void con el propósito de mostrar un Panel especificado,
+	// dentro del Panel Dinámico:
 	public static void mostrarPanel(JPanel panel) {
 		// panel.setSize(1203, 783);
 		panel.setLocation(0, 0);
@@ -253,4 +270,5 @@ public class VistaMenuPrincipal extends JFrame {
 		panelDinamico.revalidate();
 		panelDinamico.repaint();
 	} // private void mostrarPanel(JPanel panel)
+
 } // public class VistaMenuPrincipal extends JFrame

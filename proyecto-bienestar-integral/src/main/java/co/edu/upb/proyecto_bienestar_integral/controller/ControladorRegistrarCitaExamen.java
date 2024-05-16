@@ -43,7 +43,7 @@ public class ControladorRegistrarCitaExamen {
 			citaRegistrar.setHora(ordenR.getHora());
 			modeloRegistroCitaExamen.agregaCita(citaRegistrar);
 			JOptionPane.showMessageDialog(null, "la Cita Examen Ha Sido Registrada Exitosamente", "OPERACiÓN EXITOSA", JOptionPane.INFORMATION_MESSAGE);
-			VistaMenuPrincipal.mostrarPanel(new PanelPrincipal());
+			VistaMenuPrincipal.mostrarPanel(new PanelPrincipal(VistaMenuPrincipal.getAdminActual()));
 			return;
 		}
 		JOptionPane.showMessageDialog(null, "No Se Ha Encontrado Orden Médica Asociada a la ID Ingresado.",

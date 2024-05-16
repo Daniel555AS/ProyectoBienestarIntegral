@@ -1,6 +1,7 @@
 package co.edu.upb.proyecto_bienestar_integral.controller;
 
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ElementoHistorial;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.GestorBaseDeDatos;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
@@ -48,6 +49,7 @@ public class ControladorAutorizarExamen {
 			VistaMenuPrincipal.mostrarPanel(panel);
 		} else {
 			PanelCambiarEstadoOrden panelCambiarEstadoOrden = new PanelCambiarEstadoOrden(pilaOrdenesPaciente.peek());
+			panelCambiarEstadoOrden.setCampoIdHistoriaClinica(idHistoriaClinica);
 			VistaMenuPrincipal.mostrarPanel(panelCambiarEstadoOrden);
 		}
 	} // public void verificacionOrdenes()
@@ -59,6 +61,7 @@ public class ControladorAutorizarExamen {
 	            "Autorización Orden Médica", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 	            new String[] { "Confirmar", "Rechazar" }, null);
 	    if (opcion == JOptionPane.YES_OPTION) {
+	    	GestorBaseDeDatos.agregarElementoHistorial(new ElementoHistorial("Autorización de Orden Médica", VistaMenuPrincipal.getAdminActual()));
 	        // Verificar si hay órdenes pendientes en la pila
 	        if (!pilaOrdenesPaciente.estaVacia()) {
 	            int index = buscarIndice(ordenCima.getIdentificador());

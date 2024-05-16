@@ -15,5 +15,19 @@ public class ModeloBuscarHistoriaClinica {
 		return null;
 	}
 	
+	public Lista<Cita> obtenerHistorialMedico(String idHistoriaClinica) {
+		Lista<Cita> citas = SistemaDeSalud.conseguirCitas();
+		Lista<Cita> historialMedico = new ListaDoblementeEnlazada<>();
+		Cita cita;
+		for(int ii = citas.getTamano() - 1; ii >= 0; ii--) {
+			cita = citas.obtenerElemento(ii);
+			if(cita.getEstadoAtendido() == true && cita.getIdHistoriaClinicaPaciente().equals(idHistoriaClinica)) {
+				historialMedico.agregarAlFinal(cita);
+			}
+		}
+		historialMedico.ordenar(new ComparadorFechaHoraCitas());
+		return historialMedico;
+	}
+	
 	
 } // public class ModeloBuscarHistoriaClinica 

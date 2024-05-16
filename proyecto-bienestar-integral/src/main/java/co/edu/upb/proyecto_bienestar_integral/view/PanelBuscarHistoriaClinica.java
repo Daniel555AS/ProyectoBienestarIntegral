@@ -145,7 +145,7 @@ public class PanelBuscarHistoriaClinica extends JPanel {
 		this.repaint();
 	} // private void setImageLabel(JLabel label, String root)
 
-	// Método private void par insertar imagen en JButton, según las dimensiones de
+	// Método private void para insertar imagen en JButton, según las dimensiones de
 	// este componenten:
 	private static void setImageButton(JButton button, String imagePath) {
 		ImageIcon imageIcon = new ImageIcon(imagePath);

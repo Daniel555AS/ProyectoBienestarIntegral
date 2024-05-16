@@ -88,24 +88,6 @@ public class PanelCambiarEstadoOrden extends JPanel {
 		lblAutorizacionExames.setBounds(45, 43, 973, 57);
 		panelDecorativoSup.add(lblAutorizacionExames);
 
-		// Creación de RoundedPanel decorativo para el ingreso del ID de Historia
-		// Clínica de un Paciente:
-		panelIDHistoriaClinica = new RoundedPanel(50);
-		panelIDHistoriaClinica.setBackground(new Color(241, 241, 241));
-		panelIDHistoriaClinica.setBounds(158, 198, 835, 74);
-		panelFondo.add(panelIDHistoriaClinica);
-		panelIDHistoriaClinica.setLayout(null);
-
-		// Creación de JTextField como campo para ingresar los apellidos del paciente:
-		campoIdHistoriaClinica = new JTextField();
-		panelIDHistoriaClinica.add(campoIdHistoriaClinica);
-		campoIdHistoriaClinica.setFont(new Font("Montserrat", Font.PLAIN, 25));
-		campoIdHistoriaClinica.setColumns(10);
-		campoIdHistoriaClinica.setBorder(null);
-		campoIdHistoriaClinica.setBackground((Color) null);
-		campoIdHistoriaClinica.setText(ordenActual.getIdPaciente());
-		panelIDHistoriaClinica.add(campoIdHistoriaClinica);
-
 		// Creación de JLabel con el texto: "ID HC:":
 		lblidHC = new JLabel("ID HC:");
 		lblidHC.setFont(new Font("Montserrat", Font.BOLD, 30));
@@ -240,7 +222,24 @@ public class PanelCambiarEstadoOrden extends JPanel {
 		buttonAutorizar.setFocusable(false);
 		panelFondo.add(buttonAutorizar);
 
-		panelFondo.setPreferredSize(new Dimension(0, 1550));
+		panelFondo.setPreferredSize(new Dimension(0, 1050));
+
+		// Creación de RoundedPanel decorativo para el ingreso del ID de Historia
+		// Clínica de un Paciente:
+		panelIDHistoriaClinica = new RoundedPanel(50);
+		panelIDHistoriaClinica.setBackground(new Color(241, 241, 241));
+		panelIDHistoriaClinica.setBounds(158, 198, 835, 74);
+		panelFondo.add(panelIDHistoriaClinica);
+		panelIDHistoriaClinica.setLayout(null);
+
+		// Creación de JTextField como campo para ingresar los apellidos del paciente:
+		campoIdHistoriaClinica = new JTextField("");
+		campoIdHistoriaClinica.setFont(new Font("Montserrat", Font.PLAIN, 25));
+		campoIdHistoriaClinica.setColumns(10);
+		campoIdHistoriaClinica.setBorder(null);
+		campoIdHistoriaClinica.setBackground(null);
+		campoIdHistoriaClinica.setBounds(21, 0, 804, 74);
+		panelIDHistoriaClinica.add(campoIdHistoriaClinica);
 	} // public PanelCambiarEstadoOrden(Orden ordenActual)
 
 	// Métodos Getters:
@@ -251,6 +250,11 @@ public class PanelCambiarEstadoOrden extends JPanel {
 	// Método para obtener la cadena de texto ingresada en campoIdHistoriaClinica:
 	public String getCampoIdHistoriaClinica() {
 		return campoIdHistoriaClinica.getText();
+	}
+
+	// Métodos Setters:
+	public void setCampoIdHistoriaClinica(String id) {
+		campoIdHistoriaClinica.setText(id);
 	}
 
 	// Método private void para insertar imagen en JButton, según las dimensiones de

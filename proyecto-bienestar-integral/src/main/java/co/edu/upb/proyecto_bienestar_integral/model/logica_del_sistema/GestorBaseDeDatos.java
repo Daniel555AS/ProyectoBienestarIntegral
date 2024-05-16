@@ -6,12 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.Calendar;
 import java.sql.Date;
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class GestorBaseDeDatos {
-	private static final String URL = ""; // Url de Base de Datos
-	private static final String USUARIO = ""; // Usuario de Base de Datos
+	private static final String URL = "jdbc:mysql://localhost:3307/bienestar_integral"; // Url de Base de Datos
+	private static final String USUARIO = "root"; // Usuario de Base de Datos
 	private static final String CONTRASENA = ""; // Contraseña de Base de Datos
 
 	public static Connection obtenerConexion() throws SQLException {
@@ -464,56 +465,112 @@ public class GestorBaseDeDatos {
 	}
 
 	public static Cola<Cita> obtenerColaCitas(String especialidad, String motivo1, String motivo2) {
-		Cola<Cita> colaCitas = new Cola<>();
-		Connection conexion = null;
-		PreparedStatement consulta = null;
-		ResultSet resultados = null;
+	    Cola<Cita> colaCitas = new Cola<>();
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
+	    ResultSet resultados = null;
 
-		try {
-			conexion = obtenerConexion();
-			consulta = conexion.prepareStatement(
-					"SELECT * FROM colas_espera WHERE especialidad = ? AND (motivo = ? OR motivo = ?)");
-			consulta.setString(1, especialidad);
-			consulta.setString(2, motivo1);
-			consulta.setString(3, motivo2);
-			resultados = consulta.executeQuery();
+	    try {
+	        conexion = obtenerConexion();
+	        consulta = conexion.prepareStatement(
+	                "SELECT * FROM colas_espera WHERE especialidad = ? AND (motivo = ? OR motivo = ?) ORDER BY fecha_pago ASC, hora_pago ASC");
+	        consulta.setString(1, especialidad);
+	        consulta.setString(2, motivo1);
+	        consulta.setString(3, motivo2);
+	        resultados = consulta.executeQuery();
 
-			while (resultados.next()) {
-				String idCita = resultados.getString("id_cita_en_cola");
-				Cita cita = obtenerCitaSegunId(idCita);
-				if (cita != null) {
-					colaCitas.enqueue(cita);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// Cierre de recursos
-			if (resultados != null) {
-				try {
-					resultados.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (consulta != null) {
-				try {
-					consulta.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conexion != null) {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+	        while (resultados.next()) {
+	            String idCita = resultados.getString("id_cita_en_cola");
+	            Cita cita = obtenerCitaSegunId(idCita);
+	            if (cita != null) {
+	                colaCitas.enqueue(cita);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        if (resultados != null) {
+	            try {
+	                resultados.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (consulta != null) {
+	            try {
+	                consulta.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
 
-		return colaCitas;
+	    return colaCitas;
 	}
+	
+	public static Lista<ElementoHistorial> obtenerElementosHistorial() {
+	    Lista<ElementoHistorial> elementos = new ListaDoblementeEnlazada<>();
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
+	    ResultSet resultados = null;
+
+	    try {
+	        conexion = obtenerConexion();
+	        consulta = conexion.prepareStatement("SELECT * FROM historial");
+	        resultados = consulta.executeQuery();
+
+	        while (resultados.next()) {
+	            int id = resultados.getInt("id");
+	            Date fecha = resultados.getDate("fecha");
+	            Time hora = resultados.getTime("hora");
+	            String accion = resultados.getString("accion");
+	            String idAdmin = resultados.getString("id_admin");
+	            PersonaAdministrativa admin = obtenerAdminSegunId(idAdmin);
+
+	            // Crear un objeto ElementoHistorial con los datos obtenidos
+	            ElementoHistorial elemento = new ElementoHistorial(id, fecha, hora, accion, admin);
+
+	            // Agregar el elemento a la lista
+	            elementos.agregarAlFinal(elemento);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        if (resultados != null) {
+	            try {
+	                resultados.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (consulta != null) {
+	            try {
+	                consulta.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    return elementos;
+	}
+	
 
 	public static void agregarPacienteBD(Paciente paciente) {
 		Connection conexion = null;
@@ -640,39 +697,79 @@ public class GestorBaseDeDatos {
 	} // public static void agregarOrdenBD(Orden orden)
 
 	public static void agregarCitaColasEsperaBD(Cita cita) {
-		Connection conexion = null;
-		PreparedStatement consulta = null;
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
 
-		try {
-			conexion = obtenerConexion();
-			consulta = conexion.prepareStatement(
-					"INSERT INTO colas_espera (id_cita_en_cola, id_historia_clinica_paciente, especialidad, motivo) VALUES (?, ?, ?, ?)");
-			consulta.setString(1, cita.getIdentificador());
-			consulta.setString(2, cita.getIdHistoriaClinicaPaciente());
-			consulta.setString(3, cita.getEspecialidad());
-			consulta.setString(4, cita.getMotivo());
+	    try {
+	        conexion = obtenerConexion();
+	        consulta = conexion.prepareStatement(
+	                "INSERT INTO colas_espera (id_cita_en_cola, id_historia_clinica_paciente, especialidad, motivo, fecha_pago, hora_pago) VALUES (?, ?, ?, ?, CURRENT_DATE, CURRENT_TIME)");
+	        consulta.setString(1, cita.getIdentificador());
+	        consulta.setString(2, cita.getIdHistoriaClinicaPaciente());
+	        consulta.setString(3, cita.getEspecialidad());
+	        consulta.setString(4, cita.getMotivo());
 
-			consulta.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// Cierre de recursos
-			if (consulta != null) {
-				try {
-					consulta.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conexion != null) {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	} // public void agregarCitaColasEsperaBD(Cita cita)
+	        consulta.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        if (consulta != null) {
+	            try {
+	                consulta.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	}
+
+	public static void agregarElementoHistorial(ElementoHistorial elemento) {
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
+
+	    try {
+	        // Obtener la fecha y hora actual del sistema
+	        Calendar calendario = Calendar.getInstance();
+	        java.sql.Date fechaActual = new java.sql.Date(calendario.getTimeInMillis());
+	        java.sql.Time horaActual = new java.sql.Time(calendario.getTimeInMillis());
+
+	        // Conectar a la base de datos
+	        conexion = obtenerConexion();
+	        consulta = conexion.prepareStatement("INSERT INTO historial (fecha, hora, accion, id_admin) VALUES (?, ?, ?, ?)");
+	        consulta.setDate(1, fechaActual);
+	        consulta.setTime(2, horaActual);
+	        consulta.setString(3, elemento.getAccion());
+	        consulta.setString(4, elemento.getAdmin().getIdentificacion());
+
+	        consulta.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        if (consulta != null) {
+	            try {
+	                consulta.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conexion != null) {
+	            try {
+	                conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	}
 
 	public static void actualizarEstadoOrden(String idOrden) {
 		Connection conexion = null;
@@ -704,37 +801,79 @@ public class GestorBaseDeDatos {
 			}
 		}
 	}
-	
-	public static void actualizarEstadoAtendidoCita(String idCita) {
-	    Connection conexion = null;
-	    PreparedStatement consulta = null;
 
-	    try {
-	        conexion = obtenerConexion();
-	        consulta = conexion.prepareStatement("UPDATE citas SET estado_atendido = true WHERE id_cita = ?");
-	        consulta.setString(1, idCita);
-	        consulta.executeUpdate();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        // Cierre de recursos
-	        if (consulta != null) {
-	            try {
-	                consulta.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	        if (conexion != null) {
-	            try {
-	                conexion.close();
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    }
+	public static void actualizarEstadoAtendidoCita(String idCita) {
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+
+		try {
+			conexion = obtenerConexion();
+			consulta = conexion.prepareStatement("UPDATE citas SET estado_atendido = true WHERE id_cita = ?");
+			consulta.setString(1, idCita);
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cierre de recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
-	
+
+	public static void actualizarFechaHoraActualCita(String idCita) {
+		Connection conexion = null;
+		PreparedStatement consulta = null;
+
+		try {
+			// Obtener la fecha y hora actual del sistema
+			Calendar calendario = Calendar.getInstance();
+			java.sql.Date fechaActual = new java.sql.Date(calendario.getTimeInMillis());
+			java.sql.Time horaActual = new java.sql.Time(calendario.getTimeInMillis());
+
+			// Conectar a la base de datos
+			conexion = obtenerConexion();
+
+			// Preparar la consulta de actualización
+			String sql = "UPDATE citas SET fecha = ?, hora = ? WHERE id_cita = ?";
+			consulta = conexion.prepareStatement(sql);
+			consulta.setDate(1, fechaActual);
+			consulta.setTime(2, horaActual);
+			consulta.setString(3, idCita);
+
+			// Ejecutar la consulta de actualización
+			consulta.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cerrar recursos
+			if (consulta != null) {
+				try {
+					consulta.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conexion != null) {
+				try {
+					conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	public static void eliminarCitaDeColaEspera(String idCitaEnCola) {
 		Connection conexion = null;
@@ -787,17 +926,15 @@ public class GestorBaseDeDatos {
 		}
 		return cita;
 	}
-
-	private static Paciente obtenerPacienteSegunId(String id) {
-		Paciente paciente = null;
-		Lista<Paciente> pacientes = SistemaDeSalud.conseguirPacientes();
-		for (int ii = 0; ii < pacientes.getTamano(); ii++) {
-			paciente = pacientes.obtenerElemento(ii);
-			if (paciente.getIdentificacion().equals(id)) {
-				return paciente;
+	
+	private static PersonaAdministrativa obtenerAdminSegunId(String id) {
+		Lista<PersonaAdministrativa> admins = SistemaDeSalud.conseguirPersonalAdministrativo();
+		for(int ii = 0; ii < admins.getTamano(); ii++) {
+			if(admins.obtenerElemento(ii).getIdentificacion().equals(id)) {
+				return admins.obtenerElemento(ii);
 			}
 		}
-		return paciente;
+		return null;
 	}
 
 } // public class GestorBaseDeDatos

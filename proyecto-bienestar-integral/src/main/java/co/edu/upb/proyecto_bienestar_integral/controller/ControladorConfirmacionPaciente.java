@@ -2,6 +2,9 @@ package co.edu.upb.proyecto_bienestar_integral.controller;
 
 import co.edu.upb.proyecto_bienestar_integral.view.*;
 import javax.swing.JOptionPane;
+
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ElementoHistorial;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.GestorBaseDeDatos;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_gestion_pacientes.ModeloConfirmacionPaciente;
 
@@ -19,8 +22,9 @@ public class ControladorConfirmacionPaciente {
 	public void guardarPaciente() {
 		Paciente pacienteActual = panelConfirmarPaciente.getPacienteActual();
 		modeloConfirmacionPaciente.agregarPaciente(pacienteActual);
+		GestorBaseDeDatos.agregarElementoHistorial(new ElementoHistorial("Registro de Paciente", VistaMenuPrincipal.getAdminActual()));
 		JOptionPane.showMessageDialog(null, "El Paciente Ha Sido Agregado Exitosamente", "Operación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-		VistaMenuPrincipal.mostrarPanel(new PanelPrincipal());
+		VistaMenuPrincipal.mostrarPanel(new PanelPrincipal(VistaMenuPrincipal.getAdminActual()));
 	} // public void almacenarPaciente()
 	
 	public void regresarRegistro() {

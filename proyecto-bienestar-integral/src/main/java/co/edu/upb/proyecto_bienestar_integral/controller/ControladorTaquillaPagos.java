@@ -2,6 +2,8 @@ package co.edu.upb.proyecto_bienestar_integral.controller;
 
 import javax.swing.JOptionPane;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ElementoHistorial;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.GestorBaseDeDatos;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
 
 public class ControladorTaquillaPagos {
@@ -22,6 +24,8 @@ public class ControladorTaquillaPagos {
 			return;
 		}
 		modeloTaquillaPagos.pagarCita(panelTaquillaPagos.getCitaIdentificada());
+		GestorBaseDeDatos.agregarElementoHistorial(
+				new ElementoHistorial("Pago Realizado en Taquilla", VistaMenuPrincipal.getAdminActual()));
 		JOptionPane.showMessageDialog(null, "Pago Confirmado con Éxtio", "OPERACIÓN EXITOSA",
 				JOptionPane.INFORMATION_MESSAGE);
 		JOptionPane.showMessageDialog(null,

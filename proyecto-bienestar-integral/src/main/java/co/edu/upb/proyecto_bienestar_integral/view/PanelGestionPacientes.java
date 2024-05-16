@@ -21,6 +21,8 @@ public class PanelGestionPacientes extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private JLabel lblImagenModificarPacientes;
 
 	/**
 	 * Create the panel.
@@ -67,7 +69,7 @@ public class PanelGestionPacientes extends JPanel {
 		
 		// Creación de JLabel con propósito decorativo para el registro de pacientes:
 		JLabel lblRegistrar = new JLabel("");
-		lblRegistrar.setBounds(55, 297, 486, 428);
+		lblRegistrar.setBounds(31, 297, 486, 428);
 		setImageLabel(lblRegistrar, "Media\\ImageRegistrar.png");
 		panelFondo.add(lblRegistrar);
 		
@@ -97,6 +99,11 @@ public class PanelGestionPacientes extends JPanel {
 		panelDecoraCen.setBackground(new Color(169, 169, 169));
 		panelDecoraCen.setBounds(597, 297, 4, 449);
 		panelFondo.add(panelDecoraCen);		
+		
+		lblImagenModificarPacientes = new JLabel("");
+		lblImagenModificarPacientes.setBounds(680, 297, 486, 428);
+		setImageLabel(lblImagenModificarPacientes, "Media\\IconoModificarPaciente.png");
+		panelFondo.add(lblImagenModificarPacientes);
 	} // public PanelGestionPacientes() 
 	
 	// Método private void que permite insertar una imagen con relación al tamaño definido de un JLabel:

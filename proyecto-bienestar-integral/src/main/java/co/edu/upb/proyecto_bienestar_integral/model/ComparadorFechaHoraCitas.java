@@ -1,0 +1,18 @@
+package co.edu.upb.proyecto_bienestar_integral.model;
+
+import java.util.Comparator;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Cita;
+
+public class ComparadorFechaHoraCitas implements Comparator<Cita> {
+    @Override
+    public int compare(Cita o1, Cita o2) {
+        // Comparación por fecha
+        int comparacionFecha = o1.getFecha().compareTo(o2.getFecha());
+        if (comparacionFecha != 0) {
+            return comparacionFecha;
+        }
+        
+        // Si las fechas son iguales, se compara por hora
+        return o1.getHora().compareTo(o2.getHora());
+    }
+}
