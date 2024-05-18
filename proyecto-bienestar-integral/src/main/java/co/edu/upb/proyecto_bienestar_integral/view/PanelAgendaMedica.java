@@ -23,6 +23,7 @@ import co.edu.upb.proyecto_bienestar_integral.model.*;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.RoundedButton;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
+import co.edu.upb.proyecto_bienestar_integral.controller.gestion_ordenes.ControladorAgendaMedica;
 
 public class PanelAgendaMedica extends JPanel {
 

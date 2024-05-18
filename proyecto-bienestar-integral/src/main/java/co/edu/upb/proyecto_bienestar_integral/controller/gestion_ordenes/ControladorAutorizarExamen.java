@@ -1,4 +1,4 @@
-package co.edu.upb.proyecto_bienestar_integral.controller;
+package co.edu.upb.proyecto_bienestar_integral.controller.gestion_ordenes;
 
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.*;

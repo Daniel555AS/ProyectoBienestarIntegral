@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import co.edu.upb.proyecto_bienestar_integral.view.componentes.*;
 import co.edu.upb.proyecto_bienestar_integral.controller.*;
+import co.edu.upb.proyecto_bienestar_integral.controller.gestion_ordenes.ControladorAutorizarExamen;
 import co.edu.upb.proyecto_bienestar_integral.model.*;
 import javax.swing.SwingConstants;
 

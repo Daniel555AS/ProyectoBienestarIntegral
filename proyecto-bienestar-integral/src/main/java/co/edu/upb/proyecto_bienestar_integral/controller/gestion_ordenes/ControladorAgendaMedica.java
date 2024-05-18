@@ -1,4 +1,4 @@
-package co.edu.upb.proyecto_bienestar_integral.controller;
+package co.edu.upb.proyecto_bienestar_integral.controller.gestion_ordenes;
 
 import java.sql.Time;
 import javax.swing.JOptionPane;
