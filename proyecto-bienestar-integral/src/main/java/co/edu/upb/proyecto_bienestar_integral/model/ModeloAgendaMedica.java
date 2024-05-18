@@ -9,7 +9,6 @@ import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDe
 public class ModeloAgendaMedica {
 
 	public Lista<Orden> filtrarOrdenesPorFecha(String especialidad, Date fecha) {
-		//SistemaDeSalud.ordenarOrdenesPorFecha();
 		Lista<Orden> ordenes = SistemaDeSalud.conseguirOrdenes();
 		Lista<Orden> ordenesFiltradas = new ListaDoblementeEnlazada<>();
 		for (int ii = ordenes.getTamano() - 1; ii >= 0; ii--) {
