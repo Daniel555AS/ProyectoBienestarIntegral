@@ -1,16 +1,9 @@
 package co.edu.upb.proyecto_bienestar_integral.controller;
 
 import co.edu.upb.proyecto_bienestar_integral.model.*;
-import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ElementoHistorial;
-import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.GestorBaseDeDatos;
-import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
-import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Paciente;
-import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.ProfesionalSalud;
-import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.SistemaDeSalud;
+import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.*;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
-
 import javax.swing.JOptionPane;
-
 import co.edu.upb.proyecto_bienestar_integral.estructuras.*;
 
 public class ControladorAutorizarExamen {
@@ -21,22 +14,24 @@ public class ControladorAutorizarExamen {
 	private PanelCambiarEstadoOrden panelCambiarEstadoOrden;
 	private Pila<Orden> pilaOrdenesPaciente;
 
-	// 1. Constructor de la Clase ControladorAutorizarExamen:
+	// Primer Constructor de la Clase ControladorAutorizarExamen:
 	public ControladorAutorizarExamen(ModeloAutorizarExamen modeloAutorizarExamen,
 			PanelAutorizarExamen panelAutorizarExamen) {
 		this.modeloAutorizarExamen = modeloAutorizarExamen;
 		this.panelAutorizarExamen = panelAutorizarExamen;
 		this.pilaOrdenesPaciente = new Pila<>();
-	}
+	} // public ControladorAutorizarExamen(ModeloAutorizarExamen
+		// modeloAutorizarExamen, PanelAutorizarExamen panelAutorizarExamen)
 
-	// 2. Constructor de la Clase ControladorAutorizarExamen:
+	// Segundo Constructor de la Clase ControladorAutorizarExamen:
 	public ControladorAutorizarExamen(ModeloAutorizarExamen modeloAutorizarExamen,
 			PanelCambiarEstadoOrden panelCambiarEstadoOrden) {
 		this.modeloAutorizarExamen = modeloAutorizarExamen;
 		this.panelCambiarEstadoOrden = panelCambiarEstadoOrden;
 		this.pilaOrdenesPaciente = modeloAutorizarExamen
 				.obtenerOrdenesPorAutorizar(panelCambiarEstadoOrden.getOrdenActual().getIdPaciente());
-	}
+	} // public ControladorAutorizarExamen(ModeloAutorizarExamen
+		// modeloAutorizarExamen, PanelCambiarEstadoOrden panelCambiarEstadoOrden)
 
 	// Método public void para procesos de verificación de existencia de órdenes
 	// médicas con respecto a un Paciente:
@@ -52,38 +47,45 @@ public class ControladorAutorizarExamen {
 			panelCambiarEstadoOrden.setCampoIdHistoriaClinica(idHistoriaClinica);
 			VistaMenuPrincipal.mostrarPanel(panelCambiarEstadoOrden);
 		}
-	} // public void verificacionOrdenes()
+	} // public void verificacionOrdenes(String idHistoriaClinica)
 
 	// Método public void para procesos de autorización de una orden médica:
 	public void autorizacionOrden(Orden ordenActual) {
-	    Orden ordenCima = panelCambiarEstadoOrden.getOrdenActual();
-	    int opcion = JOptionPane.showOptionDialog(null, "¿Desea Confirmar la Autorización de la Orden Médica?",
-	            "Autorización Orden Médica", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-	            new String[] { "Confirmar", "Rechazar" }, null);
-	    if (opcion == JOptionPane.YES_OPTION) {
-	    	GestorBaseDeDatos.agregarElementoHistorial(new ElementoHistorial("Autorización de Orden Médica", VistaMenuPrincipal.getAdminActual()));
-	        // Verificar si hay órdenes pendientes en la pila
-	        if (!pilaOrdenesPaciente.estaVacia()) {
-	            int index = buscarIndice(ordenCima.getIdentificador());
-	            if (index != -1) {
-	                SistemaDeSalud.conseguirOrdenes().obtenerElemento(index).setEstado(true);
-	                GestorBaseDeDatos.actualizarEstadoOrden(ordenCima.getIdentificador());
-	                pilaOrdenesPaciente.pop();
-	                if (!pilaOrdenesPaciente.estaVacia()) {
-	                    PanelCambiarEstadoOrden panelCambiarEstadoOrden = new PanelCambiarEstadoOrden(
-	                            pilaOrdenesPaciente.peek());
-	                    VistaMenuPrincipal.mostrarPanel(panelCambiarEstadoOrden);
-	                } else {
-	                    PanelAutorizarExamen panel = new PanelAutorizarExamen("Media\\ImagenOrdenesNoEncontradas.png",
-	                            "No Se Han Encontrado Órdenes Pendientes por Autorizar");
-	                    panel.setCampoIdHistoriaClinica(ordenCima.getIdPaciente());
-	                    VistaMenuPrincipal.mostrarPanel(panel);
-	                }
-	            }
-	        }
-	    }
+		Orden ordenCima = panelCambiarEstadoOrden.getOrdenActual();
+		int opcion = JOptionPane.showOptionDialog(null, "¿Desea Confirmar la Autorización de la Orden Médica?",
+				"Autorización Orden Médica", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				new String[] { "Confirmar", "Rechazar" }, null);
+		if (opcion == JOptionPane.YES_OPTION) {
+			GestorBaseDeDatos.agregarElementoHistorial(
+					new ElementoHistorial("Autorización de Orden Médica", VistaMenuPrincipal.getAdminActual()));
+			// Verificar si hay órdenes pendientes en la pila
+			if (!pilaOrdenesPaciente.estaVacia()) {
+				int index = buscarIndice(ordenCima.getIdentificador());
+				if (index != -1) {
+					SistemaDeSalud.conseguirOrdenes().obtenerElemento(index).setEstado(true);
+					GestorBaseDeDatos.actualizarEstadoOrden(ordenCima.getIdentificador());
+					pilaOrdenesPaciente.pop();
+					if (!pilaOrdenesPaciente.estaVacia()) {
+						PanelCambiarEstadoOrden panelCambiarEstadoOrden = new PanelCambiarEstadoOrden(
+								pilaOrdenesPaciente.peek());
+						VistaMenuPrincipal.mostrarPanel(panelCambiarEstadoOrden);
+					} else {
+						PanelAutorizarExamen panel = new PanelAutorizarExamen("Media\\ImagenOrdenesNoEncontradas.png",
+								"No Se Han Encontrado Órdenes Pendientes por Autorizar");
+						panel.setCampoIdHistoriaClinica(ordenCima.getIdPaciente());
+						VistaMenuPrincipal.mostrarPanel(panel);
+					}
+				}
+			}
+		}
 	} // public void autorizacionOrden(Orden ordenActual)
 
+	/*
+	 * Método que retorna un String correspondiente al Nombre Completo de un
+	 * Paciente. El parametro de entrada es un objeto de tipo Orden, del cual, se
+	 * obtiene el ID correspondiente a la Historia Clínica del Paciente, con base a
+	 * este dato, es que se realiza el proceso de búsqueda:F
+	 */
 	public String obtenerNombreCompletoPaciente(Orden ordenActual) {
 		ListaDoblementeEnlazada<Paciente> pacientes = (ListaDoblementeEnlazada<Paciente>) SistemaDeSalud
 				.conseguirPacientes();
@@ -95,22 +97,20 @@ public class ControladorAutorizarExamen {
 		return "";
 	} // public String obtenerNombreCompletoPaciente(Orden OrdenActual)
 
-	public String obtenerNombreCompletoProfesionalAsignado(Orden ordenActual) {
-		ListaDoblementeEnlazada<ProfesionalSalud> profesionales = (ListaDoblementeEnlazada<ProfesionalSalud>) SistemaDeSalud
-				.conseguirProfesionalesSalud();
-		return "";
-	}
-	
+	/*
+	 * Método private que retorna un número entero, correspondiente al índice en que
+	 * se encuentra un objeto de tipo Orden en la Lista de ordenes del
+	 * SistemaDeSalud. El proceo de búsqueda se realiza con base al ID de la Orden
+	 * Médica (Parámetro de Entrada). Si no se encuentra la orden, se retorna -1:
+	 */
 	private int buscarIndice(String idOrden) {
-		for(int ii = SistemaDeSalud.conseguirOrdenes().getTamano() - 1; ii >= 0; ii--) {
+		for (int ii = SistemaDeSalud.conseguirOrdenes().getTamano() - 1; ii >= 0; ii--) {
 			Orden orden = SistemaDeSalud.conseguirOrdenes().obtenerElemento(ii);
-			if(orden.getIdentificador().equals(idOrden)) {
+			if (orden.getIdentificador().equals(idOrden)) {
 				return ii;
 			}
 		}
 		return -1;
-	}
-	
-	
+	} // private int buscarIndice(String idOrden)
 
 } // public class ControladorAutorizarExamen

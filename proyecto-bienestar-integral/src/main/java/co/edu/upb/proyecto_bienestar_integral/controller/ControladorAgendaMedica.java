@@ -8,6 +8,7 @@ import co.edu.upb.proyecto_bienestar_integral.model.logica_del_sistema.Orden;
 import co.edu.upb.proyecto_bienestar_integral.view.*;
 
 public class ControladorAgendaMedica {
+	
 	// Atributos de la Clase ControladorAgendaMedica:
 	private ModeloAgendaMedica modeloAgendaMedica;
 	private PanelAgendaMedica panelAgendaMedica;
